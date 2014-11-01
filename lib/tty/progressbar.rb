@@ -139,16 +139,10 @@ module TTY
     # @api private
     def render
       return if @done
-      now = Time.now
 
       if @hide_cursor && @last_render_time == 0
         write(ECMA_CSI + DEC_RST + DEC_TCEM)
       end
-
-      # Setup formatting values
-      percent = width == 0 ? 100 : (ratio * 100).to_i
-      elapsed = (now - @start_at) * 1000.0
-      estimated = (percent == 100) ? 0 : elapsed * (total / @current - 1)
 
       formatted = @pipeline.decorate(self, @format)
       write(formatted, true)
