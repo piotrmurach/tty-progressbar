@@ -2,6 +2,9 @@
 
 module TTY
   class ProgressBar
+    # Used by {Pipeline} to format :elapsed token
+    #
+    # @api private
     class ElapsedFormatter
       def initialize(progress, *args, &block)
         @progress = progress

@@ -2,6 +2,9 @@
 
 module TTY
   class ProgressBar
+    # Used by {Pipeline} to format :percent token
+    #
+    # @api private
     class PercentFormatter
       def initialize(progress, *args, &block)
         @progress = progress

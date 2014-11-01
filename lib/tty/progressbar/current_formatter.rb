@@ -2,8 +2,11 @@
 
 module TTY
   class ProgressBar
+    # Used by {Pipeline} to format :current token
+    #
+    # @api private
     class CurrentFormatter
-      def initialize(progress, *args, &block)
+      def initialize(progress)
         @progress = progress
       end
 
