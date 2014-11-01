@@ -1,4 +1,4 @@
-# TTY::Progressbar
+# TTY::ProgressBar
 [![Gem Version](https://badge.fury.io/rb/tty-progressbar.png)][gem]
 [![Build Status](https://secure.travis-ci.org/peter-murach/tty-progressbar.png?branch=master)][travis]
 [![Code Climate](https://codeclimate.com/github/peter-murach/tty-progressbar.png)][codeclimate]
@@ -69,7 +69,7 @@ bar.advance(1000)
 
 ### 1.2 finish
 
-In order to immediately stop and finish the bar call `finish`. This will finish drawing the progress and return to new line.
+In order to immediately stop and finish the progress call `finish`. This will finish drawing the progress and return to new line.
 
 ```ruby
 bar.finish
@@ -111,7 +111,7 @@ If the provided tokens do not meet your needs, you can instrument formatting pip
 
 For example, begin by creating custom formatter called `TimeFormatter` that will dynamicly update `:time` token in format string as follows:
 
-```
+```ruby
 class TimeFormatter
   def initialize(progress)
     @progress = progress
