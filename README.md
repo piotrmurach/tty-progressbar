@@ -40,7 +40,8 @@ Or install it yourself as:
   * [2.1 Frequency](#21-frequency)
 * [3. Formatting](#3-formatting)
   * [3.1 Tokens](#31-tokens)
-  * [3.2 Custom Formatter](#31-custom-formatter)
+  * [3.2 Custom Formatters](#31-custom-formatters)
+* [4. Logging](#4-logging)
 
 ## 1. Usage
 
@@ -117,9 +118,9 @@ These are the tokens that are currently supported:
 * `:elapsed` the elapsed time in seconds
 * `:eta` the esitmated time to completion in seconds
 
-### 3.2 Custom formatter
+### 3.2 Custom Formatters
 
-If the provided tokens do not meet your needs, you can instrument formatting pipeline to use a custome formatter.
+If the provided tokens do not meet your needs, you can write your own formatter and instrument formatting pipeline to use a formatter you prefer.
 
 For example, begin by creating custom formatter called `TimeFormatter` that will dynamicly update `:time` token in format string as follows:
 
@@ -154,6 +155,22 @@ Then add `TimeFormatter` to the pipeline like so:
 
 ```ruby
 bar.use TimeFormatter
+```
+
+## 4. Logging
+
+If you want to print messages out to terminal along with the progress bar use the `log` method. The messages will appear above the progress bar and will continue scrolling up as more are logged out.
+
+```ruby
+bar.log('Piotrrrrr')
+bar.advance
+```
+
+will result in:
+
+```ruby
+Piotrrrrr
+downloading [=======================       ]
 ```
 
 ## Contributing
