@@ -90,6 +90,7 @@ module TTY
       @last_render_time  = Time.now
       @last_render_width = 0
       @done              = false
+      @start_at          = Time.now
       @pipeline          = TTY::ProgressBar::Pipeline.new
 
       default_pipeline
@@ -192,14 +193,36 @@ module TTY
       @done = true
     end
 
-    # Terminates the progress bar
+    # Log message above the current progress bar
+    #
+    # @param [String] message
+    #   the message to log out
     #
     # @api public
-    def terminate
-      @done = true
+    def log(message)
+      sanitized_message = message.gsub(/\r|\n/, ' ')
+      if @done
+        write(sanitized_message + "\n", false)
+        return
+      end
+      sanitized_message = padout(sanitized_message)
+
+      write(sanitized_message + "\n", true)
+      render
     end
 
     private
+
+    # Pad message out with spaces
+    #
+    # @api private
+    def padout(message)
+      if @last_render_width > message.length
+        remaining_width = @last_render_width - message.length
+        message += ' ' * remaining_width
+      end
+      message
+    end
 
     # Prepare default pipeline formatters
     #
