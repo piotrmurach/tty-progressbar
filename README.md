@@ -37,6 +37,7 @@ Or install it yourself as:
   * [1.1 advance](#11-advance)
   * [1.1 finish](#12-finish)
 * [2. Configuration](#2-configuration)
+  * [2.1 Frequency](#21-frequency)
 * [3. Formatting](#3-formatting)
   * [3.1 Tokens](#31-tokens)
   * [3.2 Custom Formatter](#31-custom-formatter)
@@ -53,7 +54,7 @@ bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
 end
 ```
 
-This would produce anmiation in your terminal:
+This would produce animation in your terminal:
 
 ```ruby
 downloading [=======================       ]
@@ -84,8 +85,18 @@ There are number of configuration options that can be provided:
 * `complete` completion character by default `=`
 * `incomplete` incomplete character by default single space
 * `output` the output stream defaulting to `stderr`
-* `frequency` used to throttle the output, by default `false`
+* `frequency` used to throttle the output, by default `0` (see [Frequency](#21-frequency))
 * `hide_cursor` to hide display cursor defaulting to `false`
+
+### 2.1 Frequency
+
+Each time the `advance` is called it causes the progress bar to repaint. In cases when there is a huge number of updates per second, you may need to limit the rendering process by using the `frequency` option.
+
+The `frequency` option accepts `integer` representing number of `Hz` units, for instance, frequency of 2 will mean that the progress will be updated maximum 2 times per second.
+
+```ruby
+TTY::ProgressBar.new("[:bar]", total: 30, frequency: 10) # 10 Hz
+```
 
 ## 3. Formatting
 
@@ -104,6 +115,7 @@ These are the tokens that are currently supported:
 * `:total` the total progress number
 * `:percent` the completion percentage
 * `:elapsed` the elapsed time in seconds
+* `:eta` the esitmated time to completion in seconds
 
 ### 3.2 Custom formatter
 
