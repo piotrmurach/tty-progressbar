@@ -2,10 +2,12 @@
 [![Gem Version](https://badge.fury.io/rb/tty-progressbar.png)][gem]
 [![Build Status](https://secure.travis-ci.org/peter-murach/tty-progressbar.png?branch=master)][travis]
 [![Code Climate](https://codeclimate.com/github/peter-murach/tty-progressbar.png)][codeclimate]
+[![Coverage Status](https://coveralls.io/repos/peter-murach/tty-progressbar/badge.png)][coverage]
 
 [gem]: http://badge.fury.io/rb/tty-progressbar
 [travis]: http://travis-ci.org/peter-murach/tty-progressbar
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty-progressbar
+[coverage]: https://coveralls.io/r/peter-murach/tty-progressbar
 
 A flexible progress bars drawing in terminal emulators.
 
