@@ -256,7 +256,7 @@ module TTY
       callback = proc { send(:resize, max_columns) }
       Signal.trap('SIGWINCH', &callback)
 
-      Signal.trap('KILL') { @terminate }
+      Signal.trap('KILL') { @finish }
     end
   end # ProgressBar
 end # TTY
