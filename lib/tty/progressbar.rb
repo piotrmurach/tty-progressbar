@@ -142,15 +142,14 @@ module TTY
     # @api private
     def render
       return if @done
-
-      if @hide_cursor && @last_render_time == 0
-        write(ECMA_CSI + DEC_RST + DEC_TCEM)
+      if @hide_cursor && @last_render_width == 0 && !(@current >= total)
+        write(ECMA_CSI + DEC_TCEM + DEC_RST)
       end
 
       formatted = @pipeline.decorate(self, @format)
       write(formatted, true)
 
-      @last_render_time = Time.now
+      @last_render_time  = Time.now
       @last_render_width = formatted.length
     end
 
@@ -187,7 +186,9 @@ module TTY
     # @api public
     def finish
       # reenable cursor if it is turned off
-      write(ECMA_CSI + DEC_RST + DEC_TCEM, false) if @hide_cursor
+      if @hide_cursor && @last_render_width != 0
+        write(ECMA_CSI + DEC_TCEM + DEC_SET, false)
+      end
       return if @done
       @current = @width if @no_width
       render
