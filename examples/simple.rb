@@ -1,4 +1,4 @@
-require'tty-progressbar'
+require 'tty-progressbar'
 
 bar = TTY::ProgressBar.new("downloading [:bar] :elapsed :percent", total: 30)
 30.times do
