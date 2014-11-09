@@ -46,6 +46,8 @@ module TTY
 
     attr_reader :hide_cursor
 
+    attr_reader :output
+
     def_delegator :@pipeline, :use
 
     # Create progress bar
@@ -191,6 +193,16 @@ module TTY
       render
       write("\n", false)
       @done = true
+    end
+
+    # Check if progress is finised
+    #
+    # @return [Boolean]
+    #   true when progress finished, false otherwise
+    #
+    # @api public
+    def complete?
+      @done
     end
 
     # Log message above the current progress bar
