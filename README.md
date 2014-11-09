@@ -75,6 +75,14 @@ Once you have **ProgressBar** instance, you can progress the display by calling 
 bar.advance(1000)
 ```
 
+You can also pass negative steps if you wish to backtrack the progress:
+
+```ruby
+bar.advance(-1)
+```
+
+Note: If a progress bar has already finished then negative steps will not set it back to desired value.
+
 ### 1.2 finish
 
 In order to immediately stop and finish the progress call `finish`. This will finish drawing the progress and return to new line.
