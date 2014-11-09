@@ -12,4 +12,12 @@ RSpec.describe TTY::ProgressBar::Pipeline, '.decorate' do
     tokenized = "[:current/:total]"
     expect(pipeline.decorate(progress_bar, tokenized)).to eq("[3/10]")
   end
+
+  it "enumerates pipeline formatters" do
+    pipeline.use TTY::ProgressBar::CurrentFormatter
+    pipeline.use TTY::ProgressBar::TotalFormatter
+    yielded = []
+    pipeline.each { |formatter| yielded << formatter }
+    expect(yielded.size).to eq(2)
+  end
 end
