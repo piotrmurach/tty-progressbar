@@ -10,7 +10,7 @@ RSpec.describe TTY::ProgressBar, '.advance' do
     5.times { progress.advance(1) }
     expect(progress.current).to eq(5)
     5.times { progress.advance(-1) }
-    expect(progress.current).to eq(1)
+    expect(progress.current).to eq(0)
   end
 
   it "cannot backtrack on finished" do
