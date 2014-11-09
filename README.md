@@ -11,6 +11,8 @@
 
 A flexible progress bars drawing in terminal emulators.
 
+**TTY::ProgressBar** provides independent progress bars component for [TTY](https://github.com/peter-murach/tty) toolkit.
+
 ## Features
 
 * Extremly flexible progress display formatting
@@ -37,13 +39,15 @@ Or install it yourself as:
 
 * [1. Usage](#1-usage)
   * [1.1 advance](#11-advance)
-  * [1.1 finish](#12-finish)
+  * [1.2 finish](#12-finish)
+  * [1.3 complete?](#13-complete)
 * [2. Configuration](#2-configuration)
   * [2.1 Frequency](#21-frequency)
 * [3. Formatting](#3-formatting)
   * [3.1 Tokens](#31-tokens)
   * [3.2 Custom Formatters](#31-custom-formatters)
 * [4. Logging](#4-logging)
+* [5. Examples](#5-examples)
 
 ## 1. Usage
 
@@ -77,6 +81,14 @@ In order to immediately stop and finish the progress call `finish`. This will fi
 
 ```ruby
 bar.finish
+```
+
+### 1.3 complete?
+
+During progresion you can check if bar is finished or not by calling `complete?`.
+
+```ruby
+bar.complete? # => false
 ```
 
 ## 2. Configuration
@@ -173,6 +185,41 @@ will result in:
 ```ruby
 Piotrrrrr
 downloading [=======================       ]
+```
+
+## 5. Examples
+
+This section demonstrates some of the possible uses for the **TTY::ProgressBar**, for more please see examples folder in the source directory.
+
+### 5.1 Colors
+
+Creating a progress bar that displays in color is as simple as coloring the `:complete` and `:incomplete` character options. In order to help with coloring you can use [pastel](https://github.com/peter-murach/pastel) library like so:
+
+```ruby
+require 'pastel'
+
+pastel = Pastel.new
+green  = pastel.on_green(" ")
+red    = pastel.on_red(" ")
+```
+
+And then pass in the colored strings as options to **TTY::ProgressBar**:
+
+```ruby
+bar = TTY::ProgressBar.new("|:bar|",
+  total: 30,
+  complete: green,
+  incomplete: red
+)
+```
+
+To see how a progress bar is reported in terminal you can do:
+
+```ruby
+30.times do
+  sleep(0.1)
+  bar.advance
+end
 ```
 
 ## Contributing
