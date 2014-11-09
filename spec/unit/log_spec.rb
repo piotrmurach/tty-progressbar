@@ -21,4 +21,13 @@ RSpec.describe TTY::ProgressBar, '.log' do
       "\e[1G[==        ]",
     ].join)
   end
+
+  it "logs message under when complete" do
+    progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)
+    progress.advance(10)
+    expect(progress.complete?).to eq(true)
+    progress.log 'foo bar'
+    output.rewind
+    expect(output.read).to eq("\e[1G[==========]\nfoo bar\n")
+  end
 end
