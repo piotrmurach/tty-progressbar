@@ -7,8 +7,8 @@ module TTY
     # @api private
     class EstimatedFormatter
       def initialize(progress)
-        @progress = progress
-        @converter = TTY::ProgressBar::Converter.new
+        @progress  = progress
+        @converter = Converter.new
       end
 
       def format(value)

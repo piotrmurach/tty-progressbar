@@ -7,8 +7,8 @@ module TTY
     # @api private
     class ElapsedFormatter
       def initialize(progress, *args, &block)
-        @progress = progress
-        @converter = TTY::ProgressBar::Converter.new
+        @progress  = progress
+        @converter = Converter.new
       end
 
       def format(value)
