@@ -134,7 +134,7 @@ module TTY
     #
     # @api public
     def max_columns
-      IO.console.winsize.last
+      TTY::Screen.width
     end
 
     # Render progress to the output
