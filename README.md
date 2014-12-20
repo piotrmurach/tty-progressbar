@@ -15,8 +15,9 @@
 
 ## Features
 
-* Extremly flexible progress display formatting
-* Ability to define your custom format tokens
+* Fully [configurable](#2-configuration)
+* Extremly flexible progress display [formatting](#3-formatting)
+* Ability to define your custom format [tokens](#31-tokens)
 * Works on all ECMA-48 compatible terminals
 
 ## Installation
@@ -134,6 +135,7 @@ Every **TTY::ProgressBar** instance requires a format string, which apart from r
 These are the tokens that are currently supported:
 
 * `:bar` the progress bar
+* `:byte` the current progress in bytes
 * `:current` the current progress number
 * `:total` the total progress number
 * `:percent` the completion percentage
