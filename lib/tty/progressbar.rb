@@ -7,6 +7,7 @@ require 'tty/progressbar/converter'
 require 'tty/progressbar/version'
 require 'tty/progressbar/pipeline'
 require 'tty/progressbar/bar_formatter'
+require 'tty/progressbar/byte_formatter'
 require 'tty/progressbar/current_formatter'
 require 'tty/progressbar/elapsed_formatter'
 require 'tty/progressbar/estimated_formatter'
@@ -246,6 +247,7 @@ module TTY
       @pipeline.use TTY::ProgressBar::ElapsedFormatter
       @pipeline.use TTY::ProgressBar::EstimatedFormatter
       @pipeline.use TTY::ProgressBar::PercentFormatter
+      @pipeline.use TTY::ProgressBar::ByteFormatter
       @pipeline.use TTY::ProgressBar::BarFormatter
     end
 
