@@ -2,10 +2,12 @@
 
 require 'io/console'
 require 'forwardable'
+require 'tty-screen'
 
 require 'tty/progressbar/converter'
 require 'tty/progressbar/version'
 require 'tty/progressbar/pipeline'
+require 'tty/progressbar/formatter'
 require 'tty/progressbar/bar_formatter'
 require 'tty/progressbar/byte_formatter'
 require 'tty/progressbar/current_formatter'
@@ -49,7 +51,7 @@ module TTY
 
     attr_reader :output
 
-    def_delegator :@pipeline, :use
+    def_delegator :@formatter, :use
 
     # Create progress bar
     #
@@ -94,9 +96,9 @@ module TTY
       @last_render_width = 0
       @done              = false
       @start_at          = Time.now
-      @pipeline          = TTY::ProgressBar::Pipeline.new
+      @formatter         = TTY::ProgressBar::Formatter.new
 
-      default_pipeline
+      @formatter.load
       register_callbacks
     end
 
@@ -147,7 +149,7 @@ module TTY
         write(ECMA_CSI + DEC_TCEM + DEC_RST)
       end
 
-      formatted = @pipeline.decorate(self, @format)
+      formatted = @formatter.decorate(self, @format)
       write(formatted, true)
 
       @last_render_time  = Time.now
@@ -236,19 +238,6 @@ module TTY
         message += ' ' * remaining_width
       end
       message
-    end
-
-    # Prepare default pipeline formatters
-    #
-    # @api private
-    def default_pipeline
-      @pipeline.use TTY::ProgressBar::CurrentFormatter
-      @pipeline.use TTY::ProgressBar::TotalFormatter
-      @pipeline.use TTY::ProgressBar::ElapsedFormatter
-      @pipeline.use TTY::ProgressBar::EstimatedFormatter
-      @pipeline.use TTY::ProgressBar::PercentFormatter
-      @pipeline.use TTY::ProgressBar::ByteFormatter
-      @pipeline.use TTY::ProgressBar::BarFormatter
     end
 
     # Handle resize and kill signals
