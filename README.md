@@ -9,7 +9,7 @@
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty-progressbar
 [coverage]: https://coveralls.io/r/peter-murach/tty-progressbar
 
-A flexible progress bars drawing in terminal emulators.
+> A flexible progress bars drawing in terminal emulators.
 
 **TTY::ProgressBar** provides independent progress bars component for [TTY](https://github.com/peter-murach/tty) toolkit.
 
@@ -69,7 +69,7 @@ downloading [=======================       ]
 
 ### 1.1 advance
 
-Once you have **ProgressBar** instance, you can progress the display by calling `advance` method. By default it will increase by `1`  but you can pass any number of steps, for instance, when used to advance number of bytes of downloaded file.
+Once you have **TTY::ProgressBar** instance, you can progress the display by calling `advance` method. By default it will increase by `1` but you can pass any number of steps, for instance, when used to advance number of bytes of downloaded file.
 
 ```ruby
 bar.advance(1000)
