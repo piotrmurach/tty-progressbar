@@ -42,6 +42,7 @@ Or install it yourself as:
   * [1.1 advance](#11-advance)
   * [1.2 finish](#12-finish)
   * [1.3 complete?](#13-complete)
+  * [1.4 resize](#14-resize)
 * [2. Configuration](#2-configuration)
   * [2.1 Frequency](#21-frequency)
 * [3. Formatting](#3-formatting)
@@ -98,6 +99,14 @@ During progresion you can check if bar is finished or not by calling `complete?`
 
 ```ruby
 bar.complete? # => false
+```
+
+### 1.4 resize
+
+If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length:
+
+```ruby
+bar.resize(50)  # => will resize bar proportionately from this point onwards
 ```
 
 ## 2. Configuration
