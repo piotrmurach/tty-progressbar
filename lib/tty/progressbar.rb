@@ -134,12 +134,6 @@ module TTY
       [[proportion, 0].max, 1].min
     end
 
-    # Determine terminal width
-    #
-    # @api public
-    def max_columns
-      TTY::Screen.width
-    end
 
     # Render progress to the output
     #
@@ -228,6 +222,13 @@ module TTY
       render
     end
 
+    # Determine terminal width
+    #
+    # @api public
+    def max_columns
+      TTY::Screen.new.width
+    end
+
     private
 
     # Pad message out with spaces
@@ -245,10 +246,13 @@ module TTY
     #
     # @api private
     def register_callbacks
-      callback = proc { send(:resize, max_columns) }
-      Signal.trap('SIGWINCH', &callback)
+      callback = proc {
+        adjusted_width =  width < max_columns ? width : max_columns
+        send(:resize, adjusted_width)
+      }
+      Signal.trap('WINCH', &callback)
 
-      Signal.trap('SIGKILL') { finish }
+      Signal.trap('INT') { finish }
     end
   end # ProgressBar
 end # TTY
