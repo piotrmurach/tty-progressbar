@@ -8,13 +8,14 @@ require 'tty/progressbar/converter'
 require 'tty/progressbar/version'
 require 'tty/progressbar/pipeline'
 require 'tty/progressbar/formatter'
-require 'tty/progressbar/bar_formatter'
-require 'tty/progressbar/byte_formatter'
-require 'tty/progressbar/current_formatter'
-require 'tty/progressbar/elapsed_formatter'
-require 'tty/progressbar/estimated_formatter'
-require 'tty/progressbar/percent_formatter'
-require 'tty/progressbar/total_formatter'
+
+require 'tty/progressbar/formatter/bar'
+require 'tty/progressbar/formatter/byte'
+require 'tty/progressbar/formatter/current'
+require 'tty/progressbar/formatter/elapsed'
+require 'tty/progressbar/formatter/estimated'
+require 'tty/progressbar/formatter/percent'
+require 'tty/progressbar/formatter/total'
 
 module TTY
   # Used for creating terminal progress bar
