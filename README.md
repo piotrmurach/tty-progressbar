@@ -120,6 +120,7 @@ There are number of configuration options that can be provided:
 * `output` the output stream defaulting to `stderr`
 * `frequency` used to throttle the output, by default `0` (see [Frequency](#21-frequency))
 * `hide_cursor` to hide display cursor defaulting to `false`
+* `clear` to clear the finished bar defaulting to `false`
 
 ### 2.1 Frequency
 
