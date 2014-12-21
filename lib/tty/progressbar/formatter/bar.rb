@@ -6,8 +6,21 @@ module TTY
     #
     # @api private
     class BarFormatter
+      MATCHER = /:bar/.freeze
+
       def initialize(progress, *args, &block)
         @progress = progress
+      end
+
+      # Determines whether this formatter is applied or not.
+      #
+      # @param [Object] value
+      #
+      # @return [Boolean]
+      #
+      # @api private
+      def matches?(value)
+        !!(value.to_s =~ MATCHER)
       end
 
       # Format :bar token
@@ -27,7 +40,7 @@ module TTY
         bar += complete.join
         bar += incomplete.join
 
-        value.gsub(/:bar/, bar)
+        value.gsub(MATCHER, bar)
       end
     end # BarFormatter
   end #  ProgressBar

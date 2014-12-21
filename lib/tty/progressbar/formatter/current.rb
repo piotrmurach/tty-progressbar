@@ -6,8 +6,21 @@ module TTY
     #
     # @api private
     class CurrentFormatter
+      MATCHER = /:current/
+
       def initialize(progress)
         @progress = progress
+      end
+
+      # Determines whether this formatter is applied or not.
+      #
+      # @param [Object] value
+      #
+      # @return [Boolean]
+      #
+      # @api private
+      def matches?(value)
+        !!(value.to_s =~ MATCHER)
       end
 
       # Format :current token
@@ -17,7 +30,7 @@ module TTY
       #
       # @api public
       def format(value)
-        value.gsub(/:current/, @progress.current.to_s)
+        value.gsub(MATCHER, @progress.current.to_s)
       end
     end # CurrentFormatter
   end # ProgressBar

@@ -6,13 +6,26 @@ module TTY
     #
     # @api private
     class PercentFormatter
+      MATCHER = /:percent/.freeze
+
       def initialize(progress, *args, &block)
         @progress = progress
       end
 
+      # Determines whether this formatter is applied or not.
+      #
+      # @param [Object] value
+      #
+      # @return [Boolean]
+      #
+      # @api private
+      def matches?(value)
+        !!(value.to_s =~ MATCHER)
+      end
+
       def format(value)
         percent = @progress.width == 0 ? 100 : (@progress.ratio * 100).to_i
-        value.gsub(/:percent/, percent.to_s + '%')
+        value.gsub(MATCHER, percent.to_s + '%')
       end
     end # PercentFormatter
   end # ProgressBar
