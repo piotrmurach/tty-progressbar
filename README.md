@@ -122,6 +122,16 @@ There are number of configuration options that can be provided:
 * `hide_cursor` to hide display cursor defaulting to `false`
 * `clear` to clear the finished bar defaulting to `false`
 
+All the above options can be passed in as hash options or block parameters:
+
+```ruby
+TTY::ProgressBar.new "[:bar]" do |config|
+  config.total = 30
+  config.frequency = 10
+  config.clear = true
+end
+```
+
 ### 2.1 Frequency
 
 Each time the `advance` is called it causes the progress bar to repaint. In cases when there is a huge number of updates per second, you may need to limit the rendering process by using the `frequency` option.
