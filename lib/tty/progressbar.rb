@@ -24,13 +24,14 @@ module TTY
   class ProgressBar
     extend Forwardable
 
-    ECMA_ESC = "\x1b"
-    ECMA_CSI = "\x1b["
-    ECMA_CHA = 'G'
+    ECMA_ESC = "\e".freeze
+    ECMA_CSI = "\e[".freeze
+    ECMA_CHA = 'G'.freeze
+    ECMA_CLR = 'K'.freeze
 
-    DEC_RST = 'l'
-    DEC_SET = 'h'
-    DEC_TCEM = '?25'
+    DEC_RST  = 'l'.freeze
+    DEC_SET  = 'h'.freeze
+    DEC_TCEM = '?25'.freeze
 
     attr_reader :format
 
@@ -134,7 +135,6 @@ module TTY
       [[proportion, 0].max, 1].min
     end
 
-
     # Render progress to the output
     #
     # @api private
@@ -190,8 +190,15 @@ module TTY
       return if @done
       @current = @width if @no_width
       render
-      write("\n", false)
+      @clear ? clear_line : write("\n", false)
       @done = true
+    end
+
+    # Clear current line
+    #
+    # @api public
+    def clear_line
+      @output.print(ECMA_CSI + '0m' + ECMA_CSI + '1000D' + ECMA_CSI + ECMA_CLR)
     end
 
     # Check if progress is finised

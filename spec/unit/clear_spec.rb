@@ -1,0 +1,21 @@
+# coding: utf-8
+
+require 'spec_helper'
+
+RSpec.describe TTY::ProgressBar, 'clear' do
+  let(:output) { StringIO.new('', 'w+') }
+
+  it "clears progress bar when finished" do
+    progress = TTY::ProgressBar.new("[:bar]", output: output, total: 5,
+     clear: true)
+    5.times { progress.advance }
+    output.rewind
+    expect(output.read).to eq([
+      "\e[1G[=    ]",
+      "\e[1G[==   ]",
+      "\e[1G[===  ]",
+      "\e[1G[==== ]",
+      "\e[1G[=====]\e[0m\e[1000D\e[K"
+    ].join)
+  end
+end
