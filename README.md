@@ -155,7 +155,7 @@ These are the tokens that are currently supported:
 
 If the provided tokens do not meet your needs, you can write your own formatter and instrument formatting pipeline to use a formatter you prefer.
 
-For example, begin by creating custom formatter called `TimeFormatter` that will dynamicly update `:time` token in format string as follows:
+For example, begin by creating custom formatter called `TimeFormatter` that will dynamicly update `:time` token in format string. The methods that you need to specify are `initialize`, `matches?` and `format` like follows:
 
 ```ruby
 class TimeFormatter
@@ -163,7 +163,11 @@ class TimeFormatter
     @progress = progress
   end
 
-  def format(value)
+  def matches?(value)  # specify condition to match for
+    value.to_s =~ /:time/
+  end
+
+  def format(value)  # specify how value is formatted
     transformed = transform(value)
     value.gsub(/:time/, transformed.to_s)   # => :time token
   end
