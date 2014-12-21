@@ -13,6 +13,10 @@ RSpec.describe TTY::ProgressBar, 'custom' do
         @progress = progress
       end
 
+      def matches?(value)
+        value.to_s =~ /:hi/
+      end
+
       def format(value)
         value.gsub(/:hi/, "Hello")
       end
