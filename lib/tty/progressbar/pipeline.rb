@@ -22,7 +22,12 @@ module TTY
       def decorate(progress, tokenized)
         base = tokenized.dup
         formatters.inject(base) do |formatted, formatter|
-          formatter.call(progress).format(formatted)
+          instance = formatter.call(progress)
+          if instance.respond_to?(:matches?) && instance.matches?(formatted)
+            instance.format(formatted)
+          else
+            formatted
+          end
         end
       end
 
