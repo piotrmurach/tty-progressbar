@@ -4,6 +4,7 @@ require 'io/console'
 require 'forwardable'
 require 'tty-screen'
 
+require 'tty/progressbar/configuration'
 require 'tty/progressbar/converter'
 require 'tty/progressbar/version'
 require 'tty/progressbar/pipeline'
@@ -35,23 +36,13 @@ module TTY
 
     attr_reader :format
 
-    attr_reader :total
-
-    attr_reader :width
-
-    attr_reader :no_width
-
     attr_reader :current
 
     attr_reader :start_at
 
-    attr_reader :complete
-
-    attr_reader :incomplete
-
-    attr_reader :hide_cursor
-
-    attr_reader :output
+    def_delegators :@configuration, :total, :width, :no_width,
+                   :complete, :incomplete, :hide_cursor, :clear,
+                   :output, :frequency
 
     def_delegator :@formatter, :use
 
@@ -79,19 +70,12 @@ module TTY
     #
     # @api public
     def initialize(format, options = {})
-      @format      = format
-      @total       = options.fetch(:total) { fail ArgumentError }
-      @width       = options.fetch(:width) { @total }
-      @no_width    = options.fetch(:no_width) { false }
-      @clear       = options.fetch(:clear) { false }
-      @incomplete  = options.fetch(:incomplete) { ' ' }
-      @complete    = options.fetch(:complete) { '=' }
-      @hide_cursor = options.fetch(:hide_cursor) { false }
-      @output      = options.fetch(:output) { $stderr }
-      @frequency   = options.fetch(:frequency) { 0 } # 0Hz
+      @format        = format
+      @configuration = Configuration.new(options)
+      yield @configuration if block_given?
 
-      @width             = 0 if @no_width
-      @render_period     = @frequency == 0 ? 0 : 1.0 / @frequency
+      @width             = 0 if no_width
+      @render_period     = frequency == 0 ? 0 : 1.0 / frequency
       @current           = 0
       @readings          = 0
       @last_render_time  = Time.now
@@ -131,7 +115,7 @@ module TTY
     #
     # @api public
     def ratio
-      proportion = (@current.to_f / @total)
+      proportion = (@current.to_f / total)
       [[proportion, 0].max, 1].min
     end
 
@@ -140,7 +124,7 @@ module TTY
     # @api private
     def render
       return if @done
-      if @hide_cursor && @last_render_width == 0 && !(@current >= total)
+      if hide_cursor && @last_render_width == 0 && !(@current >= total)
         write(ECMA_CSI + DEC_TCEM + DEC_RST)
       end
 
@@ -157,9 +141,9 @@ module TTY
     #
     # @api private
     def write(data, clear_first = false)
-      @output.print(ECMA_CSI + '1' + ECMA_CHA) if clear_first
-      @output.print(data)
-      @output.flush
+      output.print(ECMA_CSI + '1' + ECMA_CHA) if clear_first
+      output.print(data)
+      output.flush
     end
 
     # Resize progress bar with new configuration
@@ -169,11 +153,11 @@ module TTY
       fail 'Cannot resize finished progress bar' if @done
 
       if new_width
-        @no_width = false
-        @width    = new_width
+        @configuration.no_width = false
+        @configuration.width    = new_width
       else
-        @no_width = true
-        @width    = 0
+        @configuration.no_width = true
+        @configuration.width    = 0
       end
 
       advance(0) # rerender with new configuration
@@ -184,13 +168,13 @@ module TTY
     # @api public
     def finish
       # reenable cursor if it is turned off
-      if @hide_cursor && @last_render_width != 0
+      if hide_cursor && @last_render_width != 0
         write(ECMA_CSI + DEC_TCEM + DEC_SET, false)
       end
       return if @done
-      @current = @width if @no_width
+      @current = width if no_width
       render
-      @clear ? clear_line : write("\n", false)
+      clear ? clear_line : write("\n", false)
       @done = true
     end
 
@@ -198,7 +182,7 @@ module TTY
     #
     # @api public
     def clear_line
-      @output.print(ECMA_CSI + '0m' + ECMA_CSI + '1000D' + ECMA_CSI + ECMA_CLR)
+      output.print(ECMA_CSI + '0m' + ECMA_CSI + '1000D' + ECMA_CSI + ECMA_CLR)
     end
 
     # Check if progress is finised
@@ -253,10 +237,10 @@ module TTY
     #
     # @api private
     def register_callbacks
-      callback = proc {
+      callback = proc do
         adjusted_width =  width < max_columns ? width : max_columns
         send(:resize, adjusted_width)
-      }
+      end
       Signal.trap('WINCH', &callback)
 
       Signal.trap('INT') { finish }
