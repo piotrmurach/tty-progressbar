@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe TTY::ProgressBar, '.resize' do
+RSpec.describe TTY::ProgressBar, 'width' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "handles width exceeding terminal width" do
