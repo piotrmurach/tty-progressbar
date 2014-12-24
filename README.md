@@ -158,6 +158,7 @@ These are the tokens that are currently supported:
 * `:byte` the current progress in bytes
 * `:current` the current progress number
 * `:total` the total progress number
+* `:total_byte` the total progress in bytes
 * `:percent` the completion percentage
 * `:elapsed` the elapsed time in seconds
 * `:eta` the esitmated time to completion in seconds

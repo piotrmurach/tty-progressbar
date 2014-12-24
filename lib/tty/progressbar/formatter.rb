@@ -18,6 +18,7 @@ module TTY
       def load
         @pipeline.use TTY::ProgressBar::CurrentFormatter
         @pipeline.use TTY::ProgressBar::TotalFormatter
+        @pipeline.use TTY::ProgressBar::TotalByteFormatter
         @pipeline.use TTY::ProgressBar::ElapsedFormatter
         @pipeline.use TTY::ProgressBar::EstimatedFormatter
         @pipeline.use TTY::ProgressBar::PercentFormatter
