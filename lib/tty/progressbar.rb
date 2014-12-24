@@ -121,6 +121,18 @@ module TTY
       advance(value - @current)
     end
 
+    # Advance the progress bar to an exact ratio.
+    # The target value is set to the closest available value.
+    #
+    # @param [Float] value
+    #   the ratio between 0 and 1 inclusive
+    #
+    # @api public
+    def ratio=(value)
+      target = (value * total).floor
+      advance(target - @current)
+    end
+
     # Ratio of completed over total steps
     #
     # @return [Float]
