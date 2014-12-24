@@ -110,13 +110,15 @@ module TTY
       render
     end
 
-    # Advance the progress bar by the difference between the current value and the updated value
+    # Advance the progress bar to the updated value
     #
-    # @param [Number] current
+    # @param [Number] value
+    #   the desired value to updated to
     #
     # @api public
-    def current=(current)
-      advance(current - @current)
+    def current=(value)
+      value = [0, [value, total].min].max
+      advance(value - @current)
     end
 
     # Ratio of completed over total steps
