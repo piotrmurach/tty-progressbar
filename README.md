@@ -40,7 +40,7 @@ Or install it yourself as:
 
 * [1. Usage](#1-usage)
   * [1.1 advance](#11-advance)
-  * [1.2 current=](#12-current=)
+  * [1.2 current=](#12-current)
   * [1.3 finish](#13-finish)
   * [1.4 complete?](#14-complete)
   * [1.5 resize](#15-resize)
