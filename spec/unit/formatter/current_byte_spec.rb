@@ -2,11 +2,11 @@
 
 require 'spec_helper'
 
-RSpec.describe TTY::ProgressBar, 'byte' do
+RSpec.describe TTY::ProgressBar, 'current_byte' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "displays bytes processed" do
-    progress = described_class.new(":byte", output: output, total: 102_400)
+    progress = described_class.new(":current_byte", output: output, total: 102_400)
     5.times { progress.advance(20_480) }
     output.rewind
     expect(output.read).to eq([
