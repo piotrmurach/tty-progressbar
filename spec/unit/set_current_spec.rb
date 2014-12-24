@@ -10,6 +10,13 @@ RSpec.describe TTY::ProgressBar, 'current=' do
     3.times { progress.advance }
     progress.current = 5
     expect(progress.current).to eq(5)
+    output.rewind
+    expect(output.read).to eq([
+      "\e[1G[=         ]",
+      "\e[1G[==        ]",
+      "\e[1G[===       ]",
+      "\e[1G[=====     ]"
+    ].join)
     progress.current = 0
     expect(progress.current).to eq(0)
   end
@@ -18,6 +25,8 @@ RSpec.describe TTY::ProgressBar, 'current=' do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)
     progress.current = 12
     expect(progress.current).to eq(10)
+    output.rewind
+    expect(output.read).to eq("\e[1G[==========]\n")
   end
 
   it "doesn't allow to go below 0" do
@@ -32,5 +41,7 @@ RSpec.describe TTY::ProgressBar, 'current=' do
     expect(progress.current).to eq(10)
     progress.current = 5
     expect(progress.current).to eq(10)
+    output.rewind
+    expect(output.read).to eq("\e[1G[==========]\n")
   end
 end
