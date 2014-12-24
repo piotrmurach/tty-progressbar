@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe TTY::ProgressBar, '.new' do
+RSpec.describe TTY::ProgressBar, 'estimated' do
   let(:output) { StringIO.new('', 'w+') }
 
   before { Timecop.safe_mode = false }

@@ -2,12 +2,12 @@
 
 module TTY
   class ProgressBar
+    # Used by {Pipeline} to format :total_byte token
+    #
+    # @api private
     class TotalByteFormatter
       MATCHER = /:total_byte/.freeze
 
-      # Used by {Pipeline} to format :total_byte token
-      #
-      # @api private
       def initialize(progress, *args, &block)
         @progress = progress
         @converter = Converter.new

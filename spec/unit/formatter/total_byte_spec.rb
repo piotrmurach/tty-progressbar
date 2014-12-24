@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe TTY::ProgressBar, '.new' do
+RSpec.describe TTY::ProgressBar, 'total_byte' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "displays bytes total" do
