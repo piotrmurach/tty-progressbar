@@ -155,8 +155,8 @@ Every **TTY::ProgressBar** instance requires a format string, which apart from r
 These are the tokens that are currently supported:
 
 * `:bar` the progress bar
-* `:byte` the current progress in bytes
 * `:current` the current progress number
+* `:current_byte` the current progress in bytes
 * `:total` the total progress number
 * `:total_byte` the total progress in bytes
 * `:percent` the completion percentage
