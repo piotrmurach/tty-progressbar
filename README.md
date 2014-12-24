@@ -88,7 +88,7 @@ Note: If a progress bar has already finished then negative steps will not set it
 
 ### 1.2 current=
 
-Once you have **TTY::ProgressBar** instance, you can progress the display by calling `current=` method. This will advance the progress by the difference between the current and the desired value.
+**TTY::ProgressBar** allows you to set progress to a given value by calling `current=` method.
 
 ```ruby
 bar.current = 50
