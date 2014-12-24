@@ -40,9 +40,10 @@ Or install it yourself as:
 
 * [1. Usage](#1-usage)
   * [1.1 advance](#11-advance)
-  * [1.2 finish](#12-finish)
-  * [1.3 complete?](#13-complete)
-  * [1.4 resize](#14-resize)
+  * [1.2 current=](#12-current=)
+  * [1.3 finish](#13-finish)
+  * [1.4 complete?](#14-complete)
+  * [1.5 resize](#15-resize)
 * [2. Configuration](#2-configuration)
   * [2.1 Frequency](#21-frequency)
 * [3. Formatting](#3-formatting)
@@ -85,7 +86,17 @@ bar.advance(-1)
 
 Note: If a progress bar has already finished then negative steps will not set it back to desired value.
 
-### 1.2 finish
+### 1.2 current=
+
+Once you have **TTY::ProgressBar** instance, you can progress the display by calling `current=` method. This will advance the progress by the difference between the current and the desired value.
+
+```ruby
+bar.current = 50
+```
+
+Note: If a progress bar has already finished then negative steps will not set it back to desired value.
+
+### 1.3 finish
 
 In order to immediately stop and finish the progress call `finish`. This will finish drawing the progress and return to new line.
 
@@ -93,7 +104,7 @@ In order to immediately stop and finish the progress call `finish`. This will fi
 bar.finish
 ```
 
-### 1.3 complete?
+### 1.4 complete?
 
 During progresion you can check if bar is finished or not by calling `complete?`.
 
@@ -101,7 +112,7 @@ During progresion you can check if bar is finished or not by calling `complete?`
 bar.complete? # => false
 ```
 
-### 1.4 resize
+### 1.5 resize
 
 If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length:
 
