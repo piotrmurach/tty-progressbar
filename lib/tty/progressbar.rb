@@ -17,6 +17,7 @@ require 'tty/progressbar/formatter/elapsed'
 require 'tty/progressbar/formatter/estimated'
 require 'tty/progressbar/formatter/percent'
 require 'tty/progressbar/formatter/total'
+require 'tty/progressbar/formatter/total_byte'
 
 module TTY
   # Used for creating terminal progress bar
