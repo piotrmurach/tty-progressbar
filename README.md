@@ -41,9 +41,10 @@ Or install it yourself as:
 * [1. Usage](#1-usage)
   * [1.1 advance](#11-advance)
   * [1.2 current=](#12-current)
-  * [1.3 finish](#13-finish)
-  * [1.4 complete?](#14-complete)
-  * [1.5 resize](#15-resize)
+  * [1.3 ratio=](#13-ratio)
+  * [1.4 finish](#14-finish)
+  * [1.5 complete?](#15-complete)
+  * [1.6 resize](#16-resize)
 * [2. Configuration](#2-configuration)
   * [2.1 Frequency](#21-frequency)
 * [3. Formatting](#3-formatting)
@@ -96,7 +97,15 @@ bar.current = 50
 
 Note: If a progress bar has already finished then negative steps will not set it back to desired value.
 
-### 1.3 finish
+### 1.3 ratio=
+
+In order to update overall completion of a progress bar as an exact percentage use the `ratio=` method. The method accepts values between `0` and `1` inclusive. For example, a ratio of 0.5 will attempt to set the progress bar halfway:
+
+```ruby
+bar.ratio = 0.5
+```
+
+### 1.4 finish
 
 In order to immediately stop and finish the progress call `finish`. This will finish drawing the progress and return to new line.
 
@@ -104,7 +113,7 @@ In order to immediately stop and finish the progress call `finish`. This will fi
 bar.finish
 ```
 
-### 1.4 complete?
+### 1.5 complete?
 
 During progresion you can check if bar is finished or not by calling `complete?`.
 
@@ -112,7 +121,7 @@ During progresion you can check if bar is finished or not by calling `complete?`
 bar.complete? # => false
 ```
 
-### 1.5 resize
+### 1.6 resize
 
 If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length:
 
