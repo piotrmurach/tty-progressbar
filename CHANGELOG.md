@@ -1,3 +1,9 @@
+0.4.0 (December 25, 2014)
+
+* Add :total_byte, :current_byte formatters by @vincentjames501
+* Add current= method for updating progress to a given value by @vincentjames501
+* Add ratio= method for updating progress ratio
+
 0.3.0 (December 21, 2014)
 
 * Catch INT signal and cleanly end progress
