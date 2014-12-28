@@ -257,6 +257,8 @@ module TTY
       message
     end
 
+    EXIT_SIGS = [:QUIT, :TERM, :INT]
+
     # Handle resize and kill signals
     #
     # @api private
@@ -267,7 +269,9 @@ module TTY
       end
       Signal.trap('WINCH', &callback)
 
-      Signal.trap('INT') { finish }
+      EXIT_SIGS.each do |sig|
+        Signal.trap(sig) { finish && fail(Interrupt) }
+      end
     end
   end # ProgressBar
 end # TTY
