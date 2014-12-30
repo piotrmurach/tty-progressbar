@@ -83,10 +83,21 @@ module TTY
       @last_render_width = 0
       @done              = false
       @start_at          = Time.now
+      @started           = false
       @formatter         = TTY::ProgressBar::Formatter.new
 
       @formatter.load
       register_callbacks
+    end
+
+    # Start progression by drawing bar and setting time
+    #
+    # @api public
+    def start
+      @started    = true
+      @started_at = Time.now
+
+      advance(0)
     end
 
     # Advance the progress bar
@@ -97,7 +108,7 @@ module TTY
     def advance(progress = 1)
       return if @done
 
-      @start_at = Time.now if @current.zero?
+      @start_at  = Time.now if @current.zero? && !@started
       @readings += 1
       @current  += progress
 
