@@ -209,6 +209,17 @@ module TTY
       output.print(ECMA_CSI + '0m' + ECMA_CSI + '1000D' + ECMA_CSI + ECMA_CLR)
     end
 
+    # Reset progress to default configuration
+    #
+    # @api public
+    def reset
+      @current  = 0
+      @readings = 0
+      @done     = false
+
+      advance(0) # rerender with new configuration
+    end
+
     # Check if progress is finised
     #
     # @return [Boolean]
