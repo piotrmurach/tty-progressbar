@@ -196,7 +196,7 @@ module TTY
         write(ECMA_CSI + DEC_TCEM + DEC_SET, false)
       end
       return if @done
-      @current = width if no_width
+      @current = total unless no_width
       render
       clear ? clear_line : write("\n", false)
       @done = true
