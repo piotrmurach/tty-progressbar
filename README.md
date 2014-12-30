@@ -42,9 +42,11 @@ Or install it yourself as:
   * [1.1 advance](#11-advance)
   * [1.2 current=](#12-current)
   * [1.3 ratio=](#13-ratio)
-  * [1.4 finish](#14-finish)
-  * [1.5 complete?](#15-complete)
-  * [1.6 resize](#16-resize)
+  * [1.4 start](#14-start)
+  * [1.5 finish](#15-finish)
+  * [1.6 complete?](#16-complete)
+  * [1.7 reset](#17-reset)
+  * [1.8 resize](#18-resize)
 * [2. Configuration](#2-configuration)
   * [2.1 Frequency](#21-frequency)
 * [3. Formatting](#3-formatting)
@@ -105,7 +107,15 @@ In order to update overall completion of a progress bar as an exact percentage u
 bar.ratio = 0.5
 ```
 
-### 1.4 finish
+### 1.4 start
+
+By default the timer for internal time esitamation is started automatically when the `advance` method is called. However, if you require control on when the progression timer is started use `start` call:
+
+```ruby
+bar.start  # => sets timer and draws initial progress bar
+```
+
+### 1.5 finish
 
 In order to immediately stop and finish the progress call `finish`. This will finish drawing the progress and return to new line.
 
@@ -113,7 +123,7 @@ In order to immediately stop and finish the progress call `finish`. This will fi
 bar.finish
 ```
 
-### 1.5 complete?
+### 1.6 complete?
 
 During progresion you can check if bar is finished or not by calling `complete?`.
 
@@ -121,7 +131,15 @@ During progresion you can check if bar is finished or not by calling `complete?`
 bar.complete? # => false
 ```
 
-### 1.6 resize
+### 1.7 reset
+
+In order to reset currently running or finished progress bar to its original configuration and initial position use `reset` like so:
+
+```ruby
+bar.reset
+```
+
+### 1.8 resize
 
 If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length:
 
