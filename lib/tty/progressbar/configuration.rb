@@ -22,6 +22,8 @@ module TTY
 
       attr_accessor :frequency
 
+      attr_accessor :interval
+
       def initialize(options)
         self.total   = options[:total] if options[:total]
         @width       = options.fetch(:width) { total }
