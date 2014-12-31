@@ -24,6 +24,7 @@ module TTY
         @pipeline.use TTY::ProgressBar::PercentFormatter
         @pipeline.use TTY::ProgressBar::ByteFormatter
         @pipeline.use TTY::ProgressBar::RateFormatter
+        @pipeline.use TTY::ProgressBar::MeanRateFormatter
         @pipeline.use TTY::ProgressBar::BarFormatter
       end
     end # Formatter
