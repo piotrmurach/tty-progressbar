@@ -17,6 +17,7 @@ require 'tty/progressbar/formatter/current_byte'
 require 'tty/progressbar/formatter/elapsed'
 require 'tty/progressbar/formatter/estimated'
 require 'tty/progressbar/formatter/percent'
+require 'tty/progressbar/formatter/rate'
 require 'tty/progressbar/formatter/total'
 require 'tty/progressbar/formatter/total_byte'
 
