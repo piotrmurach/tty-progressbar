@@ -216,6 +216,9 @@ These are the tokens that are currently supported:
 * `:elapsed` the elapsed time in seconds
 * `:eta` the esitmated time to completion in seconds
 * `:rate` the current rate of progression per second
+* `:byte_rate` the current rate of pregression in bytes per second
+* `:mean_rate` the averaged rate of progression per second
+* `:mean_byte` the averaged rate of progression in bytes per second
 
 ### 3.2 Custom Formatters
 
@@ -316,10 +319,16 @@ end
 Commonly a progress bar is utilized to measure download speed per second. This can be done like so:
 
 ```ruby
-TTY::ProgressBar.new("[:bar] :rate/s") do |config|
-  config.total = 30
-  config.interval = 1
+TTY::ProgressBar.new("[:bar] :byte_rate/s") do |config|
+  config.total = 300000
+  config.interval = 1     # => 1 sec
 end
+```
+
+This will result in output similar to:
+
+```ruby
+downloading [=======================       ] 4.12MB/s
 ```
 
 ## Contributing
