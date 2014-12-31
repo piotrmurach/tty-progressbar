@@ -26,6 +26,7 @@ module TTY
         @pipeline.use TTY::ProgressBar::ByteRateFormatter
         @pipeline.use TTY::ProgressBar::RateFormatter
         @pipeline.use TTY::ProgressBar::MeanRateFormatter
+        @pipeline.use TTY::ProgressBar::MeanByteFormatter
         @pipeline.use TTY::ProgressBar::BarFormatter
       end
     end # Formatter
