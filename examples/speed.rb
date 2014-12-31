@@ -1,0 +1,9 @@
+# coding: utf-8
+
+require 'tty-progressbar'
+
+bar = TTY::ProgressBar.new("downloading [:bar] :rate/s", total: 100, interval: 1)
+30.times do
+  sleep(0.1)
+  bar.advance(Random.rand(10))
+end
