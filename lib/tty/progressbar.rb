@@ -46,6 +46,8 @@ module TTY
                    :complete, :incomplete, :hide_cursor, :clear,
                    :output, :frequency
 
+    def_delegators :@meter, :rate, :mean_rate
+
     def_delegator :@formatter, :use
 
     # Create progress bar
@@ -86,6 +88,7 @@ module TTY
       @start_at          = Time.now
       @started           = false
       @formatter         = TTY::ProgressBar::Formatter.new
+      @meter             = Meter.new(options.fetch(:interval, 1))
 
       @formatter.load
       register_callbacks
@@ -97,6 +100,7 @@ module TTY
     def start
       @started    = true
       @started_at = Time.now
+      @meter.start
 
       advance(0)
     end
@@ -112,6 +116,7 @@ module TTY
       @start_at  = Time.now if @current.zero? && !@started
       @readings += 1
       @current  += progress
+      @meter.sample(Time.now, progress)
 
       if !no_width && @current >= total
         finish && return
@@ -211,6 +216,7 @@ module TTY
       @current = total unless no_width
       render
       clear ? clear_line : write("\n", false)
+      @meter.clear
       @done = true
     end
 
@@ -228,6 +234,7 @@ module TTY
       @current  = 0
       @readings = 0
       @done     = false
+      @meter.clear
 
       advance(0) # rerender with new configuration
     end
