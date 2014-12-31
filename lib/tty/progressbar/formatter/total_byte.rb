@@ -6,7 +6,7 @@ module TTY
     #
     # @api private
     class TotalByteFormatter
-      MATCHER = /:total_byte/.freeze
+      MATCHER = /:total_byte/i.freeze
 
       def initialize(progress, *args, &block)
         @progress = progress

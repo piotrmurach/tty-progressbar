@@ -3,7 +3,7 @@
 module TTY
   class ProgressBar
     class ByteFormatter
-      MATCHER = /:current_byte|:byte/.freeze
+      MATCHER = /(:current_byte|:byte)\b/i.freeze
       # Used by {Pipeline} to format :byte token
       #
       # @api private

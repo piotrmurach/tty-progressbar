@@ -6,7 +6,7 @@ module TTY
     #
     # @api private
     class MeanRateFormatter
-      MATCHER = /:mean_rate/i
+      MATCHER = /:mean_rate/i.freeze
 
       def initialize(progress)
         @progress  = progress

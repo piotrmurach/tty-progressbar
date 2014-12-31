@@ -6,7 +6,7 @@ module TTY
     #
     # @api private
     class CurrentFormatter
-      MATCHER = /:current(?!_)/
+      MATCHER = /:current\b/i.freeze
 
       def initialize(progress)
         @progress = progress

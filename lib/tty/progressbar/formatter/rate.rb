@@ -6,7 +6,7 @@ module TTY
     #
     # @api private
     class RateFormatter
-      MATCHER = /:rate/i
+      MATCHER = /:rate/i.freeze
 
       def initialize(progress)
         @progress  = progress

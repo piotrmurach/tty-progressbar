@@ -3,7 +3,7 @@
 module TTY
   class ProgressBar
     class TotalFormatter
-      MATCHER = /:total(?!_)/.freeze
+      MATCHER = /:total\b/i.freeze
 
       def initialize(progress, *args, &block)
         @progress = progress

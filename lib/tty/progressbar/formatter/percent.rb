@@ -6,7 +6,7 @@ module TTY
     #
     # @api private
     class PercentFormatter
-      MATCHER = /:percent/.freeze
+      MATCHER = /:percent\b/.freeze
 
       def initialize(progress, *args, &block)
         @progress = progress

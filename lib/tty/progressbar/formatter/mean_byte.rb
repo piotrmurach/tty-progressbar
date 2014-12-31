@@ -6,7 +6,7 @@ module TTY
     #
     # @api private
     class MeanByteFormatter
-      MATCHER = /:mean_byte/i
+      MATCHER = /:mean_byte/i.freeze
 
       def initialize(progress)
         @progress  = progress
