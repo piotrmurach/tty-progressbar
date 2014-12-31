@@ -6,6 +6,8 @@ RSpec.describe TTY::ProgressBar::Meter, '' do
 
   before { Timecop.safe_mode = false }
 
+  after { Timecop.return }
+
   it "measures rate per second" do
     meter = TTY::ProgressBar::Meter.new(1)
     meter.start
