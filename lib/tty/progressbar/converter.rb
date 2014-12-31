@@ -31,6 +31,20 @@ module TTY
         end
       end
 
+      # Convert seconds to set precision
+      #
+      # @param [Numeric] seconds
+      #   the seconds to convert
+      #
+      # @return [String]
+      #   the formatted result
+      #
+      # @api public
+      def to_seconds(seconds, precision = nil)
+        precision ||= (seconds < 1 && !seconds.zero?) ? 5 : 2
+        sprintf "%5.#{precision}f", seconds
+      end
+
       KILOBYTE = 1024
       MEGABYTE = KILOBYTE * 1024
       GIGABYTE = MEGABYTE * 1024
