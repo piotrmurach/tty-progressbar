@@ -49,11 +49,13 @@ Or install it yourself as:
   * [1.8 resize](#18-resize)
 * [2. Configuration](#2-configuration)
   * [2.1 Frequency](#21-frequency)
+  * [2.2 Interval](#22-interval)
 * [3. Formatting](#3-formatting)
   * [3.1 Tokens](#31-tokens)
   * [3.2 Custom Formatters](#31-custom-formatters)
 * [4. Logging](#4-logging)
 * [5. Examples](#5-examples)
+  * [5.1 Color](#51-color)
 
 ## 1. Usage
 
@@ -157,6 +159,7 @@ There are number of configuration options that can be provided:
 * `incomplete` incomplete character by default single space
 * `output` the output stream defaulting to `stderr`
 * `frequency` used to throttle the output, by default `0` (see [Frequency](#21-frequency))
+* `interval` used to measure the speed, by default `1 sec` (see [Interval](#22-interval))
 * `hide_cursor` to hide display cursor defaulting to `false`
 * `clear` to clear the finished bar defaulting to `false`
 
@@ -180,6 +183,18 @@ The `frequency` option accepts `integer` representing number of `Hz` units, for 
 TTY::ProgressBar.new("[:bar]", total: 30, frequency: 10) # 10 Hz
 ```
 
+### 2.2 Interval
+
+For every call of `advance` method the **ProgressBar** takes a sample for speed measurement. By default the samples are grouped per second but you can change that by passing the `interval` option.
+
+The `interval` option is an `integer` that represents the number of seconds, for example, interval of `60` would mean that speed is measured per 1 minute.
+
+```ruby
+TTY::ProgressBar.new(":rate/minute", total: 100, interval: 60) # 1 minute
+
+TTY::ProgressBar.new(":rate/hour", total: 100, interval: 3600) # 1 hour
+```
+
 ## 3. Formatting
 
 Every **TTY::ProgressBar** instance requires a format string, which apart from regular characters accepts special tokens to display dynamic information. For instance, a format to measure download progress could be:
@@ -200,6 +215,7 @@ These are the tokens that are currently supported:
 * `:percent` the completion percentage
 * `:elapsed` the elapsed time in seconds
 * `:eta` the esitmated time to completion in seconds
+* `:rate` the current rate of progression per second
 
 ### 3.2 Custom Formatters
 
@@ -295,6 +311,17 @@ To see how a progress bar is reported in terminal you can do:
 end
 ```
 
+### 5.2 Speed
+
+Commonly a progress bar is utilized to measure download speed per second. This can be done like so:
+
+```ruby
+TTY::ProgressBar.new("[:bar] :rate/s") do |config|
+  config.total = 30
+  config.interval = 1
+end
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/peter-murach/tty-progressbar/fork )
@@ -305,4 +332,4 @@ end
 
 ## Copyright
 
-Copyright (c) 2014 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2015 Piotr Murach. See LICENSE for further details.
