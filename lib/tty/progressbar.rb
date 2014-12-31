@@ -9,6 +9,7 @@ require 'tty/progressbar/converter'
 require 'tty/progressbar/version'
 require 'tty/progressbar/pipeline'
 require 'tty/progressbar/formatter'
+require 'tty/progressbar/meter'
 
 require 'tty/progressbar/formatter/bar'
 require 'tty/progressbar/formatter/current'
