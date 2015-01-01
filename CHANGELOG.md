@@ -1,3 +1,12 @@
+0.5.0 (January 1, 2015)
+
+* Add ability to reset progress
+* Add start method for manually setting the timer
+* Fix bug with finish not rendering the bar full
+* Add meter to measure speed rate
+* Add to_seconds converter
+* Add :rate, :mean_rate, :byte_rate & :mean_byte formatters
+
 0.4.0 (December 25, 2014)
 
 * Add :total_byte, :current_byte formatters by @vincentjames501
