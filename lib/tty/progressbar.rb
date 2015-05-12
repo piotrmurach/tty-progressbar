@@ -249,9 +249,11 @@ module TTY
 
     # Determine terminal width
     #
+    # @return [Integer]
+    #
     # @api public
     def max_columns
-      TTY::Screen.new.width
+      TTY::Screen.width
     end
 
     private

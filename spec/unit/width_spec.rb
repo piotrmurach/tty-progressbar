@@ -11,8 +11,7 @@ RSpec.describe TTY::ProgressBar, 'width' do
       config.total = 5
       config.width = 1024
     end
-    screen = double(:screen, width: 20)
-    allow(TTY::Screen).to receive(:new).and_return(screen)
+    allow(TTY::Screen).to receive(:width).and_return(20)
     5.times { progress.advance }
     output.rewind
     expect(output.read).to eq([
