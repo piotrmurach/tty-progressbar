@@ -1,3 +1,7 @@
+0.5.1 (May 31, 2015)
+
+* Update tty-screen dependency with bug fixes
+
 0.5.0 (January 1, 2015)
 
 * Add ability to reset progress
