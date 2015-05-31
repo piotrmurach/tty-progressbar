@@ -1,13 +1,15 @@
 # TTY::ProgressBar
-[![Gem Version](https://badge.fury.io/rb/tty-progressbar.png)][gem]
-[![Build Status](https://secure.travis-ci.org/peter-murach/tty-progressbar.png?branch=master)][travis]
-[![Code Climate](https://codeclimate.com/github/peter-murach/tty-progressbar.png)][codeclimate]
-[![Coverage Status](https://coveralls.io/repos/peter-murach/tty-progressbar/badge.png)][coverage]
+[![Gem Version](https://badge.fury.io/rb/tty-progressbar.svg)][gem]
+[![Build Status](https://secure.travis-ci.org/peter-murach/tty-progressbar.svg?branch=master)][travis]
+[![Code Climate](https://codeclimate.com/github/peter-murach/tty-progressbar/badges/gpa.svg)][codeclimate]
+[![Coverage Status](https://coveralls.io/repos/peter-murach/tty-progressbar/badge.svg)][coverage]
+[![Inline docs](http://inch-ci.org/github/peter-murach/tty-progressbar.svg?branch=master)][inchpages]
 
 [gem]: http://badge.fury.io/rb/tty-progressbar
 [travis]: http://travis-ci.org/peter-murach/tty-progressbar
 [codeclimate]: https://codeclimate.com/github/peter-murach/tty-progressbar
 [coverage]: https://coveralls.io/r/peter-murach/tty-progressbar
+[inchpages]: http://inch-ci.org/github/peter-murach/tty-progressbar
 
 > A flexible progress bars drawing in terminal emulators.
 
