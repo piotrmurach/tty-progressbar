@@ -4,7 +4,7 @@ gemspec
 
 group :development do
   gem 'rake',    '~> 10.3.2'
-  gem 'rspec',   '~> 3.1.0'
+  gem 'rspec',   '~> 3.3.0'
   gem 'yard',    '~> 0.8.7'
   gem 'timecop', '~> 0.7.1'
   gem 'pastel',  '~> 0.4.0'
