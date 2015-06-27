@@ -1,14 +1,12 @@
 # coding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, 'custom' do
+RSpec.describe TTY::ProgressBar, 'custom formatter' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "allows for custom tag" do
     progress = TTY::ProgressBar.new(":hi", output: output, total: 10)
 
-    HiFormatter = Class.new do
+    stub_const("HiFormatter", Class.new do
       def initialize(progress)
         @progress = progress
       end
@@ -20,7 +18,7 @@ RSpec.describe TTY::ProgressBar, 'custom' do
       def format(value)
         value.gsub(/:hi/, "Hello")
       end
-    end
+    end)
 
     progress.use(HiFormatter)
     progress.advance
