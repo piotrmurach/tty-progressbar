@@ -1,7 +1,5 @@
 # coding: utf-8
 
-require 'spec_helper'
-
 RSpec.describe TTY::ProgressBar, 'ratio=' do
   let(:output) { StringIO.new('', 'w+') }
 
@@ -19,5 +17,12 @@ RSpec.describe TTY::ProgressBar, 'ratio=' do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 3)
     progress.ratio = 0.5
     expect(progress.current).to eq(1)
+  end
+
+  it "doesn't allow to set wrong ratio" do
+    progress = TTY::ProgressBar.new("[:bar]", output: output, total: 3)
+    progress.ratio = 3.2
+    expect(progress.current).to eq(3)
+    expect(progress.complete?).to eq(true)
   end
 end

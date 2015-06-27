@@ -1,9 +1,13 @@
 # coding: utf-8
 
-require 'spec_helper'
-
 RSpec.describe TTY::ProgressBar, '.advance' do
   let(:output) { StringIO.new('', 'w+') }
+
+  it "advances by custom value" do
+    progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)
+    progress.advance(8)
+    expect(progress.current).to eq(8)
+  end
 
   it "allows to go back" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)
