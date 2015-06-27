@@ -96,6 +96,9 @@ module TTY
     def advance(progress = 1, tokens = {})
       return if @done
 
+      if progress.respond_to?(:to_hash)
+        tokens, progress = progress, 1
+      end
       @start_at  = Time.now if @current.zero? && !@started
       @readings += 1
       @current  += progress
