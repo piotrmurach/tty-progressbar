@@ -54,7 +54,8 @@ Or install it yourself as:
   * [2.2 Interval](#22-interval)
 * [3. Formatting](#3-formatting)
   * [3.1 Tokens](#31-tokens)
-  * [3.2 Custom Formatters](#31-custom-formatters)
+  * [3.2 Custom Formatters](#32-custom-formatters)
+  * [3.3 Custom Tokens](#33-custom-tokens)
 * [4. Logging](#4-logging)
 * [5. Examples](#5-examples)
   * [5.1 Color](#51-color)
@@ -224,29 +225,23 @@ These are the tokens that are currently supported:
 
 ### 3.2 Custom Formatters
 
-If the provided tokens do not meet your needs, you can write your own formatter and instrument formatting pipeline to use a formatter you prefer.
+If the provided tokens do not meet your needs, you can write your own formatter and instrument formatting pipeline to use a formatter you prefer. This option is preferred if you are going to rely on progress bar internal data such as `rate`, `current` etc. which will all be available on the passed in progress bar instance.
 
 For example, begin by creating custom formatter called `TimeFormatter` that will dynamicly update `:time` token in format string. The methods that you need to specify are `initialize`, `matches?` and `format` like follows:
 
 ```ruby
 class TimeFormatter
   def initialize(progress)
-    @progress = progress
+    @progress = progress # current progress bar instance
   end
 
-  def matches?(value)  # specify condition to match for
+  def matches?(value)  # specify condition to match for in display string
     value.to_s =~ /:time/
   end
 
-  def format(value)  # specify how value is formatted
-    transformed = transform(value)
-    value.gsub(/:time/, transformed.to_s)   # => :time token
-  end
-
-  private
-
-  def transfrom
-    value * (Time.now - @progress.start_at).to_i
+  def format(value)  # specify how display string is formatted
+    transformed = (Time.now - @progress.start_at).to_s
+    value.gsub(/:time/, transformed)   # => :time token replacement
   end
 end
 ```
@@ -263,6 +258,29 @@ Then add `TimeFormatter` to the pipeline like so:
 
 ```ruby
 bar.use TimeFormatter
+```
+
+and then invoke progression:
+
+```ruby
+bar.advance
+```
+
+### 3.3 Custom Tokens
+
+You can define custom tokens by passing pairs `name: value` to `advance` method in order to dynamically update formatted bar. This option is useful for lightweight content replacement such as titles that doesn't depend on the internal data of progressbar. For example:
+
+```ruby
+bar = TTY::ProgressBar.new("(:current) :title", total: 4)
+bar.advance(title: 'Hello Piotr!')
+bar.advance(3, title: 'Bye Piotr!')
+```
+
+which outputs:
+
+```ruby
+(1) Hello Piotr!
+(4) Bye Piotr!
 ```
 
 ## 4. Logging
