@@ -136,7 +136,7 @@ module TTY
     #
     # @api public
     def ratio
-      proportion = (@current.to_f / total)
+      proportion = total > 0 ? (@current.to_f / total) : 0
       [[proportion, 0].max, 1].min
     end
 
