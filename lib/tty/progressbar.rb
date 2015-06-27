@@ -69,6 +69,7 @@ module TTY
       @done              = false
       @start_at          = Time.now
       @started           = false
+      @tokens            = {}
       @formatter         = TTY::ProgressBar::Formatter.new
       @meter             = Meter.new(options.fetch(:interval, 1))
 
@@ -92,12 +93,13 @@ module TTY
     # @param [Object|Number] progress
     #
     # @api public
-    def advance(progress = 1)
+    def advance(progress = 1, tokens = {})
       return if @done
 
       @start_at  = Time.now if @current.zero? && !@started
       @readings += 1
       @current  += progress
+      @tokens    = tokens
       @meter.sample(Time.now, progress)
 
       if !no_width && @current >= total
@@ -152,6 +154,9 @@ module TTY
       end
 
       formatted = @formatter.decorate(self, @format)
+      @tokens.each do |token, val|
+        formatted = formatted.gsub(":#{token}", val)
+      end
       write(formatted, true)
 
       @last_render_time  = Time.now
