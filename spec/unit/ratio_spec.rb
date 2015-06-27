@@ -1,6 +1,6 @@
 # coding: utf-8
 
-RSpec.describe TTY::ProgressBar, 'ratio=' do
+RSpec.describe TTY::ProgressBar, '.ratio=' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "allows to set ratio" do
@@ -24,5 +24,10 @@ RSpec.describe TTY::ProgressBar, 'ratio=' do
     progress.ratio = 3.2
     expect(progress.current).to eq(3)
     expect(progress.complete?).to eq(true)
+  end
+
+  it "avoids division by zero" do
+    progress = TTY::ProgressBar.new("[:bar]", output: output, total: 0)
+    expect(progress.ratio).to eq(0)
   end
 end
