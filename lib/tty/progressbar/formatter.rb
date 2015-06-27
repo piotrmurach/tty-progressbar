@@ -9,7 +9,7 @@ module TTY
 
       # @api private
       def initialize(pipeline = nil)
-        @pipeline = TTY::ProgressBar::Pipeline.new
+        @pipeline = pipeline || TTY::ProgressBar::Pipeline.new
       end
 
       # Prepare default pipeline formatters

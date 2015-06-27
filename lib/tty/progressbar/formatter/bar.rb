@@ -8,7 +8,7 @@ module TTY
     class BarFormatter
       MATCHER = /:bar/.freeze
 
-      def initialize(progress, *args, &block)
+      def initialize(progress)
         @progress = progress
       end
 

@@ -8,17 +8,29 @@ module TTY
     class Pipeline
       include Enumerable
 
+      # Create formatting pipeline
+      #
+      # @api private
       def initialize(formatters = [])
         @formatters = formatters
+        freeze
       end
 
-      # Add new formatter
+      # Add a new formatter
       #
-      # @ api public
-      def use(formatter, *args, &block)
-        formatters << proc { |progress| formatter.new(progress, *args, &block) }
+      # @example
+      #   use(TTY::ProgressBar::TotalFormatter)
+      #
+      # @api public
+      def use(formatter)
+        formatters << proc { |progress| formatter.new(progress) }
       end
 
+      # Decorate the tokenized string with actual values
+      #
+      # @return [nil]
+      #
+      # @api private
       def decorate(progress, tokenized)
         base = tokenized.dup
         formatters.inject(base) do |formatted, formatter|

@@ -2,6 +2,9 @@
 
 module TTY
   class ProgressBar
+    # Used by {Pipeline} to format :total token
+    #
+    # @api private
     class TotalFormatter
       MATCHER = /:total\b/i.freeze
 

@@ -2,7 +2,7 @@
 
 module TTY
   class ProgressBar
-    # Used by {Pipeline} to format :current token
+    # Used by {Pipeline} to format :rate token
     #
     # @api private
     class RateFormatter

@@ -8,7 +8,7 @@ module TTY
     class ElapsedFormatter
       MATCHER = /:elapsed/.freeze
 
-      def initialize(progress, *args, &block)
+      def initialize(progress)
         @progress  = progress
         @converter = Converter.new
       end
