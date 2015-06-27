@@ -1,3 +1,9 @@
+0.6.0 (June 27, 2015)
+
+* Add ability to add custom tokens
+* Internal cleanup of parameters for formatters and pipeline
+* Fix ratio to avoid division by zero by @sleewoo issue #9
+
 0.5.1 (May 31, 2015)
 
 * Update tty-screen dependency with bug fixes
