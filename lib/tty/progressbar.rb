@@ -51,6 +51,8 @@ module TTY
     #   the object that responds to print call defaulting to stderr
     # @option options [Number] :frequency
     #   the frequency with which to display bars
+    # @option options [Number] :interval
+    #   the period for sampling of speed measurement
     #
     # @api public
     def initialize(format, options = {})
@@ -78,8 +80,8 @@ module TTY
     #
     # @api public
     def start
-      @started    = true
-      @started_at = Time.now
+      @started  = true
+      @start_at = Time.now
       @meter.start
 
       advance(0)
