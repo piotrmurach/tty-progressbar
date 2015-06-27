@@ -22,6 +22,9 @@ module TTY
         @last_sample_at = @start_time
       end
 
+      # Start sampling timer
+      #
+      # @api public
       def start
         @start_time     = Time.now.to_f
         @last_sample_at = @start_time
@@ -31,7 +34,7 @@ module TTY
       #
       # @api public
       def sample(at, value)
-        if @interval < at.to_f - @last_sample_at
+        if @interval < (at.to_f - @last_sample_at)
           @marker += 1
         end
         @samples[@marker] << value
@@ -39,7 +42,10 @@ module TTY
         @last_sample_at = at.to_f
       end
 
-      # The rate of sampling
+      # The current rate of sampling for a given interval
+      #
+      # @return [Number]
+      #   the current rate in decimal or 0 if cannot be determined
       #
       # @api public
       def rate
@@ -57,7 +63,10 @@ module TTY
         end
       end
 
-      # The mean rate
+      # The mean rate of all the sampled rates
+      #
+      # @return [Number]
+      #   the mean rate
       #
       # @api public
       def mean_rate

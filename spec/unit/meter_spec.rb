@@ -1,8 +1,6 @@
 # coding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar::Meter, '' do
+RSpec.describe TTY::ProgressBar::Meter, '.rate' do
 
   before { Timecop.safe_mode = false }
 
@@ -69,4 +67,3 @@ RSpec.describe TTY::ProgressBar::Meter, '' do
     expect(meter.rate).to eq(0)
   end
 end
-
