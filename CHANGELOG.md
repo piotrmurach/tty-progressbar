@@ -1,3 +1,7 @@
+0.7.0 (Sept 20, 2015)
+
+* Update tty-screen dependency
+
 0.6.0 (June 27, 2015)
 
 * Add ability to add custom tokens
