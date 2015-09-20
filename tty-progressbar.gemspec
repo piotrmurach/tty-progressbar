@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = [""]
   spec.summary       = %q{A flexible progress bars drawing in terminal emulators.}
   spec.description   = %q{A flexible progress bars drawing in terminal emulators.}
-  spec.homepage      = "https://github.com/peter-murach/tty-progressbar"
+  spec.homepage      = "http://peter-murach.github.io/tty/"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
