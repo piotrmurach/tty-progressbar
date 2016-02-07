@@ -361,4 +361,4 @@ downloading [=======================       ] 4.12MB/s
 
 ## Copyright
 
-Copyright (c) 2014-2015 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2014-2016 Piotr Murach. See LICENSE for further details.
