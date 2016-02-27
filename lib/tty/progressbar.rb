@@ -24,7 +24,7 @@ module TTY
 
     def_delegators :@configuration, :total, :width, :no_width,
                    :complete, :incomplete, :hide_cursor, :clear,
-                   :output, :frequency, :width=
+                   :output, :frequency, :interval, :width=
 
     def_delegators :@meter, :rate, :mean_rate
 
@@ -262,6 +262,31 @@ module TTY
     # @api public
     def max_columns
       TTY::Screen.width
+    end
+
+    # Show bar format
+    #
+    # @return [String]
+    #
+    # @api public
+    def to_s
+      @format.to_s
+    end
+
+    # Inspect bar properties
+    #
+    # @return [String]
+    #
+    # @api public
+    def inspect
+      output = "#<#{self.class.name} "
+      output << "@format=\"#{format}\", "
+      output << "@current=\"#{@current}\", "
+      output << "@total=\"#{total}\", "
+      output << "@width=\"#{width}\", "
+      output << "@complete=\"#{complete}\", "
+      output << "@incomplete=\"#{incomplete}\", "
+      output << "@interval=#{interval}>"
     end
 
     private
