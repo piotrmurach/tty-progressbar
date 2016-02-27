@@ -2,6 +2,10 @@
 
 ## [v0.8.1] - 2016-02-27
 
+### Added
+* Add progress bar #inspect
+
+### Fixed
 * Fix the progressbar resizing call, help from @squarism
 
 ## [v0.8.0] - 2016-02-07
@@ -73,6 +77,7 @@
 
 * Initial implementation and release
 
+[v0.8.1]: https://github.com/peter-murach/tty-progressbar/compare/v0.8.0...v0.8.1
 [v0.8.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.7.0...v0.8.0
 [v0.7.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.6.0...v0.7.0
 [v0.6.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.5.1...v0.6.0
