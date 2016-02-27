@@ -286,7 +286,7 @@ module TTY
       output << "@width=\"#{width}\", "
       output << "@complete=\"#{complete}\", "
       output << "@incomplete=\"#{incomplete}\", "
-      output << "@interval=#{interval}>"
+      output << "@interval=\"#{interval}\">"
     end
 
     private
