@@ -24,7 +24,7 @@ module TTY
 
     def_delegators :@configuration, :total, :width, :no_width,
                    :complete, :incomplete, :hide_cursor, :clear,
-                   :output, :frequency
+                   :output, :frequency, :width=
 
     def_delegators :@meter, :rate, :mean_rate
 
@@ -74,7 +74,7 @@ module TTY
       @meter             = Meter.new(options.fetch(:interval, 1))
 
       @formatter.load
-      register_callbacks
+      register_signals
     end
 
     # Start progression by drawing bar and setting time
@@ -94,7 +94,7 @@ module TTY
     #
     # @api public
     def advance(progress = 1, tokens = {})
-      handle_signals
+      #handle_signals
       return if @done
 
       if progress.respond_to?(:to_hash)
@@ -180,19 +180,16 @@ module TTY
 
     # Resize progress bar with new configuration
     #
+    # @param [Integer] new_width
+    #   the new width for the bar display
+    #
     # @api public
-    def resize(new_width)
+    def resize(new_width = nil)
       fail 'Cannot resize finished progress bar' if @done
-
+      clear_line
       if new_width
-        @configuration.no_width = false
-        @configuration.width    = new_width
-      else
-        @configuration.no_width = true
-        @configuration.width    = 0
+        self.width = new_width
       end
-
-      advance(0) # rerender with new configuration
     end
 
     # End the progress
@@ -280,32 +277,13 @@ module TTY
       message
     end
 
-    EXIT_SIGS = [:QUIT, :TERM, :INT]
-
     # Handle resize and kill signals
     #
     # @api private
-    def register_callbacks
-      @signals = []
-      trap(:WINCH) {
-        @signals << :winch
-      }
+    def register_signals
+      trap(:WINCH) { resize }
 
-      trap(:EXIT) {
-        @signals << :exit
-      }
-    end
-
-    def handle_signals
-      while signal = @signals.shift
-        case signal
-        when :winch
-          adjusted_width =  width < max_columns ? width : max_columns
-          send(:resize, adjusted_width)
-        when :exit
-          finish && fail(Interrupt)
-        end
-      end
+      trap(:INT)  { exit! }
     end
   end # ProgressBar
 end # TTY

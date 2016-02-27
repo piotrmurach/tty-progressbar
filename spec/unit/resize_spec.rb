@@ -1,7 +1,5 @@
 # coding: utf-8
 
-require 'spec_helper'
-
 RSpec.describe TTY::ProgressBar, '.resize' do
   let(:output) { StringIO.new('', 'w+') }
 
@@ -14,7 +12,7 @@ RSpec.describe TTY::ProgressBar, '.resize' do
     expect(output.read).to eq([
       "\e[1G[==        ]",
       "\e[1G[====      ]",
-      "\e[1G[==   ]",
+      "\e[0m\e[1000D\e[K",
       "\e[1G[===  ]",
       "\e[1G[==== ]",
       "\e[1G[=====]\n"
@@ -30,7 +28,7 @@ RSpec.describe TTY::ProgressBar, '.resize' do
     expect(output.read).to eq([
       "\e[1G[==        ]",
       "\e[1G[====      ]",
-      "\e[1G[========            ]",
+      "\e[0m\e[1000D\e[K",
       "\e[1G[============        ]",
       "\e[1G[================    ]",
       "\e[1G[====================]\n"
