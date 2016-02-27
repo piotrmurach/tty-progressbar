@@ -1,8 +1,6 @@
-# coding: utf-8
+# encoding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, 'current_byte' do
+RSpec.describe TTY::ProgressBar, ':current_byte token' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "displays bytes processed" do

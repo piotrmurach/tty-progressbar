@@ -1,4 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
 RSpec.describe TTY::ProgressBar, 'custom formatter' do
   let(:output) { StringIO.new('', 'w+') }

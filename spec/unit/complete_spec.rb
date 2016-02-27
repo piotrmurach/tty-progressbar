@@ -1,8 +1,6 @@
-# coding: utf-8
+# encoding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, '.complete?' do
+RSpec.describe TTY::ProgressBar, '#complete?' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "checks for completness" do

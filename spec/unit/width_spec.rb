@@ -1,8 +1,6 @@
 # coding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, 'width' do
+RSpec.describe TTY::ProgressBar, '#width' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "handles width exceeding terminal width" do

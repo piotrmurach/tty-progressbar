@@ -1,8 +1,6 @@
-# coding: utf-8
+# encoding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, 'current' do
+RSpec.describe TTY::ProgressBar, ':current token' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "displays current value" do

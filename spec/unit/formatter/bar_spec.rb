@@ -1,8 +1,6 @@
 # coding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, 'bar' do
+RSpec.describe TTY::ProgressBar, ':bar token' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "animates bar" do

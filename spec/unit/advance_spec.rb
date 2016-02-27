@@ -1,6 +1,6 @@
 # coding: utf-8
 
-RSpec.describe TTY::ProgressBar, '.advance' do
+RSpec.describe TTY::ProgressBar, '#advance' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "advances by custom value" do

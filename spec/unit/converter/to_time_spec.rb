@@ -1,8 +1,6 @@
-# coding: utf-8
+# encoding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar::Converter, '.to_time' do
+RSpec.describe TTY::ProgressBar::Converter, '#to_time' do
   subject(:converter) { described_class.new }
 
   it "converts seconds to seconds" do

@@ -1,8 +1,6 @@
-# coding: utf-8
+# encoding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar::Converter, '.to_seconds' do
+RSpec.describe TTY::ProgressBar::Converter, '#to_seconds' do
   subject(:converter) { described_class.new }
 
   it "ensure 5 digit precision for < 1" do

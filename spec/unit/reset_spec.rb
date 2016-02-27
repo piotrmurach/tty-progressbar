@@ -1,8 +1,6 @@
 # coding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, '.reset' do
+RSpec.describe TTY::ProgressBar, '#reset' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "resets current progress" do

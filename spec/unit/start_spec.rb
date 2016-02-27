@@ -1,8 +1,6 @@
 # coding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, '.start' do
+RSpec.describe TTY::ProgressBar, '#start' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "starts timer and draws initial progress" do

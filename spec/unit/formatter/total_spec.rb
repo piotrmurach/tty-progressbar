@@ -1,8 +1,6 @@
-# coding: utf-8
+# encoding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, 'total' do
+RSpec.describe TTY::ProgressBar, ':total token' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "displays bytes total" do

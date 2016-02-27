@@ -1,8 +1,6 @@
 # coding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, '.log' do
+RSpec.describe TTY::ProgressBar, '#log' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "logs message" do

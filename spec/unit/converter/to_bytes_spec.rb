@@ -1,8 +1,6 @@
-# coding: utf-8
+# encoding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar::Converter, '.to_bytes' do
+RSpec.describe TTY::ProgressBar::Converter, '#to_bytes' do
   subject(:converter) { described_class.new }
 
   it "converts 1000 to bytes" do

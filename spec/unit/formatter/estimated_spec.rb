@@ -1,8 +1,6 @@
-# coding: utf-8
+# encoding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, 'estimated' do
+RSpec.describe TTY::ProgressBar, ':eta token' do
   let(:output) { StringIO.new('', 'w+') }
 
   before { Timecop.safe_mode = false }

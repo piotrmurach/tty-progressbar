@@ -1,6 +1,6 @@
 # coding: utf-8
 
-RSpec.describe TTY::ProgressBar, '.ratio=' do
+RSpec.describe TTY::ProgressBar, '#ratio=' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "allows to set ratio" do

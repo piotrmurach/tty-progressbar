@@ -1,6 +1,6 @@
 # coding: utf-8
 
-RSpec.describe TTY::ProgressBar, '.resize' do
+RSpec.describe TTY::ProgressBar, '#resize' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "resizes output down by x2" do

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-RSpec.describe TTY::ProgressBar::Meter, '.rate' do
+RSpec.describe TTY::ProgressBar::Meter, '#rate' do
 
   before { Timecop.safe_mode = false }
 

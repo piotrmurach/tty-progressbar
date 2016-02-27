@@ -1,6 +1,6 @@
-# coding: utf-8
+# encoding: utf-8
 
-RSpec.describe TTY::ProgressBar, '#rate' do
+RSpec.describe TTY::ProgressBar, ':rate token' do
   let(:output) { StringIO.new('', 'w+') }
 
   before { Timecop.safe_mode = false }

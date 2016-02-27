@@ -1,8 +1,6 @@
 # coding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar::Pipeline, '.decorate' do
+RSpec.describe TTY::ProgressBar::Pipeline, '#decorate' do
   subject(:pipeline) { described_class.new }
 
   it "decorates tokenized string with pipeline formatters" do

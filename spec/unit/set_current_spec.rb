@@ -1,8 +1,6 @@
 # coding: utf-8
 
-require 'spec_helper'
-
-RSpec.describe TTY::ProgressBar, 'current=' do
+RSpec.describe TTY::ProgressBar, '#current=' do
   let(:output) { StringIO.new('', 'w+') }
 
   it "allows to go back" do
