@@ -1,5 +1,9 @@
 # Change log
 
+## [v0.8.1] - 2016-02-27
+
+* Fix the progressbar resizing call, help from @squarism
+
 ## [v0.8.0] - 2016-02-07
 
 ### Changed
