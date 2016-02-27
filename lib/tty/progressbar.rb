@@ -94,6 +94,7 @@ module TTY
     #
     # @api public
     def advance(progress = 1, tokens = {})
+      handle_signals
       return if @done
 
       if progress.respond_to?(:to_hash)
@@ -285,14 +286,25 @@ module TTY
     #
     # @api private
     def register_callbacks
-      callback = proc do
-        adjusted_width =  width < max_columns ? width : max_columns
-        send(:resize, adjusted_width)
-      end
-      Signal.trap('WINCH', &callback)
+      @signals = []
+      trap(:WINCH) {
+        @signals << :winch
+      }
 
-      EXIT_SIGS.each do |sig|
-        Signal.trap(sig) { finish && fail(Interrupt) }
+      trap(:EXIT) {
+        @signals << :exit
+      }
+    end
+
+    def handle_signals
+      while signal = @signals.shift
+        case signal
+        when :winch
+          adjusted_width =  width < max_columns ? width : max_columns
+          send(:resize, adjusted_width)
+        when :exit
+          finish && fail(Interrupt)
+        end
       end
     end
   end # ProgressBar
