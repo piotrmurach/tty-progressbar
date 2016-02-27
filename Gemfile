@@ -7,7 +7,7 @@ group :test do
   gem 'yard',    '~> 0.8.7'
   gem 'timecop', '~> 0.7.1'
   gem 'pastel',  '~> 0.6.0'
-  gem 'codeclimate-test-reporter', require: nil
+  gem 'codeclimate-test-reporter'
   gem 'simplecov', '~> 0.11.2'
 end
 
