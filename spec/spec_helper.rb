@@ -4,17 +4,6 @@ if RUBY_VERSION > '1.9' and (ENV['COVERAGE'] || ENV['TRAVIS'])
   require 'simplecov'
   require 'codeclimate-test-reporter'
 
-  module CodeClimate
-    module TestReporter
-      class Formatter
-        def format(result)
-          puts('formatter run!!!')
-          super(result)
-        end
-      end
-    end
-  end
-
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
     SimpleCov::Formatter::HTMLFormatter,
     CodeClimate::TestReporter::Formatter
