@@ -2,11 +2,11 @@
 
 if RUBY_VERSION > '1.9' and (ENV['COVERAGE'] || ENV['TRAVIS'])
   require 'simplecov'
-  require 'coveralls'
+  require "codeclimate-test-reporter"
+  CodeClimate::TestReporter.start
 
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-    SimpleCov::Formatter::HTMLFormatter,
-    Coveralls::SimpleCov::Formatter
+    SimpleCov::Formatter::HTMLFormatter
   ]
 
   SimpleCov.start do
