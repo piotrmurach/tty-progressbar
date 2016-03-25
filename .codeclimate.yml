@@ -1,3 +1,7 @@
+---
+engines:
+  fixme:
+    enabled: true
 ratings:
   paths:
     - lib/**/*.rb
