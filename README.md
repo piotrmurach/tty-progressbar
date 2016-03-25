@@ -1,18 +1,18 @@
 # TTY::ProgressBar
 [![Gem Version](https://badge.fury.io/rb/tty-progressbar.svg)][gem]
-[![Build Status](https://secure.travis-ci.org/peter-murach/tty-progressbar.svg?branch=master)][travis]
-[![Code Climate](https://codeclimate.com/github/peter-murach/tty-progressbar/badges/gpa.svg)][codeclimate]
-[![Coverage Status](https://codeclimate.com/github/peter-murach/tty-progressbar/badges/coverage.svg)][codeclimate]
-[![Inline docs](http://inch-ci.org/github/peter-murach/tty-progressbar.svg?branch=master)][inchpages]
+[![Build Status](https://secure.travis-ci.org/piotrmurach/tty-progressbar.svg?branch=master)][travis]
+[![Code Climate](https://codeclimate.com/github/piotrmurach/tty-progressbar/badges/gpa.svg)][codeclimate]
+[![Coverage Status](https://codeclimate.com/github/piotrmurach/tty-progressbar/badges/coverage.svg)][codeclimate]
+[![Inline docs](http://inch-ci.org/github/piotrmurach/tty-progressbar.svg?branch=master)][inchpages]
 
 [gem]: http://badge.fury.io/rb/tty-progressbar
-[travis]: http://travis-ci.org/peter-murach/tty-progressbar
-[codeclimate]: https://codeclimate.com/github/peter-murach/tty-progressbar
-[inchpages]: http://inch-ci.org/github/peter-murach/tty-progressbar
+[travis]: http://travis-ci.org/piotrmurach/tty-progressbar
+[codeclimate]: https://codeclimate.com/github/piotrmurach/tty-progressbar
+[inchpages]: http://inch-ci.org/github/piotrmurach/tty-progressbar
 
 > A flexible progress bars drawing in terminal emulators.
 
-**TTY::ProgressBar** provides independent progress bars component for [TTY](https://github.com/peter-murach/tty) toolkit.
+**TTY::ProgressBar** provides independent progress bars component for [TTY](https://github.com/piotrmurach/tty) toolkit.
 
 ## Features
 
@@ -319,7 +319,7 @@ This section demonstrates some of the possible uses for the **TTY::ProgressBar**
 
 ### 5.1 Colors
 
-Creating a progress bar that displays in color is as simple as coloring the `:complete` and `:incomplete` character options. In order to help with coloring you can use [pastel](https://github.com/peter-murach/pastel) library like so:
+Creating a progress bar that displays in color is as simple as coloring the `:complete` and `:incomplete` character options. In order to help with coloring you can use [pastel](https://github.com/piotrmurach/pastel) library like so:
 
 ```ruby
 require 'pastel'
@@ -367,7 +367,7 @@ downloading [=======================       ] 4.12MB/s
 
 ## Contributing
 
-1. Fork it ( https://github.com/peter-murach/tty-progressbar/fork )
+1. Fork it ( https://github.com/piotrmurach/tty-progressbar/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
