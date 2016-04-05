@@ -185,7 +185,7 @@ module TTY
     #
     # @api public
     def resize(new_width = nil)
-      fail 'Cannot resize finished progress bar' if @done
+      return if @done
       clear_line
       if new_width
         self.width = new_width
