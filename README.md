@@ -2,12 +2,13 @@
 [![Gem Version](https://badge.fury.io/rb/tty-progressbar.svg)][gem]
 [![Build Status](https://secure.travis-ci.org/piotrmurach/tty-progressbar.svg?branch=master)][travis]
 [![Code Climate](https://codeclimate.com/github/piotrmurach/tty-progressbar/badges/gpa.svg)][codeclimate]
-[![Coverage Status](https://codeclimate.com/github/piotrmurach/tty-progressbar/badges/coverage.svg)][codeclimate]
+[![Coverage Status](https://codeclimate.com/repos/github/piotrmurach/tty-progressbar/badges/coverage.svg)][coverage]
 [![Inline docs](http://inch-ci.org/github/piotrmurach/tty-progressbar.svg?branch=master)][inchpages]
 
 [gem]: http://badge.fury.io/rb/tty-progressbar
 [travis]: http://travis-ci.org/piotrmurach/tty-progressbar
 [codeclimate]: https://codeclimate.com/github/piotrmurach/tty-progressbar
+[coverage]: https://coveralls.io/github/piotrmurach/tty-progressbar
 [inchpages]: http://inch-ci.org/github/piotrmurach/tty-progressbar
 
 > A flexible progress bars drawing in terminal emulators.
