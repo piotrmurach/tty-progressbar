@@ -1,6 +1,6 @@
 # Change log
 
-## [v0.8.2] - 2016-04-09
+## [v0.9.0] - 2016-04-09
 
 ### Fixed
 * Fix #resize to stop raising error when finished
