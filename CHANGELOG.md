@@ -1,9 +1,12 @@
 # Change log
 
-## [v0.8.2] - 2016-04-05
+## [v0.8.2] - 2016-04-09
 
 ### Fixed
 * Fix #resize to stop raising error when finished
+
+### Changed
+* Remove #register_signals and leave the choice on how exit and resize are handled to developer
 
 ## [v0.8.1] - 2016-02-27
 
