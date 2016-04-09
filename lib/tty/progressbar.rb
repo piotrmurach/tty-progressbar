@@ -74,7 +74,6 @@ module TTY
       @meter             = Meter.new(options.fetch(:interval, 1))
 
       @formatter.load
-      register_signals
     end
 
     # Start progression by drawing bar and setting time
@@ -300,15 +299,6 @@ module TTY
         message += ' ' * remaining_width
       end
       message
-    end
-
-    # Handle resize and kill signals
-    #
-    # @api private
-    def register_signals
-      trap(:WINCH) { resize }
-
-      trap(:INT)  { exit! }
     end
   end # ProgressBar
 end # TTY
