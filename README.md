@@ -161,10 +161,17 @@ bar.reset
 
 ### 1.9 resize
 
-If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length:
+If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length. However, if you don't provide any width the `resize` will use terminal current width as its base for scaling.
 
 ```ruby
+bar.resize      # => determine terminal width and scale accordingly
 bar.resize(50)  # => will resize bar proportionately from this point onwards
+```
+
+To handle automatic resizing you can trap `:WINCH` signal:
+
+```ruby
+trap(:WINCH) { bar.resize }
 ```
 
 ## 2. Configuration
