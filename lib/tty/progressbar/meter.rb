@@ -14,32 +14,40 @@ module TTY
       #
       # @api private
       def initialize(interval)
-        @samples  = Hash.new { |h, el| h[el] = [] }
         @interval = interval || 1 # 1 sec
-        @marker   = 0
-
-        @start_time     = Time.now.to_f
-        @last_sample_at = @start_time
+        start
       end
 
       # Start sampling timer
       #
       # @api public
       def start
-        @start_time     = Time.now.to_f
-        @last_sample_at = @start_time
+        @start_time = Time.now
+        @current    = 0
+        @samples    = [[@start_time, 0]]
+        @rates      = Array.new
+        @start_time
       end
 
       # Update meter with value
       #
       # @api public
       def sample(at, value)
-        if @interval < (at.to_f - @last_sample_at)
-          @marker += 1
-        end
-        @samples[@marker] << value
+        @current += value
 
-        @last_sample_at = at.to_f
+        # Remove samples that are obsolete and add the new one
+        cutoff = at - @interval
+        while @samples.size > 1 && (@samples.first.first < cutoff)
+          @samples.shift
+        end
+        @samples << [at, @current]
+
+        # If we crossed a period boundary since @start_time, save the rate for
+        # {#rates}
+        period_index = ((at - @start_time) / @interval).floor
+        while period_index > @rates.size
+          @rates << rate
+        end
       end
 
       # The current rate of sampling for a given interval
@@ -49,18 +57,20 @@ module TTY
       #
       # @api public
       def rate
-        samples = @samples[@marker]
-        result = samples.inject(:+).to_f / samples.size
-        result.nan? ? 0 : result
+        first_at, first_value = @samples.first
+        last_at,  last_value  = @samples.last
+        if first_at == last_at
+          0
+        else
+          (last_value - first_value) / (last_at - first_at)
+        end
       end
 
       # Group all rates per interval
       #
       # @api public
       def rates
-        @samples.reduce([]) do |acc, (key, _)|
-          acc << @samples[key].reduce(:+)
-        end
+        @rates + [rate]
       end
 
       # The mean rate of all the sampled rates
@@ -70,10 +80,11 @@ module TTY
       #
       # @api public
       def mean_rate
-        if rates.size == 1
-          rate
+        last_at, last_value = @samples.last
+        if last_at == @start_time
+          0
         else
-          rates.reduce(:+).to_f / rates.size
+          last_value / (last_at - @start_time)
         end
       end
       alias_method :avg_rate, :mean_rate
@@ -82,8 +93,7 @@ module TTY
       #
       # @api public
       def clear
-        @marker = 0
-        @samples.clear
+        start
       end
     end # Meter
   end # ProgressBar
