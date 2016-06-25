@@ -25,11 +25,14 @@ module TTY
         @start_time = Time.now
         @current    = 0
         @samples    = [[@start_time, 0]]
-        @rates      = Array.new
+        @rates      = []
         @start_time
       end
 
       # Update meter with value
+      #
+      # @param [Time] at
+      # @param [Integer] value
       #
       # @api public
       def sample(at, value)
