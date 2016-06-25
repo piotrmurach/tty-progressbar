@@ -6,6 +6,27 @@ RSpec.describe TTY::ProgressBar::Meter, '#rate' do
 
   after { Timecop.return }
 
+  it "measures with no samples" do
+    meter = TTY::ProgressBar::Meter.new(1)
+
+    meter.start
+
+    expect(meter.rate).to eq(0)
+    expect(meter.mean_rate).to eq(0)
+  end
+
+  it "measures with a single sample" do
+    meter = TTY::ProgressBar::Meter.new(1)
+    start_time = Time.at(10, 0)
+    Timecop.freeze(start_time)
+    meter.start
+
+    meter.sample(Time.at(10, 100_000), 10)
+
+    expect(meter.rate).to eq(100)
+    expect(meter.mean_rate).to eq(100)
+  end
+
   it "measures rate per second" do
     meter = TTY::ProgressBar::Meter.new(1)
     start_time = Time.at(10, 0)
@@ -40,8 +61,7 @@ RSpec.describe TTY::ProgressBar::Meter, '#rate' do
     Timecop.freeze(start_time)
     meter.start
 
-    time_now = Time.local(2014, 10, 5, 12, 0, 0, 100)
-    meter.sample start_time + 1, 1000
+    meter.sample(start_time + 1, 1000)
     expect(meter.rates).to eq([1000, 1000])
     expect(meter.rate).to eq(1000)
 

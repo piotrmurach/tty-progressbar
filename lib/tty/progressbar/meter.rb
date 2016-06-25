@@ -32,21 +32,34 @@ module TTY
       # Update meter with value
       #
       # @param [Time] at
+      #   the time of the sampling
+      #
       # @param [Integer] value
+      #   the current value of progress
       #
       # @api public
       def sample(at, value)
         @current += value
+        prune_samples(at)
+        @samples << [at, @current]
+        save_rate(at)
+      end
 
-        # Remove samples that are obsolete and add the new one
+      # Remove samples that are obsolete
+      #
+      # @api private
+      def prune_samples(at)
         cutoff = at - @interval
         while @samples.size > 1 && (@samples.first.first < cutoff)
           @samples.shift
         end
-        @samples << [at, @current]
+      end
 
-        # If we crossed a period boundary since @start_time, save the rate for
-        # {#rates}
+      # If we crossed a period boundary since @start_time,
+      # save the rate for {#rates}
+      #
+      # @api private
+      def save_rate(at)
         period_index = ((at - @start_time) / @interval).floor
         while period_index > @rates.size
           @rates << rate
