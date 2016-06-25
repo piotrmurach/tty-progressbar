@@ -1,5 +1,10 @@
 # Change log
 
+## [v0.10.0] - 2016-06-25
+
+### Fixed
+* Fix Meter#sample to accurately calculate rate and mean_rate by Sylvain Joyeux
+
 ## [v0.9.0] - 2016-04-09
 
 ### Fixed
@@ -85,6 +90,7 @@
 
 * Initial implementation and release
 
+[v0.10.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.9.0...v0.10.0
 [v0.9.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.8.2...v0.9.0
 [v0.8.2]: https://github.com/peter-murach/tty-progressbar/compare/v0.8.1...v0.8.2
 [v0.8.1]: https://github.com/peter-murach/tty-progressbar/compare/v0.8.0...v0.8.1
