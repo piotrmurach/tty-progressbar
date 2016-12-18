@@ -9,6 +9,7 @@ group :test do
   gem 'pastel',  '~> 0.6.0'
   gem 'coveralls', '~> 0.8.13'
   gem 'simplecov', '~> 0.11.2'
+  gem 'term-ansicolor', '=1.3.2'
 end
 
 group :metrics do
