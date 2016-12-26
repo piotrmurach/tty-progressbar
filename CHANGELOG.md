@@ -1,5 +1,10 @@
 # Change log
 
+## [v0.10.1] - 2016-12-26
+
+### Fixed
+* Fix redefinition of Configuration#total=
+
 ## [v0.10.0] - 2016-06-25
 
 ### Fixed
@@ -90,6 +95,7 @@
 
 * Initial implementation and release
 
+[v0.10.1]: https://github.com/peter-murach/tty-progressbar/compare/v0.10.0...v0.10.1
 [v0.10.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.9.0...v0.10.0
 [v0.9.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.8.2...v0.9.0
 [v0.8.2]: https://github.com/peter-murach/tty-progressbar/compare/v0.8.1...v0.8.2
