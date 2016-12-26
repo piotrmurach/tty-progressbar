@@ -4,7 +4,7 @@ module TTY
   class ProgressBar
     class Configuration
 
-      attr_accessor :total
+      attr_reader :total
 
       attr_accessor :width
 
