@@ -1,5 +1,18 @@
 # Change log
 
+## [v0.11.0] - 2017-04-04
+
+### Added
+* Add :decimals, :separator, :unit_separator to Converter#to_bytes
+* Add ability to Converter#to_bytes to calculate higher sizes TB, PB & EB
+
+### Changed
+* Change files loading
+* Change Converter to be a module
+
+### Fixed
+* Fix :byte_rate token to correctly format bytes
+
 ## [v0.10.1] - 2016-12-26
 
 ### Fixed
@@ -95,6 +108,7 @@
 
 * Initial implementation and release
 
+[v0.11.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.10.1...v0.11.0
 [v0.10.1]: https://github.com/peter-murach/tty-progressbar/compare/v0.10.0...v0.10.1
 [v0.10.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.9.0...v0.10.0
 [v0.9.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.8.2...v0.9.0
