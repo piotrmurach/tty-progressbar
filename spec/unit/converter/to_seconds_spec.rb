@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 RSpec.describe TTY::ProgressBar::Converter, '#to_seconds' do
-  subject(:converter) { described_class.new }
+  subject(:converter) { described_class }
 
   it "ensure 5 digit precision for < 1" do
     expect(converter.to_seconds(0.000005)).to eq("0.00001")

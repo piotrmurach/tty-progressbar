@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 RSpec.describe TTY::ProgressBar::Converter, '#to_bytes' do
-  subject(:converter) { described_class.new }
+  subject(:converter) { described_class }
 
   it "converts 1000 to bytes" do
     expect(converter.to_bytes(1000)).to eq('1000B')

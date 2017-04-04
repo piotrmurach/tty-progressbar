@@ -5,7 +5,7 @@ module TTY
     # Responsible for converting values to different formats
     #
     # @api public
-    class Converter
+    module Converter
       HOURSECONDS = 3600
 
       # Convert seconds to time notation
@@ -30,6 +30,7 @@ module TTY
           sprintf('%2ds', seconds)
         end
       end
+      module_function :to_time
 
       # Convert seconds to set precision
       #
@@ -44,6 +45,7 @@ module TTY
         precision ||= (seconds < 1 && !seconds.zero?) ? 5 : 2
         sprintf "%5.#{precision}f", seconds
       end
+      module_function :to_seconds
 
       KILOBYTE = 1024
       MEGABYTE = KILOBYTE * 1024
@@ -68,6 +70,7 @@ module TTY
           value.to_s + 'B'
         end
       end
+      module_function :to_bytes
     end # Converter
   end # ProgressBar
 end # TTY

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 RSpec.describe TTY::ProgressBar::Converter, '#to_time' do
-  subject(:converter) { described_class.new }
+  subject(:converter) { described_class }
 
   it "converts seconds to seconds" do
     expect(converter.to_time(15)).to eq("15s")
