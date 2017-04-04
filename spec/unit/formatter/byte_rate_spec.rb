@@ -24,8 +24,8 @@ RSpec.describe TTY::ProgressBar, ':byte_rate token' do
     output.rewind
     expect(output.read).to eq([
       "\e[1G0B",
-      "\e[1G500.0B",
-      "\e[1G1000.0B",
+      "\e[1G500B",
+      "\e[1G1000B",
       "\e[1G1.46KB",
       "\e[1G1.95KB\n"
     ].join)

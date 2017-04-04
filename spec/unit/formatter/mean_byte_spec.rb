@@ -24,9 +24,9 @@ RSpec.describe TTY::ProgressBar, ':mean_byte token' do
     output.rewind
     expect(output.read).to eq([
       "\e[1G0B",
-      "\e[1G500.0B",
-      "\e[1G750.0B",
-      "\e[1G1000.0B",
+      "\e[1G500B",
+      "\e[1G750B",
+      "\e[1G1000B",
       "\e[1G1.22KB\n"
     ].join)
     Timecop.return
