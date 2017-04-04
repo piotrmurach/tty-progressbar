@@ -1,5 +1,14 @@
 # coding: utf-8
 
+require 'io/console'
+require 'forwardable'
+require 'tty-screen'
+
+require_relative 'progressbar/configuration'
+require_relative 'progressbar/formatter'
+require_relative 'progressbar/meter'
+require_relative 'progressbar/version'
+
 module TTY
   # Used for creating terminal progress bar
   #
@@ -57,7 +66,7 @@ module TTY
     # @api public
     def initialize(format, options = {})
       @format        = format
-      @configuration = Configuration.new(options)
+      @configuration = TTY::ProgressBar::Configuration.new(options)
       yield @configuration if block_given?
 
       @width             = 0 if no_width
@@ -71,7 +80,7 @@ module TTY
       @started           = false
       @tokens            = {}
       @formatter         = TTY::ProgressBar::Formatter.new
-      @meter             = Meter.new(options.fetch(:interval, 1))
+      @meter             = TTY::ProgressBar::Meter.new(options.fetch(:interval, 1))
 
       @formatter.load
     end

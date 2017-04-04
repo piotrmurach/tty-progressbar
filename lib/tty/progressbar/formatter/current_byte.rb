@@ -1,5 +1,7 @@
 # coding: utf-8
 
+require_relative '../converter'
+
 module TTY
   class ProgressBar
     # Used by {Pipeline} to format :byte and :current_byte tokens
