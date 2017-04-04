@@ -47,28 +47,41 @@ module TTY
       end
       module_function :to_seconds
 
-      KILOBYTE = 1024
-      MEGABYTE = KILOBYTE * 1024
-      GIGABYTE = MEGABYTE * 1024
+      BYTE_UNITS = %w(b kb mb gb tb pb eb).freeze
 
       # Convert value to bytes
       #
       # @param [Numeric] value
       #   the value to convert to bytes
+      # @param [Hash[Symbol]] options
+      # @option [Integer] :decimals
+      #   the number of decimals parts
+      # @option [String] :separator
+      #   the separator to use for thousands in a number
+      # @option [String] :unit_separator
+      #   the separtor to use between number and unit
       #
       # @return [String]
       #
       # @api public
-      def to_bytes(value)
-        if value >= GIGABYTE
-          sprintf('%.2f', value / GIGABYTE.to_f) + 'GB'
-        elsif value >= MEGABYTE
-          sprintf('%.2f', value / MEGABYTE.to_f) + 'MB'
-        elsif value >= KILOBYTE
-          sprintf('%.2f', value / KILOBYTE.to_f) + 'KB'
+      def to_bytes(value, options = {})
+        decimals       = options.fetch(:decimals) { 2 }
+        separator      = options.fetch(:separator) { '.' }
+        unit_separator = options.fetch(:unit_separator) { '' }
+
+        base    = 1024
+        pattern = "%.#{decimals}f"
+
+        unit = BYTE_UNITS.find.with_index { |_, i| value < base ** (i + 1) }
+
+        if value < base
+          formatted_value = value.to_i.to_s
         else
-          value.to_s + 'B'
+          value_to_size = value / (base ** BYTE_UNITS.index(unit)).to_f
+          formatted_value = format(pattern, value_to_size)
         end
+
+        formatted_value.gsub(/\./, separator) + unit_separator + unit.to_s.upcase
       end
       module_function :to_bytes
     end # Converter
