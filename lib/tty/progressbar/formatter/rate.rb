@@ -12,7 +12,6 @@ module TTY
 
       def initialize(progress)
         @progress  = progress
-        @converter = Converter.new
       end
 
       # Determines whether this formatter is applied or not.
@@ -33,7 +32,7 @@ module TTY
       #
       # @api public
       def format(value)
-        formatted = @converter.to_seconds(@progress.rate)
+        formatted = Converter.to_seconds(@progress.rate)
         value.gsub(MATCHER, formatted)
       end
     end # RateFormatter

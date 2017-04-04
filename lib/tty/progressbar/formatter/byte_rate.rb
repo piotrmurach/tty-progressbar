@@ -11,8 +11,7 @@ module TTY
       MATCHER = /:byte_rate/i
 
       def initialize(progress)
-        @progress  = progress
-        @converter = Converter.new
+        @progress = progress
       end
 
       # Determines whether this formatter is applied or not.
@@ -33,7 +32,7 @@ module TTY
       #
       # @api public
       def format(value)
-        formatted = @converter.to_bytes(@progress.rate)
+        formatted = Converter.to_bytes(@progress.rate)
         value.gsub(MATCHER, formatted)
       end
     end # ByteRateFormatter

@@ -12,7 +12,6 @@ module TTY
 
       def initialize(progress)
         @progress  = progress
-        @converter = Converter.new
       end
 
       # Determines whether this formatter is applied or not.
@@ -28,7 +27,7 @@ module TTY
 
       def format(value)
         elapsed = (Time.now - @progress.start_at)
-        value.gsub(MATCHER, @converter.to_time(elapsed))
+        value.gsub(MATCHER, Converter.to_time(elapsed))
       end
     end # ElapsedFormatter
   end # ProgressBar

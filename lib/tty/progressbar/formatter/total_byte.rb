@@ -12,7 +12,6 @@ module TTY
 
       def initialize(progress, *args, &block)
         @progress = progress
-        @converter = Converter.new
       end
 
       # Determines whether this formatter is applied or not.
@@ -27,7 +26,7 @@ module TTY
       end
 
       def format(value)
-        bytes = @converter.to_bytes(@progress.total)
+        bytes = Converter.to_bytes(@progress.total)
         value.gsub(MATCHER, bytes)
       end
     end # TotalByteFormatter
