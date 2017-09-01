@@ -49,10 +49,11 @@ Or install it yourself as:
   * [1.3 ratio=](#13-ratio)
   * [1.4 width=](#14-width)
   * [1.5 start](#15-start)
-  * [1.6 finish](#16-finish)
-  * [1.7 complete?](#17-complete)
-  * [1.8 reset](#18-reset)
-  * [1.9 resize](#19-resize)
+  * [1.6 update](#16-update)
+  * [1.7 finish](#17-finish)
+  * [1.8 complete?](#18-complete)
+  * [1.9 reset](#19-reset)
+  * [1.10 resize](#110-resize)
 * [2. Configuration](#2-configuration)
   * [2.1 :head](#21-head)
   * [2.2 :frequency](#22-interval)
@@ -139,7 +140,15 @@ By default the timer for internal time esitamation is started automatically when
 bar.start  # => sets timer and draws initial progress bar
 ```
 
-### 1.6 finish
+### 1.6 update
+
+Once the progress bar has been started you can change its configuration option(s) by calling `update`:
+
+```bar
+bar.update(complete: '+', frequency: 10)
+```
+
+### 1.7 finish
 
 In order to immediately stop and finish the progress call `finish`. This will finish drawing the progress and return to new line.
 
@@ -147,7 +156,7 @@ In order to immediately stop and finish the progress call `finish`. This will fi
 bar.finish
 ```
 
-### 1.7 complete?
+### 1.8 complete?
 
 During progresion you can check if bar is finished or not by calling `complete?`.
 
@@ -155,7 +164,7 @@ During progresion you can check if bar is finished or not by calling `complete?`
 bar.complete? # => false
 ```
 
-### 1.8 reset
+### 1.9 reset
 
 In order to reset currently running or finished progress bar to its original configuration and initial position use `reset` like so:
 
@@ -163,7 +172,7 @@ In order to reset currently running or finished progress bar to its original con
 bar.reset
 ```
 
-### 1.9 resize
+### 1.10 resize
 
 If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length. However, if you don't provide any width the `resize` will use terminal current width as its base for scaling.
 
