@@ -88,12 +88,6 @@ module TTY
       @formatter.load
     end
 
-    def update(options = {})
-      options.each do |name, val|
-        @configuration.public_send("#{name}=", val)
-      end
-    end
-
     # Start progression by drawing bar and setting time
     #
     # @api public
@@ -131,6 +125,20 @@ module TTY
         now = Time.now
         return if (now - @last_render_time) < @render_period
         render
+      end
+    end
+
+    # Update configuration options for this bar
+    #
+    # @param [Hash[Symbol]] options
+    #   the configuration options to update
+    #
+    # @api public
+    def update(options = {})
+      synchronize do
+        options.each do |name, val|
+          @configuration.public_send("#{name}=", val)
+        end
       end
     end
 
