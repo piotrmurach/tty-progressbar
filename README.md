@@ -181,15 +181,16 @@ trap(:WINCH) { bar.resize }
 
 There are number of configuration options that can be provided:
 
-* `total` total number of steps to completion
-* `width` of the bars display in terminal columns excluding formatting options. Defaults to total steps
-* `complete` completion character by default `=`
-* `incomplete` incomplete character by default single space
-* `output` the output stream defaulting to `stderr`
-* `frequency` used to throttle the output, by default `0` (see [Frequency](#21-frequency))
-* `interval` used to measure the speed, by default `1 sec` (see [Interval](#22-interval))
-* `hide_cursor` to hide display cursor defaulting to `false`
-* `clear` to clear the finished bar defaulting to `false`
+* `:total` total number of steps to completion
+* `:width` of the bars display in terminal columns excluding formatting options. Defaults to total steps
+* `:complete` completion character by default `=`
+* `:incomplete` incomplete character by default single space
+* `[:head](#21-head)` the head character by default `=`
+* `:output` the output stream defaulting to `stderr`
+* `:frequency` used to throttle the output, by default `0` (see [Frequency](#21-frequency))
+* `:interval` used to measure the speed, by default `1 sec` (see [Interval](#22-interval))
+* `:hide_cursor` to hide display cursor defaulting to `false`
+* `:clear` to clear the finished bar defaulting to `false`
 
 All the above options can be passed in as hash options or block parameters:
 
@@ -199,6 +200,16 @@ TTY::ProgressBar.new "[:bar]" do |config|
   config.frequency = 10
   config.clear = true
 end
+```
+
+### 2.1 Head
+
+If you prefer for the animated bar to display a specific character for a head of progression then use `:head` option:
+
+```ruby
+bar = TTY::ProressBar.new("[:bar]", head: '>')
+# =>
+[=======>      ]
 ```
 
 ### 2.1 Frequency
