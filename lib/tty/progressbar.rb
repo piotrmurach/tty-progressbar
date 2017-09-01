@@ -88,6 +88,12 @@ module TTY
       @formatter.load
     end
 
+    def update(options = {})
+      options.each do |name, val|
+        @configuration.public_send("#{name}=", val)
+      end
+    end
+
     # Start progression by drawing bar and setting time
     #
     # @api public
@@ -295,14 +301,15 @@ module TTY
     #
     # @api public
     def inspect
-      output = "#<#{self.class.name} "
-      output << "@format=\"#{format}\", "
-      output << "@current=\"#{@current}\", "
-      output << "@total=\"#{total}\", "
-      output << "@width=\"#{width}\", "
-      output << "@complete=\"#{complete}\", "
-      output << "@incomplete=\"#{incomplete}\", "
-      output << "@interval=\"#{interval}\">"
+      "#<#{self.class.name} " \
+      "@format=\"#{format}\", " \
+      "@current=\"#{@current}\", " \
+      "@total=\"#{total}\", " \
+      "@width=\"#{width}\", " \
+      "@complete=\"#{complete}\", " \
+      "@head=\"#{head}\", " \
+      "@incomplete=\"#{incomplete}\", " \
+      "@interval=\"#{interval}\">"
     end
 
     private
