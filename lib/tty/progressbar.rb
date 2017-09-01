@@ -1,7 +1,9 @@
-# coding: utf-8
+# encoding: utf-8
+# frozen_string_literal: true
 
 require 'io/console'
 require 'forwardable'
+require 'monitor'
 require 'tty-screen'
 
 require_relative 'progressbar/configuration'
@@ -15,6 +17,7 @@ module TTY
   # @api public
   class ProgressBar
     extend Forwardable
+    include MonitorMixin
 
     ECMA_ESC = "\e".freeze
     ECMA_CSI = "\e[".freeze
@@ -65,6 +68,7 @@ module TTY
     #
     # @api public
     def initialize(format, options = {})
+      super()
       @format        = format
       @configuration = TTY::ProgressBar::Configuration.new(options)
       yield @configuration if block_given?
@@ -88,9 +92,11 @@ module TTY
     #
     # @api public
     def start
-      @started  = true
-      @start_at = Time.now
-      @meter.start
+      synchronize do
+        @started  = true
+        @start_at = Time.now
+        @meter.start
+      end
 
       advance(0)
     end
@@ -101,24 +107,25 @@ module TTY
     #
     # @api public
     def advance(progress = 1, tokens = {})
-      #handle_signals
       return if @done
 
-      if progress.respond_to?(:to_hash)
-        tokens, progress = progress, 1
-      end
-      @start_at  = Time.now if @current.zero? && !@started
-      @current  += progress
-      @tokens    = tokens
-      @meter.sample(Time.now, progress)
+      synchronize do
+        if progress.respond_to?(:to_hash)
+          tokens, progress = progress, 1
+        end
+        @start_at  = Time.now if @current.zero? && !@started
+        @current  += progress
+        @tokens    = tokens
+        @meter.sample(Time.now, progress)
 
-      if !no_width && @current >= total
-        finish && return
-      end
+        if !no_width && @current >= total
+          finish && return
+        end
 
-      now = Time.now
-      return if (now - @last_render_time) < @render_period
-      render
+        now = Time.now
+        return if (now - @last_render_time) < @render_period
+        render
+      end
     end
 
     # Advance the progress bar to the updated value
@@ -150,8 +157,10 @@ module TTY
     #
     # @api public
     def ratio
-      proportion = total > 0 ? (@current.to_f / total) : 0
-      [[proportion, 0].max, 1].min
+      synchronize do
+        proportion = total > 0 ? (@current.to_f / total) : 0
+        [[proportion, 0].max, 1].min
+      end
     end
 
     # Render progress to the output
@@ -192,9 +201,11 @@ module TTY
     # @api public
     def resize(new_width = nil)
       return if @done
-      clear_line
-      if new_width
-        self.width = new_width
+      synchronize do
+        clear_line
+        if new_width
+          self.width = new_width
+        end
       end
     end
 
