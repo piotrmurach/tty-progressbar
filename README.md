@@ -51,9 +51,10 @@ Or install it yourself as:
   * [1.5 start](#15-start)
   * [1.6 update](#16-update)
   * [1.7 finish](#17-finish)
-  * [1.8 complete?](#18-complete)
+  * [1.8 stop](#18-stop)
   * [1.9 reset](#19-reset)
-  * [1.10 resize](#110-resize)
+  * [1.10 complete?](#110-complete)
+  * [1.11 resize](#111-resize)
 * [2. Configuration](#2-configuration)
   * [2.1 :head](#21-head)
   * [2.2 :frequency](#22-interval)
@@ -156,12 +157,12 @@ In order to immediately stop and finish the progress call `finish`. This will fi
 bar.finish
 ```
 
-### 1.8 complete?
+### 1.8 stop
 
-During progresion you can check if bar is finished or not by calling `complete?`.
+In order to immediately stop the bar in the current position and thus finish any further progress use `stop`:
 
 ```ruby
-bar.complete? # => false
+bar.stop
 ```
 
 ### 1.9 reset
@@ -174,7 +175,15 @@ bar.reset
 
 After resetting the bar if you wish to draw and start the bar and its timers use `start` call.
 
-### 1.10 resize
+### 1.10 complete?
+
+During progresion you can check if a bar is finished or not by calling `complete?`. The bar will only return `true` if the progression finished successfuly, otherwise `false` will be returned.
+
+```ruby
+bar.complete? # => false
+```
+
+### 1.11 resize
 
 If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length. However, if you don't provide any width the `resize` will use terminal current width as its base for scaling.
 
