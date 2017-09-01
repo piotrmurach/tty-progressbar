@@ -15,4 +15,17 @@ RSpec.describe TTY::ProgressBar, ':head' do
       "\e[1G[====>]\n"
     ].join)
   end
+
+  it "customises all output characters" do
+    progress = TTY::ProgressBar.new("[:bar]", output: output, head: '>', complete: '+', incomplete: '.', total: 5)
+    5.times { progress.advance }
+    output.rewind
+    expect(output.read).to eq([
+      "\e[1G[>....]",
+      "\e[1G[+>...]",
+      "\e[1G[++>..]",
+      "\e[1G[+++>.]",
+      "\e[1G[++++>]\n"
+    ].join)
+  end
 end
