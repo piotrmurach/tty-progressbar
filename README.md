@@ -185,10 +185,10 @@ There are number of configuration options that can be provided:
 * `:width` of the bars display in terminal columns excluding formatting options. Defaults to total steps
 * `:complete` completion character by default `=`
 * `:incomplete` incomplete character by default single space
-* `[:head](#21-head)` the head character by default `=`
+* [:head](#21-head) the head character by default `=`
 * `:output` the output stream defaulting to `stderr`
-* `:frequency` used to throttle the output, by default `0` (see [Frequency](#21-frequency))
-* `:interval` used to measure the speed, by default `1 sec` (see [Interval](#22-interval))
+* [:frequency](#22-frequency) used to throttle the output, by default `0`
+* [:interval](#23-interval) used to measure the speed, by default `1 sec`
 * `:hide_cursor` to hide display cursor defaulting to `false`
 * `:clear` to clear the finished bar defaulting to `false`
 
@@ -202,7 +202,7 @@ TTY::ProgressBar.new "[:bar]" do |config|
 end
 ```
 
-### 2.1 Head
+### 2.1 :head
 
 If you prefer for the animated bar to display a specific character for a head of progression then use `:head` option:
 
@@ -212,7 +212,7 @@ bar = TTY::ProressBar.new("[:bar]", head: '>')
 [=======>      ]
 ```
 
-### 2.1 Frequency
+### 2.2 :frequency
 
 Each time the `advance` is called it causes the progress bar to repaint. In cases when there is a huge number of updates per second, you may need to limit the rendering process by using the `frequency` option.
 
@@ -222,7 +222,7 @@ The `frequency` option accepts `integer` representing number of `Hz` units, for 
 TTY::ProgressBar.new("[:bar]", total: 30, frequency: 10) # 10 Hz
 ```
 
-### 2.2 Interval
+### 2.3 :interval
 
 For every call of `advance` method the **ProgressBar** takes a sample for speed measurement. By default the samples are grouped per second but you can change that by passing the `interval` option.
 
