@@ -90,6 +90,7 @@ module TTY
       @last_render_time  = Time.now
       @last_render_width = 0
       @done              = false
+      @stopped           = false
       @start_at          = Time.now
       @started           = false
       @tokens            = {}
@@ -116,7 +117,7 @@ module TTY
     #
     # @api public
     def advance(progress = 1, tokens = {})
-      return if @done
+      return if done?
 
       synchronize do
         if progress.respond_to?(:to_hash)
@@ -190,7 +191,7 @@ module TTY
     #
     # @api private
     def render
-      return if @done
+      return if done?
       if hide_cursor && @last_render_width == 0 && !(@current >= total)
         write(ECMA_CSI + DEC_TCEM + DEC_RST)
       end
@@ -223,7 +224,7 @@ module TTY
     #
     # @api public
     def resize(new_width = nil)
-      return if @done
+      return if done?
       synchronize do
         clear_line
         if new_width
@@ -240,12 +241,26 @@ module TTY
       if hide_cursor && @last_render_width != 0
         write(ECMA_CSI + DEC_TCEM + DEC_SET, false)
       end
-      return if @done
+      return if done?
       @current = total unless no_width
       render
       clear ? clear_line : write("\n", false)
       @meter.clear
       @done = true
+    end
+
+    # Stop and cancel the progress at the current position
+    #
+    # @api public
+    def stop
+      # reenable cursor if it is turned off
+      if hide_cursor && @last_render_width != 0
+        write(ECMA_CSI + DEC_TCEM + DEC_SET, false)
+      end
+      return if done?
+      clear ? clear_line : write("\n", false)
+      @meter.clear
+      @stopped = true
     end
 
     # Clear current line
@@ -254,7 +269,6 @@ module TTY
     def clear_line
       output.print(ECMA_CSI + '0m' + ECMA_CSI + '1000D' + ECMA_CSI + ECMA_CLR)
     end
-
 
     # Check if progress is finised
     #
@@ -266,6 +280,15 @@ module TTY
       @done
     end
 
+    # Check if progress is finished or stopped
+    #
+    # @return [Boolean]
+    #
+    # @api public
+    def done?
+      @done || @stopped
+    end
+
     # Log message above the current progress bar
     #
     # @param [String] message
@@ -274,7 +297,7 @@ module TTY
     # @api public
     def log(message)
       sanitized_message = message.gsub(/\r|\n/, ' ')
-      if @done
+      if done?
         write(sanitized_message + "\n", false)
         return
       end
