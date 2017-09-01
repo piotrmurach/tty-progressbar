@@ -1,4 +1,5 @@
-# coding: utf-8
+# encoding: utf-8
+# frozen_string_literal: true
 
 module TTY
   class ProgressBar
@@ -35,6 +36,7 @@ module TTY
         complete_length = (width * @progress.ratio).round
         complete   = Array.new(complete_length, @progress.complete)
         incomplete = Array.new(width - complete_length, @progress.incomplete)
+        complete[-1] = @progress.head if complete_length > 0
 
         bar = ''
         bar += complete.join

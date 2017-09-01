@@ -14,6 +14,8 @@ module TTY
 
       attr_accessor :complete
 
+      attr_accessor :head
+
       attr_accessor :hide_cursor
 
       attr_accessor :clear
@@ -30,6 +32,7 @@ module TTY
         @no_width    = options.fetch(:no_width) { false }
         @incomplete  = options.fetch(:incomplete) { ' ' }
         @complete    = options.fetch(:complete) { '=' }
+        @head        = options.fetch(:head) { @complete || '=' }
         @hide_cursor = options.fetch(:hide_cursor) { false }
         @clear       = options.fetch(:clear) { false }
         @output      = options.fetch(:output) { $stderr }
