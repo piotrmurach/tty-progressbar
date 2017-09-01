@@ -73,6 +73,17 @@ module TTY
       @configuration = TTY::ProgressBar::Configuration.new(options)
       yield @configuration if block_given?
 
+      @formatter         = TTY::ProgressBar::Formatter.new
+      @meter             = TTY::ProgressBar::Meter.new(interval)
+
+      @formatter.load
+      reset
+    end
+
+    # Reset progress to default configuration
+    #
+    # @api public
+    def reset
       @width             = 0 if no_width
       @render_period     = frequency == 0 ? 0 : 1.0 / frequency
       @current           = 0
@@ -82,10 +93,8 @@ module TTY
       @start_at          = Time.now
       @started           = false
       @tokens            = {}
-      @formatter         = TTY::ProgressBar::Formatter.new
-      @meter             = TTY::ProgressBar::Meter.new(options.fetch(:interval, 1))
 
-      @formatter.load
+      @meter.clear
     end
 
     # Start progression by drawing bar and setting time
@@ -246,16 +255,6 @@ module TTY
       output.print(ECMA_CSI + '0m' + ECMA_CSI + '1000D' + ECMA_CSI + ECMA_CLR)
     end
 
-    # Reset progress to default configuration
-    #
-    # @api public
-    def reset
-      @current  = 0
-      @done     = false
-      @meter.clear
-
-      advance(0) # rerender with new configuration
-    end
 
     # Check if progress is finised
     #

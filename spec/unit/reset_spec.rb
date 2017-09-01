@@ -11,7 +11,6 @@ RSpec.describe TTY::ProgressBar, '#reset' do
     output.rewind
     expect(output.read).to eq([
       "\e[1G[=====     ]",
-      "\e[1G[          ]",
       "\e[1G[===       ]",
       "\e[1G[======    ]"
     ].join)
@@ -27,7 +26,6 @@ RSpec.describe TTY::ProgressBar, '#reset' do
     output.rewind
     expect(output.read).to eq([
       "\e[1G[==========]\n",
-      "\e[1G[          ]",
       "\e[1G[===       ]",
       "\e[1G[======    ]"
     ].join)

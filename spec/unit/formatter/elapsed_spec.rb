@@ -53,7 +53,6 @@ RSpec.describe TTY::ProgressBar, ':elapsed token' do
       "\e[1G 3s",
       "\e[1G 4s\n",
       "\e[1G 0s",
-      "\e[1G 0s",
       "\e[1G 1s"
     ].join)
     Timecop.return

@@ -37,6 +37,7 @@ module TTY
         @clear       = options.fetch(:clear) { false }
         @output      = options.fetch(:output) { $stderr }
         @frequency   = options.fetch(:frequency) { 0 } # 0Hz
+        @interval    = options.fetch(:interval) { 1 } # 1 sec
       end
 
       def total=(value)
