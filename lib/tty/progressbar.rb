@@ -72,7 +72,6 @@ module TTY
       @width             = 0 if no_width
       @render_period     = frequency == 0 ? 0 : 1.0 / frequency
       @current           = 0
-      @readings          = 0
       @last_render_time  = Time.now
       @last_render_width = 0
       @done              = false
@@ -109,7 +108,6 @@ module TTY
         tokens, progress = progress, 1
       end
       @start_at  = Time.now if @current.zero? && !@started
-      @readings += 1
       @current  += progress
       @tokens    = tokens
       @meter.sample(Time.now, progress)
@@ -228,7 +226,6 @@ module TTY
     # @api public
     def reset
       @current  = 0
-      @readings = 0
       @done     = false
       @meter.clear
 
