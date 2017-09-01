@@ -80,7 +80,7 @@ end
 This would produce animation in your terminal:
 
 ```ruby
-downloading [=======================       ]
+# downloading [=======================       ]
 ```
 
 ### 1.1 advance
@@ -209,8 +209,8 @@ If you prefer for the animated bar to display a specific character for a head of
 
 ```ruby
 bar = TTY::ProressBar.new("[:bar]", head: '>')
-# =>
-[=======>      ]
+#
+# [=======>      ]
 ```
 
 ### 2.2 :frequency
