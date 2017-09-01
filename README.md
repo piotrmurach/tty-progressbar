@@ -144,7 +144,7 @@ bar.start  # => sets timer and draws initial progress bar
 
 Once the progress bar has been started you can change its configuration option(s) by calling `update`:
 
-```bar
+```ruby
 bar.update(complete: '+', frequency: 10)
 ```
 
@@ -171,6 +171,8 @@ In order to reset currently running or finished progress bar to its original con
 ```ruby
 bar.reset
 ```
+
+After resetting the bar if you wish to draw and start the bar and its timers use `start` call.
 
 ### 1.10 resize
 
