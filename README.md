@@ -20,9 +20,11 @@
 
 ## Features
 
-* Fully [configurable](#2-configuration)
-* Extremly flexible progress display [formatting](#3-formatting)
-* Ability to define your custom format [tokens](#31-tokens)
+* Fully [configurable](#3-configuration)
+* Extremely flexible progress display [formatting](#4-formatting)
+* Includes many predefined tokens to calculate ETA, Bytes ... [tokens](#41-tokens)
+* Allows to define your [custom tokens](#42-custom-formatters)
+* Supports parallel multi progress bars [multi](#6-ttyprogressbarmulti-api)
 * Works on all ECMA-48 compatible terminals
 
 ## Installation
@@ -44,29 +46,32 @@ Or install it yourself as:
 ## Contents
 
 * [1. Usage](#1-usage)
-  * [1.1 advance](#11-advance)
-  * [1.2 current=](#12-current)
-  * [1.3 ratio=](#13-ratio)
-  * [1.4 width=](#14-width)
-  * [1.5 start](#15-start)
-  * [1.6 update](#16-update)
-  * [1.7 finish](#17-finish)
-  * [1.8 stop](#18-stop)
-  * [1.9 reset](#19-reset)
-  * [1.10 complete?](#110-complete)
-  * [1.11 resize](#111-resize)
-  * [1.12 on](#112-on)
-* [2. Configuration](#2-configuration)
-  * [2.1 :head](#21-head)
-  * [2.2 :frequency](#22-interval)
-  * [2.3 :interval](#23-interval)
-* [3. Formatting](#3-formatting)
-  * [3.1 Tokens](#31-tokens)
-  * [3.2 Custom Formatters](#32-custom-formatters)
-  * [3.3 Custom Tokens](#33-custom-tokens)
-* [4. Logging](#4-logging)
-* [5. Examples](#5-examples)
-  * [5.1 Color](#51-color)
+* [2. TTY::ProgressBar::API](#2-ttyprogressbar-api)
+  * [2.1 advance](#21-advance)
+  * [2.2 current=](#22-current)
+  * [2.3 ratio=](#23-ratio)
+  * [2.4 width=](#24-width)
+  * [2.5 start](#25-start)
+  * [2.6 update](#26-update)
+  * [2.7 finish](#27-finish)
+  * [2.8 stop](#28-stop)
+  * [2.9 reset](#29-reset)
+  * [2.10 complete?](#210-complete)
+  * [2.11 resize](#211-resize)
+  * [2.12 on](#212-on)
+* [3. Configuration](#3-configuration)
+  * [3.1 :head](#31-head)
+  * [3.2 :frequency](#32-interval)
+  * [3.3 :interval](#33-interval)
+* [4. Formatting](#4-formatting)
+  * [4.1 Tokens](#41-tokens)
+  * [4.2 Custom Formatters](#42-custom-formatters)
+  * [4.3 Custom Tokens](#43-custom-tokens)
+* [5. Logging](#5-logging)
+* [6. TTY::ProgressBar::Multi](#6-ttyprogressbarmulti-api)
+  * [6.1 register](#61-register)
+* [7. Examples](#7-examples)
+  * [7.1 Color](#71-color)
 
 ## 1. Usage
 
@@ -86,7 +91,9 @@ This would produce animation in your terminal:
 # downloading [=======================       ]
 ```
 
-### 1.1 advance
+## 2. TTY::ProgressBar API
+
+### 2.1 advance
 
 Once you have **TTY::ProgressBar** instance, you can progress the display by calling `advance` method. By default it will increase by `1` but you can pass any number of steps, for instance, when used to advance number of bytes of downloaded file.
 
@@ -102,7 +109,7 @@ bar.advance(-1)
 
 Note: If a progress bar has already finished then negative steps will not set it back to desired value.
 
-### 1.2 current=
+### 2.2 current=
 
 **TTY::ProgressBar** allows you to set progress to a given value by calling `current=` method.
 
@@ -112,7 +119,7 @@ bar.current = 50
 
 Note: If a progress bar has already finished then negative steps will not set it back to desired value.
 
-### 1.3 ratio=
+### 2.3 ratio=
 
 In order to update overall completion of a progress bar as an exact percentage use the `ratio=` method. The method accepts values between `0` and `1` inclusive. For example, a ratio of 0.5 will attempt to set the progress bar halfway:
 
@@ -120,7 +127,7 @@ In order to update overall completion of a progress bar as an exact percentage u
 bar.ratio = 0.5
 ```
 
-### 1.4 width=
+### 2.4 width=
 
 You can set how many terminal columns will the `:bar` actually span excluding any other tokens and/or text. For example if you need the bar to be always 20 columns wwide do:
 
@@ -134,7 +141,7 @@ or with configuration options:
 bar = TTY::ProgressBar.new("[:bar]", width: 20)
 ```
 
-### 1.5 start
+### 2.5 start
 
 By default the timer for internal time esitamation is started automatically when the `advance` method is called. However, if you require control on when the progression timer is started use `start` call:
 
@@ -142,7 +149,7 @@ By default the timer for internal time esitamation is started automatically when
 bar.start  # => sets timer and draws initial progress bar
 ```
 
-### 1.6 update
+### 2.6 update
 
 Once the progress bar has been started you can change its configuration option(s) by calling `update`:
 
@@ -150,7 +157,7 @@ Once the progress bar has been started you can change its configuration option(s
 bar.update(complete: '+', frequency: 10)
 ```
 
-### 1.7 finish
+### 2.7 finish
 
 In order to immediately stop and finish the progress call `finish`. This will finish drawing the progress and return to new line.
 
@@ -158,7 +165,7 @@ In order to immediately stop and finish the progress call `finish`. This will fi
 bar.finish
 ```
 
-### 1.8 stop
+### 2.8 stop
 
 In order to immediately stop the bar in the current position and thus finish any further progress use `stop`:
 
@@ -166,7 +173,7 @@ In order to immediately stop the bar in the current position and thus finish any
 bar.stop
 ```
 
-### 1.9 reset
+### 2.9 reset
 
 In order to reset currently running or finished progress bar to its original configuration and initial position use `reset` like so:
 
@@ -176,7 +183,7 @@ bar.reset
 
 After resetting the bar if you wish to draw and start the bar and its timers use `start` call.
 
-### 1.10 complete?
+### 2.10 complete?
 
 During progresion you can check if a bar is finished or not by calling `complete?`. The bar will only return `true` if the progression finished successfuly, otherwise `false` will be returned.
 
@@ -184,7 +191,7 @@ During progresion you can check if a bar is finished or not by calling `complete
 bar.complete? # => false
 ```
 
-### 1.11 resize
+### 2.11 resize
 
 If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length. However, if you don't provide any width the `resize` will use terminal current width as its base for scaling.
 
@@ -199,7 +206,7 @@ To handle automatic resizing you can trap `:WINCH` signal:
 trap(:WINCH) { bar.resize }
 ```
 
-### 1.12 on
+### 2.12 on
 
 The progress bar fires events when it is stopped or finished. You can register to listen for events using the `on` message.
 
@@ -215,7 +222,7 @@ Alternatively, when the progress bar gets stopped the `:stopped` event is fired.
 bar.on(:stopped) { ... }
 ```
 
-## 2. Configuration
+## 3. Configuration
 
 There are number of configuration options that can be provided:
 
@@ -240,7 +247,7 @@ TTY::ProgressBar.new "[:bar]" do |config|
 end
 ```
 
-### 2.1 :head
+### 3.1 :head
 
 If you prefer for the animated bar to display a specific character for a head of progression then use `:head` option:
 
@@ -250,7 +257,7 @@ bar = TTY::ProressBar.new("[:bar]", head: '>')
 # [=======>      ]
 ```
 
-### 2.2 :frequency
+### 3.2 :frequency
 
 Each time the `advance` is called it causes the progress bar to repaint. In cases when there is a huge number of updates per second, you may need to limit the rendering process by using the `frequency` option.
 
@@ -260,7 +267,7 @@ The `frequency` option accepts `integer` representing number of `Hz` units, for 
 TTY::ProgressBar.new("[:bar]", total: 30, frequency: 10) # 10 Hz
 ```
 
-### 2.3 :interval
+### 3.3 :interval
 
 For every call of `advance` method the **ProgressBar** takes a sample for speed measurement. By default the samples are grouped per second but you can change that by passing the `interval` option.
 
@@ -272,7 +279,7 @@ TTY::ProgressBar.new(":rate/minute", total: 100, interval: 60) # 1 minute
 TTY::ProgressBar.new(":rate/hour", total: 100, interval: 3600) # 1 hour
 ```
 
-## 3. Formatting
+## 4. Formatting
 
 Every **TTY::ProgressBar** instance requires a format string, which apart from regular characters accepts special tokens to display dynamic information. For instance, a format to measure download progress could be:
 
@@ -280,7 +287,7 @@ Every **TTY::ProgressBar** instance requires a format string, which apart from r
 "downloading [:bar] :elapsed :percent"
 ```
 
-### 3.1 Tokens
+### 4.1 Tokens
 
 These are the tokens that are currently supported:
 
@@ -297,7 +304,7 @@ These are the tokens that are currently supported:
 * `:mean_rate` the averaged rate of progression per second
 * `:mean_byte` the averaged rate of progression in bytes per second
 
-### 3.2 Custom Formatters
+### 4.2 Custom Formatters
 
 If the provided tokens do not meet your needs, you can write your own formatter and instrument formatting pipeline to use a formatter you prefer. This option is preferred if you are going to rely on progress bar internal data such as `rate`, `current` etc. which will all be available on the passed in progress bar instance.
 
@@ -340,7 +347,7 @@ and then invoke progression:
 bar.advance
 ```
 
-### 3.3 Custom Tokens
+### 4.3 Custom Tokens
 
 You can define custom tokens by passing pairs `name: value` to `advance` method in order to dynamically update formatted bar. This option is useful for lightweight content replacement such as titles that doesn't depend on the internal data of progressbar. For example:
 
@@ -357,7 +364,7 @@ which outputs:
 (4) Bye Piotr!
 ```
 
-## 4. Logging
+## 5. Logging
 
 If you want to print messages out to terminal along with the progress bar use the `log` method. The messages will appear above the progress bar and will continue scrolling up as more are logged out.
 
@@ -373,11 +380,22 @@ Piotrrrrr
 downloading [=======================       ]
 ```
 
-## 5. Examples
+## 6. TTY::ProgressBar::Multi API
+
+### 6.1 register
+
+To create a `TTY::ProgressBar` under the multibar use `register` like so:
+
+```ruby
+multibar = TTY::ProgressBar::Multi.new
+multibar.register("[:bar]", total: 30)
+```
+
+## 7. Examples
 
 This section demonstrates some of the possible uses for the **TTY::ProgressBar**, for more please see examples folder in the source directory.
 
-### 5.1 Colors
+### 7.1 Colors
 
 Creating a progress bar that displays in color is as simple as coloring the `:complete` and `:incomplete` character options. In order to help with coloring you can use [pastel](https://github.com/piotrmurach/pastel) library like so:
 
