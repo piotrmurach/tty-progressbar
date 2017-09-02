@@ -55,6 +55,7 @@ Or install it yourself as:
   * [1.9 reset](#19-reset)
   * [1.10 complete?](#110-complete)
   * [1.11 resize](#111-resize)
+  * [1.12 on](#112-on)
 * [2. Configuration](#2-configuration)
   * [2.1 :head](#21-head)
   * [2.2 :frequency](#22-interval)
@@ -196,6 +197,22 @@ To handle automatic resizing you can trap `:WINCH` signal:
 
 ```ruby
 trap(:WINCH) { bar.resize }
+```
+
+### 1.12 on
+
+The progress bar fires events when it is stopped or finished. You can register to listen for events using the `on` message.
+
+When the progress bar finishes and completes then the `:done` event is fired. You can listen for this event:
+
+```ruby
+bar.on(:done) { ... }
+```
+
+Alternatively, when the progress bar gets stopped the `:stopped` event is fired. You can listen for this event:
+
+```ruby
+bar.on(:stopped) { ... }
 ```
 
 ## 2. Configuration
