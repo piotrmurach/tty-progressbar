@@ -69,7 +69,11 @@ module TTY
     # @api public
     def initialize(format, options = {})
       super()
-      @format        = format
+      @format = format
+      if format.is_a?(Hash)
+        raise ArgumentError, "Expected bar formatting string, " \
+                             "got `#{format}` instead."
+      end
       @configuration = TTY::ProgressBar::Configuration.new(options)
       yield @configuration if block_given?
 
