@@ -1,3 +1,4 @@
-# coding: utf-8
+# encoding: utf-8
 
-require 'tty/progressbar'
+require_relative 'tty/progressbar'
+require_relative 'tty/progressbar/multi'

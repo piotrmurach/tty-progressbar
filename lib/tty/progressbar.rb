@@ -4,6 +4,7 @@
 require 'io/console'
 require 'forwardable'
 require 'monitor'
+require 'tty-cursor'
 require 'tty-screen'
 
 require_relative 'progressbar/configuration'
@@ -27,6 +28,8 @@ module TTY
     DEC_RST  = 'l'.freeze
     DEC_SET  = 'h'.freeze
     DEC_TCEM = '?25'.freeze
+
+    CURSOR_LOCK = Monitor.new
 
     attr_reader :format
 
@@ -99,8 +102,21 @@ module TTY
       @start_at          = Time.now
       @started           = false
       @tokens            = {}
+      @multibar          = nil
+      @row               = nil
+      @first_render      = true
 
       @meter.clear
+    end
+
+    # Attach this bar to multi bar
+    #
+    # @param [TTY::ProgressBar::Multi] multibar
+    #   the multibar under which this bar is registered
+    #
+    # @api private
+    def attach_to(multibar)
+      @multibar = multibar
     end
 
     # Start progression by drawing bar and setting time
@@ -211,15 +227,42 @@ module TTY
       @last_render_width = formatted.length
     end
 
+    # Move cursor to a row of the current bar if the bar is rendered
+    # under a multibar. Otherwise, do not move and yield on current row.
+    #
+    # @api private
+    def move_to_row
+      if @multibar
+        CURSOR_LOCK.synchronize do
+          if @first_render
+            @row = @multibar.next_row
+            yield if block_given?
+            output.print "\n"
+            @first_render = false
+          else
+            lines_up = (@multibar.rows + 1) - @row
+            output.print TTY::Cursor.save
+            output.print TTY::Cursor.up(lines_up)
+            yield if block_given?
+            output.print TTY::Cursor.restore
+          end
+        end
+      else
+        yield if block_given?
+      end
+    end
+
     # Write out to the output
     #
     # @param [String] data
     #
     # @api private
     def write(data, clear_first = false)
-      output.print(ECMA_CSI + '1' + ECMA_CHA) if clear_first
-      output.print(data)
-      output.flush
+      move_to_row do
+        output.print(ECMA_CSI + '1' + ECMA_CHA) if clear_first
+        output.print(data)
+        output.flush
+      end
     end
 
     # Resize progress bar with new configuration

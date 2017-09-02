@@ -1,0 +1,26 @@
+# encoding: utf-8
+
+RSpec.describe TTY::ProgressBar::Multi, '#register' do
+  let(:output) { StringIO.new('', 'w+') }
+
+  it "registers a TTY::ProgressBar instance" do
+    bars = TTY::ProgressBar::Multi.new(output: output)
+    allow_any_instance_of(TTY::ProgressBar).to receive(:attach_to)
+    expect_any_instance_of(TTY::ProgressBar).to receive(:attach_to)
+
+    bar = bars.register("[:bar]")
+
+    expect(bar).to be_instance_of(TTY::ProgressBar)
+    expect(bars.length).to eq(1)
+  end
+
+  it "uses global options to register instance" do
+    bars = TTY::ProgressBar::Multi.new(output: output, total: 100)
+    bar = double(:bar, attach_to: nil)
+    allow(TTY::ProgressBar).to receive(:new).and_return(bar)
+
+    bars.register("[:bar]")
+
+    expect(TTY::ProgressBar).to have_received(:new).with("[:bar]", {total: 100, output: output})
+  end
+end
