@@ -71,6 +71,7 @@ Or install it yourself as:
 * [6. TTY::ProgressBar::Multi API](#6-ttyprogressbarmulti-api)
   * [6.1 register](#61-register)
   * [6.2 finish](#62-finish)
+  * [6.3 :style](#63-style)
 * [7. Examples](#7-examples)
   * [7.1 Color](#71-color)
   * [7.2 Speed](#72-speed)
@@ -112,9 +113,9 @@ th2 = Thread.new { 15.times { sleep(0.1); bar2.advance } }
 which will produce:
 
 ```ruby
-┌ main [===============               ] 50%
-├── one [=====          ] 34%
-└── two [==========     ] 67%
+# ┌ main [===============               ] 50%
+# ├── one [=====          ] 34%
+# └── two [==========     ] 67%
 ```
 
 ## 2. TTY::ProgressBar API
@@ -429,6 +430,18 @@ In order to finish all progress bars call `finish`. This will finish the top lev
 
 ```ruby
 multibar.finish
+```
+
+### 6.3 :style
+
+In addition to all [configuration options](#3-configuration) you can style multi progress bar:
+
+```ruby
+TTY::ProgressBar::Multi.new("[:bar]", style: {
+  top: '. '
+  middle: '|-> '
+  bottom: '|__ '
+})
 ```
 
 ## 7. Examples
