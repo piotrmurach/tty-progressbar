@@ -23,4 +23,14 @@ RSpec.describe TTY::ProgressBar::Multi, '#register' do
 
     expect(TTY::ProgressBar).to have_received(:new).with("[:bar]", {total: 100, output: output})
   end
+
+  it "registers bars with top level" do
+    bars = TTY::ProgressBar::Multi.new("main [:bar]", output: output)
+
+    bars.register("[:bar]", total: 5)
+    bars.register("[:bar]", total: 10)
+
+    expect(bars.total).to eq(15)
+    expect(bars.current).to eq(0)
+  end
 end

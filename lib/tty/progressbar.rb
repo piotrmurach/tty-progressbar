@@ -156,6 +156,7 @@ module TTY
         now = Time.now
         return if (now - @last_render_time) < @render_period
         render
+        emit(:progress)
       end
     end
 
