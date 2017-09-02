@@ -77,8 +77,9 @@ module TTY
       @configuration = TTY::ProgressBar::Configuration.new(options)
       yield @configuration if block_given?
 
-      @formatter         = TTY::ProgressBar::Formatter.new
-      @meter             = TTY::ProgressBar::Meter.new(interval)
+      @formatter = TTY::ProgressBar::Formatter.new
+      @meter     = TTY::ProgressBar::Meter.new(interval)
+      @callbacks = Hash.new { |h, k| h[k] = [] }
 
       @formatter.load
       reset
@@ -249,8 +250,10 @@ module TTY
       @current = total unless no_width
       render
       clear ? clear_line : write("\n", false)
+    ensure
       @meter.clear
       @done = true
+      emit(:done)
     end
 
     # Stop and cancel the progress at the current position
@@ -264,8 +267,10 @@ module TTY
       return if done?
       render
       clear ? clear_line : write("\n", false)
+    ensure
       @meter.clear
       @stopped = true
+      emit(:stopped)
     end
 
     # Clear current line
@@ -292,6 +297,21 @@ module TTY
     # @api public
     def done?
       @done || @stopped
+    end
+
+    # Register callback with this bar
+    #
+    # @param [Symbol] name
+    #   the name for the event to listen for, e.i. :complete
+    #
+    # @return [self]
+    #
+    # @api public
+    def on(name, &callback)
+      synchronize do
+        @callbacks[name] << callback
+      end
+      self
     end
 
     # Log message above the current progress bar
@@ -358,6 +378,18 @@ module TTY
         message += ' ' * remaining_width
       end
       message
+    end
+
+    # Emit callback by name
+    #
+    # @param [Symbol]
+    #   the event name
+    #
+    # @api private
+    def emit(name, *args)
+      @callbacks[name].each do |callback|
+        callback.call(*args)
+      end
     end
   end # ProgressBar
 end # TTY
