@@ -14,6 +14,7 @@ RSpec.describe TTY::ProgressBar, '#stop' do
     expect(output.read).to eq([
       "\e[1G[=         ]",
       "\e[1G[==        ]",
+      "\e[1G[===       ]",
       "\e[1G[===       ]\n"
     ].join)
   end

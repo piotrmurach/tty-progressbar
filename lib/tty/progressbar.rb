@@ -258,6 +258,7 @@ module TTY
         write(ECMA_CSI + DEC_TCEM + DEC_SET, false)
       end
       return if done?
+      render
       clear ? clear_line : write("\n", false)
       @meter.clear
       @stopped = true
