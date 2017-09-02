@@ -68,10 +68,12 @@ Or install it yourself as:
   * [4.2 Custom Formatters](#42-custom-formatters)
   * [4.3 Custom Tokens](#43-custom-tokens)
 * [5. Logging](#5-logging)
-* [6. TTY::ProgressBar::Multi](#6-ttyprogressbarmulti-api)
+* [6. TTY::ProgressBar::Multi API](#6-ttyprogressbarmulti-api)
   * [6.1 register](#61-register)
+  * [6.2 finish](#62-finish)
 * [7. Examples](#7-examples)
   * [7.1 Color](#71-color)
+  * [7.2 Speed](#72-speed)
 
 ## 1. Usage
 
@@ -89,6 +91,30 @@ This would produce animation in your terminal:
 
 ```ruby
 # downloading [=======================       ]
+```
+
+Use **TTY::ProgressBar::Multi** to display multiple parallel progress bars:
+
+```ruby
+bars = TTY::ProgressBar::Multi.new("main [:bar] :percent")
+
+bar1 = bars.register("one [:bar] :percent", total: 15)
+bar2 = bars.register("two [:bar] :percent", total: 15)
+
+bars.start
+
+th1 = Thread.new { 15.times { sleep(0.1); bar1.advance } }
+th2 = Thread.new { 15.times { sleep(0.1); bar2.advance } }
+
+[th1, th2].each { |t| t.join }
+```
+
+which will produce:
+
+```ruby
+┌ main [===============               ] 50%
+├── one [=====          ] 34%
+└── two [==========     ] 67%
 ```
 
 ## 2. TTY::ProgressBar API
@@ -208,7 +234,13 @@ trap(:WINCH) { bar.resize }
 
 ### 2.12 on
 
-The progress bar fires events when it is stopped or finished. You can register to listen for events using the `on` message.
+The progress bar fires events when it is progressing, stopped or finished. You can register to listen for events using the `on` message.
+
+Every time an `advance` is called the `:progress` event gets fired which you can listen for:
+
+```ruby
+bar.on(:progress) { ... }
+```
 
 When the progress bar finishes and completes then the `:done` event is fired. You can listen for this event:
 
@@ -391,6 +423,14 @@ multibar = TTY::ProgressBar::Multi.new
 multibar.register("[:bar]", total: 30)
 ```
 
+### 6.2 finish
+
+In order to finish all progress bars call `finish`. This will finish the top level progress bar, if it exists, all any registered progress bars still in progress.
+
+```ruby
+multibar.finish
+```
+
 ## 7. Examples
 
 This section demonstrates some of the possible uses for the **TTY::ProgressBar**, for more please see examples folder in the source directory.
@@ -426,7 +466,7 @@ To see how a progress bar is reported in terminal you can do:
 end
 ```
 
-### 5.2 Speed
+### 7.2 Speed
 
 Commonly a progress bar is utilized to measure download speed per second. This can be done like so:
 
@@ -440,7 +480,7 @@ end
 This will result in output similar to:
 
 ```ruby
-downloading [=======================       ] 4.12MB/s
+# downloading [=======================       ] 4.12MB/s
 ```
 
 ## Contributing
