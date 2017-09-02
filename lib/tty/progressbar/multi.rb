@@ -19,6 +19,12 @@ module TTY
 
       def_delegators :@bars, :each, :empty?, :length, :[]
 
+      DEFAULT_INSET = {
+        top:    Gem.win_platform? ? '+ '   : "\u250c ",
+        middle: Gem.win_platform? ? '|-- ' : "\u251c\u2500\u2500 ",
+        bottom: Gem.win_platform? ? '|__ ' : "\u2514\u2500\u2500 "
+      }.freeze
+
       # Number of currently occupied rows in terminal display
       attr_reader :rows
 
@@ -40,6 +46,7 @@ module TTY
         super()
         @options = args.last.is_a?(::Hash) ? args.pop : {}
         format = args.empty? ? nil : args.pop
+        @inset_opts = @options.delete(:style) { DEFAULT_INSET }
         @bars = []
         @rows = 0
         @top_bar = nil
@@ -141,6 +148,29 @@ module TTY
       # @api public
       def finish
         @bars.dup.each(&:finish)
+      end
+
+      # Find the number of characters to move into the line
+      # before printing the bar
+      #
+      # @param [TTY::ProgressBar] bar
+      #   the progress bar for which line inset is calculated
+      #
+      # @return [String]
+      #   the inset
+      #
+      # @api public
+      def line_inset(bar)
+        return '' if @top_bar.nil?
+
+        case bar.row
+        when @top_bar.row
+          @inset_opts[:top]
+        when rows
+          @inset_opts[:bottom]
+        else
+          @inset_opts[:middle]
+        end
       end
     end # Multi
   end # ProgressBar

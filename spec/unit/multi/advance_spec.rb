@@ -4,6 +4,9 @@ RSpec.describe TTY::ProgressBar::Multi, 'advance' do
   let(:output) { StringIO.new('', 'w+') }
   let(:save)    { TTY::Cursor.save }
   let(:restore) { TTY::Cursor.restore }
+  let(:top) { TTY::ProgressBar::Multi::DEFAULT_INSET[:top] }
+  let(:middle) { TTY::ProgressBar::Multi::DEFAULT_INSET[:middle] }
+  let(:bottom) { TTY::ProgressBar::Multi::DEFAULT_INSET[:bottom] }
 
   it "advances progress bars correctly under multibar" do
     bars = TTY::ProgressBar::Multi.new(output: output)
@@ -62,16 +65,16 @@ RSpec.describe TTY::ProgressBar::Multi, 'advance' do
 
     output.rewind
     expect(output.read).to eq([
-      "\e[1G[          ] main\n",
-      "\e[1G[=    ] two\n",
+      "\e[1G#{top}[          ] main\n",
+      "\e[1G#{bottom}[=    ] two\n",
       save,
       "\e[2A",   # up 2 lines
-      "\e[1G[=         ] main",
+      "\e[1G#{top}[=         ] main",
       restore,
-      "\e[1G[=    ] one\n",
+      "\e[1G#{bottom}[=    ] one\n",
       save,
       "\e[3A",   # up 3 lines
-      "\e[1G[==        ] main",
+      "\e[1G#{top}[==        ] main",
       restore
     ].join)
 
@@ -79,24 +82,24 @@ RSpec.describe TTY::ProgressBar::Multi, 'advance' do
 
     output.rewind
     expect(output.read).to eq([
-      "\e[1G[          ] main\n",
-      "\e[1G[=    ] two\n",
+      "\e[1G#{top}[          ] main\n",
+      "\e[1G#{bottom}[=    ] two\n",
       save,
       "\e[2A",   # up 2 lines
-      "\e[1G[=         ] main",
+      "\e[1G#{top}[=         ] main",
       restore,
-      "\e[1G[=    ] one\n",
+      "\e[1G#{bottom}[=    ] one\n",
       save,
       "\e[3A",   # up 3 lines
-      "\e[1G[==        ] main",
+      "\e[1G#{top}[==        ] main",
       restore,
       save,
       "\e[2A",   # up 2 lines,
-      "\e[1G[==   ] two",
+      "\e[1G#{middle}[==   ] two",
       restore,
       save,
       "\e[3A",   # up 3 lines
-      "\e[1G[===       ] main",
+      "\e[1G#{top}[===       ] main",
       restore
     ].join)
 
@@ -104,32 +107,32 @@ RSpec.describe TTY::ProgressBar::Multi, 'advance' do
 
     output.rewind
     expect(output.read).to eq([
-      "\e[1G[          ] main\n",
-      "\e[1G[=    ] two\n",
+      "\e[1G#{top}[          ] main\n",
+      "\e[1G#{bottom}[=    ] two\n",
       save,
       "\e[2A",   # up 2 lines
-      "\e[1G[=         ] main",
+      "\e[1G#{top}[=         ] main",
       restore,
-      "\e[1G[=    ] one\n",
+      "\e[1G#{bottom}[=    ] one\n",
       save,
       "\e[3A",   # up 3 lines
-      "\e[1G[==        ] main",
+      "\e[1G#{top}[==        ] main",
       restore,
       save,
       "\e[2A",   # up 2 lines,
-      "\e[1G[==   ] two",
+      "\e[1G#{middle}[==   ] two",
       restore,
       save,
       "\e[3A",   # up 3 lines
-      "\e[1G[===       ] main",
+      "\e[1G#{top}[===       ] main",
       restore,
       save,
       "\e[1A",   # up 1 line
-      "\e[1G[==   ] one",
+      "\e[1G#{bottom}[==   ] one",
       restore,
       save,
       "\e[3A",   # up 3 lines
-      "\e[1G[====      ] main",
+      "\e[1G#{top}[====      ] main",
       restore
     ].join)
   end

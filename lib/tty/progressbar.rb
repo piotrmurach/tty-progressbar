@@ -22,7 +22,6 @@ module TTY
 
     ECMA_ESC = "\e".freeze
     ECMA_CSI = "\e[".freeze
-    ECMA_CHA = 'G'.freeze
     ECMA_CLR = 'K'.freeze
 
     DEC_RST  = 'l'.freeze
@@ -36,6 +35,8 @@ module TTY
     attr_reader :current
 
     attr_reader :start_at
+
+    attr_reader :row
 
     def_delegators :@configuration, :total, :width, :no_width,
                    :complete, :incomplete, :head, :hide_cursor, :clear,
@@ -260,8 +261,9 @@ module TTY
     # @api private
     def write(data, clear_first = false)
       move_to_row do
-        output.print(ECMA_CSI + '1' + ECMA_CHA) if clear_first
-        output.print(data)
+        output.print(TTY::Cursor.column(1)) if clear_first
+        characters_in = @multibar.line_inset(self) if @multibar
+        output.print("#{characters_in}#{data}")
         output.flush
       end
     end
