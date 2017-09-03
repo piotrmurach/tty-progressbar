@@ -177,7 +177,7 @@ module TTY
     #
     # @api public
     def iterate(collection, progress = 1, &block)
-      update(total: collection.size)
+      update(total: collection.count)
       prog = Enumerator.new do |iter|
         collection.each do |elem|
           advance(progress)
