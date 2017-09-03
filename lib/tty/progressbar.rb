@@ -161,6 +161,32 @@ module TTY
       end
     end
 
+    # Iterate over collection either yielding computation to block
+    # or provided Enumerator.
+    #
+    # @example
+    #   bar.iterate(30.times) { ... }
+    #
+    # @param [Enumerable] collection
+    #   the collection to iterate over
+    #
+    # @param [Integer] progress
+    #   the amount to move progress bar by
+    #
+    # @return [Enumerator]
+    #
+    # @api public
+    def iterate(collection, progress = 1, &block)
+      update(total: collection.size)
+      prog = Enumerator.new do |iter|
+        collection.each do |elem|
+          advance(progress)
+          iter.yield(elem)
+        end
+      end
+      block_given? ? prog.each(&block) : prog
+    end
+
     # Update configuration options for this bar
     #
     # @param [Hash[Symbol]] options
