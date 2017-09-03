@@ -1,5 +1,24 @@
 # Change log
 
+## [v0.12.0] - 2017-09-03
+
+### Added
+* Add :head option to allow changing bar head progression character
+* Add thread safety to allow sharing progress between multiple threads
+* Add #update to allow changing bar configuration options
+* Add #stop to stop bar in current position and terminate any further progress
+* Add #iterate to progress over a collection
+* Add validation to check if bar formatting string is provided
+* Add ability to listen for completion events such as :done, :progress and :stopped
+* Add TTY::ProgressBar::Multi for creating parallel multiple progress bars
+
+### Changed
+* Change to stop mutating strings
+* Change #reset to stop drawing and use for initialization
+
+### Fixed
+* Fix configuration to add interval option
+
 ## [v0.11.0] - 2017-04-04
 
 ### Added
@@ -108,6 +127,7 @@
 
 * Initial implementation and release
 
+[v0.12.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.11.0...v0.12.0
 [v0.11.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.10.1...v0.11.0
 [v0.10.1]: https://github.com/peter-murach/tty-progressbar/compare/v0.10.0...v0.10.1
 [v0.10.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.9.0...v0.10.0
