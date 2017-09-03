@@ -48,17 +48,18 @@ Or install it yourself as:
 * [1. Usage](#1-usage)
 * [2. TTY::ProgressBar::API](#2-ttyprogressbar-api)
   * [2.1 advance](#21-advance)
-  * [2.2 current=](#22-current)
-  * [2.3 ratio=](#23-ratio)
-  * [2.4 width=](#24-width)
-  * [2.5 start](#25-start)
-  * [2.6 update](#26-update)
-  * [2.7 finish](#27-finish)
-  * [2.8 stop](#28-stop)
-  * [2.9 reset](#29-reset)
-  * [2.10 complete?](#210-complete)
-  * [2.11 resize](#211-resize)
-  * [2.12 on](#212-on)
+  * [2.2 iterate](#22-iterate)
+  * [2.3 current=](#23-current)
+  * [2.4 ratio=](#24-ratio)
+  * [2.5 width=](#25-width)
+  * [2.6 start](#26-start)
+  * [2.7 update](#27-update)
+  * [2.8 finish](#28-finish)
+  * [2.9 stop](#29-stop)
+  * [2.10 reset](#210-reset)
+  * [2.11 complete?](#211-complete)
+  * [2.12 resize](#212-resize)
+  * [2.13 on](#213-on)
 * [3. Configuration](#3-configuration)
   * [3.1 :head](#31-head)
   * [3.2 :frequency](#32-interval)
@@ -142,7 +143,30 @@ bar.advance(-1)
 
 Note: If a progress bar has already finished then negative steps will not set it back to desired value.
 
-### 2.2 current=
+### 2.2 iterate
+
+To simplify progressing over an enumerable you can use `iterator` which as a first argument accepts an `Enumerable` and as a second the amount to progress the bar with.
+
+First, create a progress bar without a total which will be dynamically handled for you:
+
+```ruby
+bar = TTY::ProgressBar.new
+```
+
+Then, either directly iterate over a collection by yielding values to a block:
+
+```ruby
+bar.iterator(30.times) { |v| ... }
+```
+
+or return an 'Enumerator':
+
+```ruby
+progress = bar.iterator(30.times)
+# => #<Enumerator: #<Enumerator::Generator:0x...:each>
+```
+
+### 2.3 current=
 
 **TTY::ProgressBar** allows you to set progress to a given value by calling `current=` method.
 
@@ -152,7 +176,7 @@ bar.current = 50
 
 Note: If a progress bar has already finished then negative steps will not set it back to desired value.
 
-### 2.3 ratio=
+### 2.4 ratio=
 
 In order to update overall completion of a progress bar as an exact percentage use the `ratio=` method. The method accepts values between `0` and `1` inclusive. For example, a ratio of 0.5 will attempt to set the progress bar halfway:
 
@@ -160,7 +184,7 @@ In order to update overall completion of a progress bar as an exact percentage u
 bar.ratio = 0.5
 ```
 
-### 2.4 width=
+### 2.5 width=
 
 You can set how many terminal columns will the `:bar` actually span excluding any other tokens and/or text. For example if you need the bar to be always 20 columns wwide do:
 
@@ -174,7 +198,7 @@ or with configuration options:
 bar = TTY::ProgressBar.new("[:bar]", width: 20)
 ```
 
-### 2.5 start
+### 2.6 start
 
 By default the timer for internal time esitamation is started automatically when the `advance` method is called. However, if you require control on when the progression timer is started use `start` call:
 
@@ -182,7 +206,7 @@ By default the timer for internal time esitamation is started automatically when
 bar.start  # => sets timer and draws initial progress bar
 ```
 
-### 2.6 update
+### 2.7 update
 
 Once the progress bar has been started you can change its configuration option(s) by calling `update`:
 
@@ -190,7 +214,7 @@ Once the progress bar has been started you can change its configuration option(s
 bar.update(complete: '+', frequency: 10)
 ```
 
-### 2.7 finish
+### 2.8 finish
 
 In order to immediately stop and finish the progress call `finish`. This will finish drawing the progress and return to new line.
 
@@ -198,7 +222,7 @@ In order to immediately stop and finish the progress call `finish`. This will fi
 bar.finish
 ```
 
-### 2.8 stop
+### 2.9 stop
 
 In order to immediately stop the bar in the current position and thus finish any further progress use `stop`:
 
@@ -206,7 +230,7 @@ In order to immediately stop the bar in the current position and thus finish any
 bar.stop
 ```
 
-### 2.9 reset
+### 2.10 reset
 
 In order to reset currently running or finished progress bar to its original configuration and initial position use `reset` like so:
 
@@ -216,7 +240,7 @@ bar.reset
 
 After resetting the bar if you wish to draw and start the bar and its timers use `start` call.
 
-### 2.10 complete?
+### 2.11 complete?
 
 During progresion you can check if a bar is finished or not by calling `complete?`. The bar will only return `true` if the progression finished successfuly, otherwise `false` will be returned.
 
@@ -224,7 +248,7 @@ During progresion you can check if a bar is finished or not by calling `complete
 bar.complete? # => false
 ```
 
-### 2.11 resize
+### 2.12 resize
 
 If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length. However, if you don't provide any width the `resize` will use terminal current width as its base for scaling.
 
@@ -239,7 +263,7 @@ To handle automatic resizing you can trap `:WINCH` signal:
 trap(:WINCH) { bar.resize }
 ```
 
-### 2.12 on
+### 2.13 on
 
 The progress bar fires events when it is progressing, stopped or finished. You can register to listen for events using the `on` message.
 
