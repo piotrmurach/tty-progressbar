@@ -145,7 +145,7 @@ Note: If a progress bar has already finished then negative steps will not set it
 
 ### 2.2 iterate
 
-To simplify progressing over an enumerable you can use `iterator` which as a first argument accepts an `Enumerable` and as a second the amount to progress the bar with.
+To simplify progressing over an enumerable you can use `iterate` which as a first argument accepts an `Enumerable` and as a second the amount to progress the bar with.
 
 First, create a progress bar without a total which will be dynamically handled for you:
 
@@ -156,14 +156,20 @@ bar = TTY::ProgressBar.new
 Then, either directly iterate over a collection by yielding values to a block:
 
 ```ruby
-bar.iterator(30.times) { |v| ... }
+bar.iterate(30.times) { |v| ... }
 ```
 
 or return an 'Enumerator':
 
 ```ruby
-progress = bar.iterator(30.times)
+progress = bar.iterate(30.times)
 # => #<Enumerator: #<Enumerator::Generator:0x...:each>
+```
+
+By default, progress bar is advanced by `1` but you can change it by passing second argument:
+
+```ruby
+bar.iterate(30.times, 5)
 ```
 
 ### 2.3 current=
