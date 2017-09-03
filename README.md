@@ -72,9 +72,10 @@ Or install it yourself as:
   * [6.1 new](#61-new)
   * [6.2 register](#62-register)
   * [6.3 advance](#63-advance)
-  * [6.4 finish](#64-finish)
-  * [6.5 stop](#65-stop)
-  * [6.6 :style](#66-style)
+  * [6.4 start](#64-start)
+  * [6.5 finish](#65-finish)
+  * [6.6 stop](#66-stop)
+  * [6.7 :style](#67-style)
 * [7. Examples](#7-examples)
   * [7.1 Color](#71-color)
   * [7.2 Speed](#72-speed)
@@ -439,14 +440,16 @@ To create a `TTY::ProgressBar` under the multibar use `register` like so:
 
 ```ruby
 multibar = TTY::ProgressBar::Multi.new
-multibar.register("[:bar]", total: 30)
+bar = multibar.register("[:bar]", total: 30)
 ```
 
-Please remember to specify total value for the progression or use `update` to dynamicaly assign the total value.
+The `register` call returns the newly created progress bar which answers all the progress bar api messages.
+
+Please remember to specify total value for each registered progress bar, either when sending `register` message or when using `update` to dynamicaly assign the total value.
 
 ### 6.3 advance
 
-Once multi progress bar has been created you can advance each bar individually either by executing them one after the other synchronously or by placing them in separate threads thus progressing each bar asynchronously. The multi bar handles synchornization and display of all bars as they continue their respective rendering.
+Once multi progress bar has been created you can advance each registered progress bar individually, either by executing them one after the other synchronously or by placing them in separate threads thus progressing each bar asynchronously. The multi bar handles synchronization and display of all bars as they continue their respective rendering.
 
 For example, to display two bars async, first register them with the multi bar:
 
@@ -455,7 +458,7 @@ bar1 = multibar.register("one [:bar]", total: 20)
 bar2 = multibar.register("two [:bar]", total: 30)
 ```
 
-next place the progress behaviour in separate process or threads:
+Next place the progress behaviour in separate process or thread:
 
 ```ruby
 th1 = Thread.new { 20.times { expensive_work(); bar1.advance } }
@@ -468,7 +471,15 @@ Finally, wait for the threads to finish:
 [th1, th2].each { |t| t.join }
 ```
 
-### 6.4 finish
+### 6.4 start
+
+If you want your top level multi bar to be rendered as the first bar in the terminal before any registered bars call `start`:
+
+```ruby
+multibar.start
+```
+
+### 6.5 finish
 
 In order to finish all progress bars call `finish`. This will finish the top level progress bar, if it exists, all any registered progress bars still in progress.
 
@@ -476,7 +487,7 @@ In order to finish all progress bars call `finish`. This will finish the top lev
 multibar.finish
 ```
 
-### 6.5 stop
+### 6.6 stop
 
 Use `stop` to terminate immediately all progress bars registered with the multibar.
 
@@ -484,7 +495,7 @@ Use `stop` to terminate immediately all progress bars registered with the multib
 multibar.stop
 ```
 
-### 6.6 :style
+### 6.7 :style
 
 In addition to all [configuration options](#3-configuration) you can style multi progress bar:
 
