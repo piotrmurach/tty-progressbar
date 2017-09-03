@@ -336,6 +336,15 @@ module TTY
       @done
     end
 
+    # Check if progress is stopped
+    #
+    # @return [Boolean]
+    #
+    # @api public
+    def stopped?
+      @stopped
+    end
+
     # Check if progress is finished or stopped
     #
     # @return [Boolean]
