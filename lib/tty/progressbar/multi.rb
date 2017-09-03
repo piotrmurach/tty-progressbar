@@ -51,6 +51,12 @@ module TTY
         @rows = 0
         @top_bar = nil
         @top_bar = register(format) if format
+
+        @callbacks = {
+          progress: [],
+          stopped:  [],
+          done:     []
+        }
       end
 
       # Register a new progress bar
@@ -91,7 +97,9 @@ module TTY
       #
       # @api public
       def observe(bar)
-        bar.on(:progress) { top_bar.current = current }
+        bar.on(:progress) { top_bar.current = current; emit(:progress) }
+           .on(:done)     { top_bar.finish; emit(:done) if complete?  }
+           .on(:stopped)  { top_bar.stop; emit(:stopped) if stopped? }
       end
 
       # Get the top level bar if it exists
@@ -136,6 +144,15 @@ module TTY
         (@bars - [@top_bar]).dup.all?(&:complete?)
       end
 
+      # Check if any of the registered progress bars is stopped
+      #
+      # @return [Boolean]
+      #
+      # @api public
+      def stopped?
+        (@bars - [@top_bar]).dup.any?(&:stopped?)
+      end
+
       # Stop all progress bars
       #
       # @api public
@@ -147,6 +164,7 @@ module TTY
       #
       # @api public
       def finish
+        @top_bar.finish if @top_bar
         @bars.dup.each(&:finish)
       end
 
@@ -170,6 +188,32 @@ module TTY
           @inset_opts[:bottom]
         else
           @inset_opts[:middle]
+        end
+      end
+
+      # Listen on event
+      #
+      # @param [Symbol] name
+      #   the event name to listen on
+      #
+      # @api public
+      def on(name, &callback)
+        unless @callbacks.key?(name)
+          raise ArgumentError, "The event #{name} does not exist. "\
+                               " Use :progress, :stopped, or :done instead"
+        end
+        @callbacks[name] << callback
+        self
+      end
+
+      private
+
+      # Fire an event by name
+      #
+      # @api private
+      def emit(name, *args)
+        @callbacks[name].each do |callback|
+          callback.(*args)
         end
       end
     end # Multi
