@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gemspec
 
 group :test do
-  gem 'rspec',   '~> 3.5.0'
   gem 'timecop', '~> 0.8.1'
   gem 'pastel',  '~> 0.7.0'
   gem 'coveralls', '~> 0.8.13'
