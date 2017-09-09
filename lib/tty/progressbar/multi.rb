@@ -50,7 +50,7 @@ module TTY
         @bars = []
         @rows = 0
         @top_bar = nil
-        @top_bar = register(format) if format
+        @top_bar = register(format, observable: false) if format
 
         @callbacks = {
           progress: [],
@@ -66,15 +66,15 @@ module TTY
       #
       # @api public
       def register(format, options = {})
+        observable = options.delete(:observable) { true }
         bar = TTY::ProgressBar.new(format, @options.merge(options))
 
         synchronize do
           bar.attach_to(self)
           @bars << bar
-
+          observe(bar) if observable
           if @top_bar
             @top_bar.update(total: total, width: total)
-            observe(bar)
           end
         end
 
@@ -95,11 +95,21 @@ module TTY
       # @param [TTY::ProgressBar] bar
       #   the bar to observe for events
       #
-      # @api public
+      # @api private
       def observe(bar)
-        bar.on(:progress) { top_bar.current = current; emit(:progress) }
-           .on(:done)     { top_bar.finish; emit(:done) if complete?  }
-           .on(:stopped)  { top_bar.stop; emit(:stopped) if stopped? }
+        bar.on(:progress, &progress_handler)
+           .on(:done) { emit(:done) if complete? }
+           .on(:stopped)  { emit(:stopped) if stopped? }
+      end
+
+      # Handle the progress event
+      #
+      # @api private
+      def progress_handler
+        proc do
+          @top_bar.current = current if @top_bar
+          emit(:progress)
+        end
       end
 
       # Get the top level bar if it exists
@@ -123,7 +133,9 @@ module TTY
       #
       # @api public
       def total
-        (@bars - [@top_bar]).dup.map(&:total).reduce(&:+)
+        synchronize do
+          (@bars - [@top_bar]).dup.map(&:total).reduce(&:+)
+        end
       end
 
       # Calculate total current progress of all bars
@@ -132,7 +144,9 @@ module TTY
       #
       # @api public
       def current
-        (@bars - [@top_bar]).dup.map(&:current).reduce(&:+)
+        synchronize do
+          (@bars - [@top_bar]).dup.map(&:current).reduce(&:+)
+        end
       end
 
       # Check if all progress bars are complete
@@ -141,7 +155,9 @@ module TTY
       #
       # @api public
       def complete?
-        (@bars - [@top_bar]).dup.all?(&:complete?)
+        synchronize do
+          (@bars - [@top_bar]).dup.all?(&:complete?)
+        end
       end
 
       # Check if any of the registered progress bars is stopped
@@ -150,7 +166,9 @@ module TTY
       #
       # @api public
       def stopped?
-        (@bars - [@top_bar]).dup.any?(&:stopped?)
+        synchronize do
+          (@bars - [@top_bar]).dup.any?(&:stopped?)
+        end
       end
 
       # Stop all progress bars
@@ -164,7 +182,6 @@ module TTY
       #
       # @api public
       def finish
-        @top_bar.finish if @top_bar
         @bars.dup.each(&:finish)
       end
 

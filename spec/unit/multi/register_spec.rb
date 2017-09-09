@@ -17,6 +17,7 @@ RSpec.describe TTY::ProgressBar::Multi, '#register' do
   it "uses global options to register instance" do
     bars = TTY::ProgressBar::Multi.new(output: output, total: 100)
     bar = double(:bar, attach_to: nil)
+    allow(bar).to receive(:on).and_return(bar)
     allow(TTY::ProgressBar).to receive(:new).and_return(bar)
 
     bars.register("[:bar]")
