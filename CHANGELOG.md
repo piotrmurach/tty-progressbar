@@ -1,5 +1,16 @@
 # Change log
 
+## [v0.12.1] - 2017-09-09
+
+### Added
+* Add rspec to gem development dependencies
+
+### Changed
+* Change line clearing to rely on tty-cursor
+
+### Fixed
+* Fix multi bar finishing before registered progress bars
+
 ## [v0.12.0] - 2017-09-03
 
 ### Added
@@ -127,6 +138,7 @@
 
 * Initial implementation and release
 
+[v0.12.1]: https://github.com/peter-murach/tty-progressbar/compare/v0.12.0...v0.12.1
 [v0.12.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.11.0...v0.12.0
 [v0.11.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.10.1...v0.11.0
 [v0.10.1]: https://github.com/peter-murach/tty-progressbar/compare/v0.10.0...v0.10.1
