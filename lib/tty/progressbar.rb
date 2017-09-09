@@ -20,13 +20,7 @@ module TTY
     extend Forwardable
     include MonitorMixin
 
-    ECMA_ESC = "\e".freeze
     ECMA_CSI = "\e[".freeze
-    ECMA_CLR = 'K'.freeze
-
-    DEC_RST  = 'l'.freeze
-    DEC_SET  = 'h'.freeze
-    DEC_TCEM = '?25'.freeze
 
     CURSOR_LOCK = Monitor.new
 
@@ -242,7 +236,7 @@ module TTY
     def render
       return if done?
       if hide_cursor && @last_render_width == 0 && !(@current >= total)
-        write(ECMA_CSI + DEC_TCEM + DEC_RST)
+        write(TTY::Cursor.hide)
       end
 
       formatted = @formatter.decorate(self, @format)
@@ -316,7 +310,7 @@ module TTY
     def finish
       # reenable cursor if it is turned off
       if hide_cursor && @last_render_width != 0
-        write(ECMA_CSI + DEC_TCEM + DEC_SET, false)
+        write(TTY::Cursor.show, false)
       end
       return if done?
       @current = total unless no_width
@@ -334,7 +328,7 @@ module TTY
     def stop
       # reenable cursor if it is turned off
       if hide_cursor && @last_render_width != 0
-        write(ECMA_CSI + DEC_TCEM + DEC_SET, false)
+        write(TTY::Cursor.show, false)
       end
       return if done?
       render
@@ -349,7 +343,7 @@ module TTY
     #
     # @api public
     def clear_line
-      output.print(ECMA_CSI + '0m' + ECMA_CSI + '1000D' + ECMA_CSI + ECMA_CLR)
+      output.print(ECMA_CSI + '0m' + TTY::Cursor.clear_line)
     end
 
     # Check if progress is finised

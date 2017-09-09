@@ -12,7 +12,7 @@ RSpec.describe TTY::ProgressBar, '#resize' do
     expect(output.read).to eq([
       "\e[1G[==        ]",
       "\e[1G[====      ]",
-      "\e[0m\e[1000D\e[K",
+      "\e[0m\e[2K\e[1G",
       "\e[1G[===  ]",
       "\e[1G[==== ]",
       "\e[1G[=====]\n"
@@ -28,7 +28,7 @@ RSpec.describe TTY::ProgressBar, '#resize' do
     expect(output.read).to eq([
       "\e[1G[==        ]",
       "\e[1G[====      ]",
-      "\e[0m\e[1000D\e[K",
+      "\e[0m\e[2K\e[1G",
       "\e[1G[============        ]",
       "\e[1G[================    ]",
       "\e[1G[====================]\n"
