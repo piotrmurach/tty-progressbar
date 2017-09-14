@@ -136,6 +136,7 @@ module TTY
       return if done?
 
       synchronize do
+        emit(:progress)
         if progress.respond_to?(:to_hash)
           tokens, progress = progress, 1
         end
@@ -151,7 +152,6 @@ module TTY
         now = Time.now
         return if (now - @last_render_time) < @render_period
         render
-        emit(:progress)
       end
     end
 

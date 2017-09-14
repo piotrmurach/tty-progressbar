@@ -107,7 +107,7 @@ module TTY
       # @api private
       def progress_handler
         proc do
-          @top_bar.current = current if @top_bar
+          @top_bar.advance if @top_bar
           emit(:progress)
         end
       end
