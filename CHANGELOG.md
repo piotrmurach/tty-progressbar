@@ -1,5 +1,11 @@
 # Change log
 
+## [v0.12.2] - 2017-09-15
+
+### Changed
+* Change to automatically start & update top level progress bar
+  when registered bars advance
+
 ## [v0.12.1] - 2017-09-09
 
 ### Added
@@ -138,6 +144,7 @@
 
 * Initial implementation and release
 
+[v0.12.2]: https://github.com/peter-murach/tty-progressbar/compare/v0.12.1...v0.12.2
 [v0.12.1]: https://github.com/peter-murach/tty-progressbar/compare/v0.12.0...v0.12.1
 [v0.12.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.11.0...v0.12.0
 [v0.11.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.10.1...v0.11.0
