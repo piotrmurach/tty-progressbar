@@ -505,10 +505,10 @@ Finally, wait for the threads to finish:
 
 ### 6.4 start
 
-If you want your top level multi bar to be rendered as the first bar in the terminal before any registered bars call `start`:
+By default the top level multi bar will be rendered as the first bar and have its timer started when on of the regsitered bars advances. However, if you wish to start timers and draw the top level multi bar do:
 
 ```ruby
-multibar.start
+multibar.start  # => sets timer and draws top level multi progress bar
 ```
 
 ### 6.5 finish
