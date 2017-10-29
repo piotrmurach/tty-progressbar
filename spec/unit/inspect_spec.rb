@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 RSpec.describe TTY::ProgressBar, '#inspect' do
   it "inspects bar properties" do
     bar = described_class.new("downloading [:bar] :total", total: 30)

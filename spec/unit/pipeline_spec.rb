@@ -1,5 +1,3 @@
-# coding: utf-8
-
 RSpec.describe TTY::ProgressBar::Pipeline, '#decorate' do
   subject(:pipeline) { described_class.new }
 

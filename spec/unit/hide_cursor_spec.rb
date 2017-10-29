@@ -1,5 +1,3 @@
-# coding: utf-8
-
 RSpec.describe TTY::ProgressBar, '#hide_cursor' do
   let(:output) { StringIO.new('', 'w+') }
 

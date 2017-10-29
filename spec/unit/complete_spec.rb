@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 RSpec.describe TTY::ProgressBar, '#complete?' do
   let(:output) { StringIO.new('', 'w+') }
 

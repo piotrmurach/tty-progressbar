@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 RSpec.describe TTY::ProgressBar, ':mean_rate token' do
   let(:output) { StringIO.new('', 'w+') }
 

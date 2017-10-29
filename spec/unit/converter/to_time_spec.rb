@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 RSpec.describe TTY::ProgressBar::Converter, '#to_time' do
   subject(:converter) { described_class }
 

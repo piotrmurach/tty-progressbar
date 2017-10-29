@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 RSpec.describe TTY::ProgressBar::Multi, 'advance' do
   let(:output) { StringIO.new('', 'w+') }
   let(:save)    { TTY::Cursor.save }

@@ -1,5 +1,3 @@
-# coding: utf-8
-
 RSpec.describe TTY::ProgressBar, 'frequency' do
   let(:output) { StringIO.new('', 'w+') }
 
