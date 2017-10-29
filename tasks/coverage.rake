@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 desc 'Measure code coverage'
 task :coverage do
   begin
