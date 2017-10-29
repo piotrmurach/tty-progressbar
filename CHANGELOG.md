@@ -1,5 +1,12 @@
 # Change log
 
+## [v0.13.0] - 2017-10-29
+
+### Changed
+* Change tty-screen dependency version
+* Change gemspec to require Ruby >= 2.0.0
+* Remove encoding comments
+
 ## [v0.12.2] - 2017-09-15
 
 ### Changed
@@ -144,6 +151,7 @@
 
 * Initial implementation and release
 
+[v0.13.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.12.2...v0.13.0
 [v0.12.2]: https://github.com/peter-murach/tty-progressbar/compare/v0.12.1...v0.12.2
 [v0.12.1]: https://github.com/peter-murach/tty-progressbar/compare/v0.12.0...v0.12.1
 [v0.12.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.11.0...v0.12.0
