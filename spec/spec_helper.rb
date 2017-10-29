@@ -15,6 +15,21 @@ end
 
 require 'timecop'
 require 'tty-progressbar'
+require 'tty-screen'
+
+puts "#####################################################"
+puts "TERMINAL SIZE: >>> #{TTY::Screen.size}"
+puts "JAVA SIZE: >>> #{TTY::Screen.size_from_java}"
+puts "WIN API SIZE: >>> #{TTY::Screen.size_from_win_api}"
+puts "IOCTL SIZE: >>> #{TTY::Screen.size_from_ioctl}"
+puts "IO CONSOLE SIZE: >>> #{TTY::Screen.size_from_io_console}"
+puts "READLINE SIZE: >>> #{TTY::Screen.size_from_readline}"
+puts "TPUT SIZE: >>> #{TTY::Screen.size_from_tput}"
+puts "STTY SIZE: >>> #{TTY::Screen.size_from_stty}"
+puts "ENV SIZE: >>> #{TTY::Screen.size_from_env}"
+puts "ANSICON SIZE: >>> #{TTY::Screen.size_from_ansicon}"
+puts "#####################################################"
+
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
