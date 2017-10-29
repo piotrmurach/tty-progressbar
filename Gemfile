@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'tty-screen', git: 'https://github.com/piotrmurach/tty-screen'
+
 group :test do
   gem 'timecop', '~> 0.8.1'
   gem 'pastel',  '~> 0.7.0'

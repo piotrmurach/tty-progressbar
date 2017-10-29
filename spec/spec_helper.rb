@@ -30,7 +30,6 @@ puts "ENV SIZE: >>> #{TTY::Screen.size_from_env}"
 puts "ANSICON SIZE: >>> #{TTY::Screen.size_from_ansicon}"
 puts "#####################################################"
 
-
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
