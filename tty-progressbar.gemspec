@@ -25,5 +25,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '>= 1.5.0', '< 2.0'
   spec.add_development_dependency 'rspec', '~> 3.1'
+  spec.add_development_dependency 'timecop', '~> 0.9.1'
   spec.add_development_dependency 'rake'
 end
