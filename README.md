@@ -1,8 +1,9 @@
 # TTY::ProgressBar [![Gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
+
 [![Gem Version](https://badge.fury.io/rb/tty-progressbar.svg)][gem]
 [![Build Status](https://secure.travis-ci.org/piotrmurach/tty-progressbar.svg?branch=master)][travis]
 [![Build status](https://ci.appveyor.com/api/projects/status/w3jafjeatt1ulufa?svg=true)][appveyor]
-[![Code Climate](https://codeclimate.com/github/piotrmurach/tty-progressbar/badges/gpa.svg)][codeclimate]
+[![Maintainability](https://api.codeclimate.com/v1/badges/e85416137d2057169575/maintainability)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/github/piotrmurach/tty-progressbar/badge.svg)][coverage]
 [![Inline docs](http://inch-ci.org/github/piotrmurach/tty-progressbar.svg?branch=master)][inchpages]
 
@@ -10,7 +11,7 @@
 [gem]: http://badge.fury.io/rb/tty-progressbar
 [travis]: http://travis-ci.org/piotrmurach/tty-progressbar
 [appveyor]: https://ci.appveyor.com/project/piotrmurach/tty-progressbar
-[codeclimate]: https://codeclimate.com/github/piotrmurach/tty-progressbar
+[codeclimate]: https://codeclimate.com/github/piotrmurach/tty-progressbar/maintainability
 [coverage]: https://coveralls.io/github/piotrmurach/tty-progressbar
 [inchpages]: http://inch-ci.org/github/piotrmurach/tty-progressbar
 
@@ -150,7 +151,7 @@ To simplify progressing over an enumerable you can use `iterate` which as a firs
 First, create a progress bar without a total which will be dynamically handled for you:
 
 ```ruby
-bar = TTY::ProgressBar.new
+bar = TTY::ProgressBar.new("[:bar]")
 ```
 
 Then, either directly iterate over a collection by yielding values to a block:
@@ -633,4 +634,4 @@ This project is intended to be a safe, welcoming space for collaboration, and co
 
 ## Copyright
 
-Copyright (c) 2014-2017 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2014-2018 Piotr Murach. See LICENSE for further details.
