@@ -155,7 +155,10 @@ module TTY
     end
 
     # Iterate over collection either yielding computation to block
-    # or provided Enumerator.
+    # or provided Enumerator. If the bar's `total` was not set,
+    # it would be taken from `collection.count`, otherwise previously
+    # set `total` would be used. This allows using the progressbar
+    # with infinite, lazy, or slowly-calculated enumerators.
     #
     # @example
     #   bar.iterate(30.times) { ... }
@@ -170,7 +173,7 @@ module TTY
     #
     # @api public
     def iterate(collection, progress = 1, &block)
-      update(total: collection.count)
+      update(total: collection.count) unless total
       prog = Enumerator.new do |iter|
         collection.each do |elem|
           advance(progress)

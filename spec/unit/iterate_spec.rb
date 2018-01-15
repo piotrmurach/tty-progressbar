@@ -43,4 +43,17 @@ RSpec.describe TTY::ProgressBar, '#iterate' do
 
     expect(values).to eq([0,1,2,3,4])
   end
+
+  it "does not uses collection's count if total is provided" do
+    bar = TTY::ProgressBar.new("[:bar]", output: output, total: 5)
+    iterable = 5.times
+    expect(iterable).not_to receive(:count)
+    progress = bar.iterate(iterable)
+
+    values = []
+
+    progress.each { |v| values << v }
+
+    expect(values).to eq([0,1,2,3,4])
+  end
 end
