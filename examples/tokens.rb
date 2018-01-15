@@ -1,6 +1,4 @@
-# coding: utf-8
-
-require 'tty-progressbar'
+require_relative '../lib/tty-progressbar'
 
 files = [
   'file1.txt', 'file2.txt', 'file3.txt', 'file4.txt', 'file5.txt',

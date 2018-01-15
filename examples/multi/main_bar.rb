@@ -1,6 +1,4 @@
-# encoding: utf-8
-
-require 'tty-progressbar'
+require_relative '../../lib/tty-progressbar'
 
 bars = TTY::ProgressBar::Multi.new("main [:bar] :percent")
 

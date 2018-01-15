@@ -1,6 +1,4 @@
-# encoding: utf-8
-
-require 'tty-progressbar'
+require_relative '../lib/tty-progressbar'
 
 bar = TTY::ProgressBar.new("downloading [:bar] :percent", head: '>', total: 30)
 30.times do |i|

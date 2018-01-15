@@ -1,7 +1,6 @@
-# coding: utf-8
-
-require 'tty-progressbar'
 require 'pastel'
+
+require_relative '../lib/tty-progressbar'
 
 pastel = Pastel.new
 green = pastel.on_green(" ")
