@@ -173,14 +173,17 @@ module TTY
     #
     # @api public
     def iterate(collection, progress = 1, &block)
-      update(total: collection.count) unless total
-      prog = Enumerator.new do |iter|
+      update(total: collection.count * progress) unless total
+      progress_enum = Enumerator.new do |iter|
         collection.each do |elem|
+          if complete?
+            raise StopIteration, 'the bar has finished'
+          end
           advance(progress)
           iter.yield(elem)
         end
       end
-      block_given? ? prog.each(&block) : prog
+      block_given? ? progress_enum.each(&block) : progress_enum
     end
 
     # Update configuration options for this bar

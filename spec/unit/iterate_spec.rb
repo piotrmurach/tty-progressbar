@@ -20,7 +20,8 @@ RSpec.describe TTY::ProgressBar, '#iterate' do
 
   it "iterates over a collection with a step" do
     bar = TTY::ProgressBar.new("[:bar]", output: output)
-    bar.iterate(20.times, 5) {  }
+    values = []
+    bar.iterate(4.times, 5) { |val| values << val }
 
     expect(bar.complete?).to eq(true)
     output.rewind
@@ -30,6 +31,7 @@ RSpec.describe TTY::ProgressBar, '#iterate' do
       "\e[1G[===============     ]",
       "\e[1G[====================]\n"
     ].join)
+    expect(values).to eq([0, 1, 2, 3])
   end
 
   it "iterates over a collection and returns enumerable" do
@@ -49,11 +51,33 @@ RSpec.describe TTY::ProgressBar, '#iterate' do
     iterable = 5.times
     expect(iterable).not_to receive(:count)
     progress = bar.iterate(iterable)
-
     values = []
 
     progress.each { |v| values << v }
 
     expect(values).to eq([0,1,2,3,4])
+  end
+
+  it "doesn't allow to enumerate pass bar total" do
+    bar = TTY::ProgressBar.new("[:bar]", output: output, total: 5)
+    infinite_iter = (1..Float::INFINITY).lazy
+
+    progress = bar.iterate(infinite_iter)
+
+    5.times { progress.next }
+
+    expect(bar.complete?).to eq(true)
+    output.rewind
+    expect(output.read).to eq([
+      "\e[1G[=    ]",
+      "\e[1G[==   ]",
+      "\e[1G[===  ]",
+      "\e[1G[==== ]",
+      "\e[1G[=====]\n"
+    ].join)
+
+    expect {
+      progress.next
+    }.to raise_error(StopIteration, 'the bar has finished')
   end
 end
