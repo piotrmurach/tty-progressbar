@@ -282,6 +282,8 @@ module TTY
     #
     # @api private
     def write(data, clear_first = false)
+      return unless tty? # write only to terminal
+
       move_to_row do
         output.print(TTY::Cursor.column(1)) if clear_first
         characters_in = @multibar.line_inset(self) if @multibar
@@ -467,6 +469,15 @@ module TTY
       @callbacks[name].each do |callback|
         callback.call(*args)
       end
+    end
+
+    # Check if IO is attached to a terminal
+    #
+    # return [Boolean]
+    #
+    # @api public
+    def tty?
+      output.respond_to?(:tty?) && output.tty?
     end
   end # ProgressBar
 end # TTY
