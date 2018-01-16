@@ -1,5 +1,14 @@
 # Change log
 
+## [v0.14.0] - 2017-01-xx
+
+### Changed
+* Change to only output to a console and stop output to a file, pipe etc...
+* Change #iterate to accept enumerators as collection type by Victor Shepelev(@zverok)
+
+### Fixed
+* Fix #iterate to take into account progress value in total steps calculation
+
 ## [v0.13.0] - 2017-10-29
 
 ### Changed
@@ -151,6 +160,7 @@
 
 * Initial implementation and release
 
+[v0.14.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.13.0...v0.14.0
 [v0.13.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.12.2...v0.13.0
 [v0.12.2]: https://github.com/peter-murach/tty-progressbar/compare/v0.12.1...v0.12.2
 [v0.12.1]: https://github.com/peter-murach/tty-progressbar/compare/v0.12.0...v0.12.1
