@@ -63,8 +63,9 @@ Or install it yourself as:
   * [2.13 on](#213-on)
 * [3. Configuration](#3-configuration)
   * [3.1 :head](#31-head)
-  * [3.2 :frequency](#32-interval)
-  * [3.3 :interval](#33-interval)
+  * [3.2 :output](#32-output)
+  * [3.3 :frequency](#33-frequency)
+  * [3.4 :interval](#34-interval)
 * [4. Formatting](#4-formatting)
   * [4.1 Tokens](#41-tokens)
   * [4.2 Custom Formatters](#42-custom-formatters)
@@ -300,10 +301,10 @@ There are number of configuration options that can be provided:
 * `:width` of the bars display in terminal columns excluding formatting options. Defaults to total steps
 * `:complete` completion character by default `=`
 * `:incomplete` incomplete character by default single space
-* [:head](#21-head) the head character by default `=`
-* `:output` the output stream defaulting to `stderr`
-* [:frequency](#22-frequency) used to throttle the output, by default `0`
-* [:interval](#23-interval) used to measure the speed, by default `1 sec`
+* [:head](#31-head) the head character by default `=`
+* [:output](#32-output) the output stream defaulting to `stderr`
+* [:frequency](#33-frequency) used to throttle the output, by default `0`
+* [:interval](#34-interval) used to measure the speed, by default `1 sec`
 * `:hide_cursor` to hide display cursor defaulting to `false`
 * `:clear` to clear the finished bar defaulting to `false`
 
@@ -327,7 +328,19 @@ bar = TTY::ProressBar.new("[:bar]", head: '>')
 # [=======>      ]
 ```
 
-### 3.2 :frequency
+### 3.2 :output
+
+The progress bar only outputs to a console and when output is redirected to a file or a pipe it does nothing. This is so, for example, your error logs do not overflow with progress bars output.
+
+You can change where console output is streamed with `:output` option:
+
+```ruby
+bar = TTY::ProgressBar.new(output: $stdout)
+```
+
+The output stream defaults to `stderr`.
+
+### 3.3 :frequency
 
 Each time the `advance` is called it causes the progress bar to repaint. In cases when there is a huge number of updates per second, you may need to limit the rendering process by using the `frequency` option.
 
@@ -337,7 +350,7 @@ The `frequency` option accepts `integer` representing number of `Hz` units, for 
 TTY::ProgressBar.new("[:bar]", total: 30, frequency: 10) # 10 Hz
 ```
 
-### 3.3 :interval
+### 3.4 :interval
 
 For every call of `advance` method the **ProgressBar** takes a sample for speed measurement. By default the samples are grouped per second but you can change that by passing the `interval` option.
 
