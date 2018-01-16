@@ -176,9 +176,6 @@ module TTY
       update(total: collection.count * progress) unless total
       progress_enum = Enumerator.new do |iter|
         collection.each do |elem|
-          if complete?
-            raise StopIteration, 'the bar has finished'
-          end
           advance(progress)
           iter.yield(elem)
         end

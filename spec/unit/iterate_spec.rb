@@ -58,13 +58,13 @@ RSpec.describe TTY::ProgressBar, '#iterate' do
     expect(values).to eq([0,1,2,3,4])
   end
 
-  it "doesn't allow to enumerate pass bar total" do
+  it "iterates over an infinite enumerator and renders bar correctly" do
     bar = TTY::ProgressBar.new("[:bar]", output: output, total: 5)
     infinite_iter = (1..Float::INFINITY).lazy
 
     progress = bar.iterate(infinite_iter)
 
-    5.times { progress.next }
+    10.times { progress.next }
 
     expect(bar.complete?).to eq(true)
     output.rewind
@@ -75,9 +75,5 @@ RSpec.describe TTY::ProgressBar, '#iterate' do
       "\e[1G[==== ]",
       "\e[1G[=====]\n"
     ].join)
-
-    expect {
-      progress.next
-    }.to raise_error(StopIteration, 'the bar has finished')
   end
 end
