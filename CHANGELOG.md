@@ -1,6 +1,6 @@
 # Change log
 
-## [v0.14.0] - 2017-01-xx
+## [v0.14.0] - 2017-01-17
 
 ### Changed
 * Change to only output to a console and stop output to a file, pipe etc...
