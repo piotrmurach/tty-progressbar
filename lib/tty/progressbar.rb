@@ -160,6 +160,15 @@ module TTY
     # set `total` would be used. This allows using the progressbar
     # with infinite, lazy, or slowly-calculated enumerators.
     #
+    # @note
+    #   If `total` is set, iteration will NOT stop after this number of
+    #   iterations, only when provided Enumerable is finished. It may
+    #   be convenient in "unsure number of iterations" situations
+    #   (like downloading in chunks, when server may eventually send
+    #   more chunks than predicted), but be careful to not pass infinite
+    #   enumerators without previosly doing `.take(some_finite_number)`
+    #   on them.
+    #
     # @example
     #   bar.iterate(30.times) { ... }
     #
