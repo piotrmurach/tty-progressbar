@@ -161,7 +161,7 @@ Then, either directly iterate over a collection by yielding values to a block:
 bar.iterate(30.times) { |v| ... }
 ```
 
-or return an 'Enumerator':
+or return an `Enumerator`:
 
 ```ruby
 progress = bar.iterate(30.times)
@@ -174,7 +174,9 @@ By default, progress bar is advanced by `1` but you can change it by passing sec
 bar.iterate(30.times, 5)
 ```
 
-One particularly useful application of `iterate` is with Ruby's infamous [lazy enumerators](http://ruby-doc.org/core-2.5.0/Enumerator/Lazy.html), or slowly advancing enumerations, representing complex processes:
+One particularly useful application of `iterate` are Ruby infamous [lazy enumerators](http://ruby-doc.org/core-2.5.0/Enumerator/Lazy.html), or slowly advancing enumerations, representing complex processes.
+
+For example, an `Enumerator` that downloads content from a remote server chunk at a time:
 
 ```ruby
 downloader = Enumerator.new do |y|
@@ -185,12 +187,17 @@ downloader = Enumerator.new do |y|
     start += CHUNK_SIZE
   end
 end
-
-response = TTY::ProgressBar
-  .new("[:bar]", total: content_size) # you need to provide total for iterate not to call enumerator.count
-  .iterate(downloader, CHUNK_SIZE).to_a.join
 ```
-Effect of this code would be progress bar advancing after each chunk downloading and returning the result of download in the end.
+
+would be used with progress bar with the total size matching the content size like so:
+
+```ruby
+bar = TTY::ProgressBar.new("[:bar]", total: content_size)
+# you need to provide the total for the iterate to avoid calling enumerator.count
+response = bar.iterate(downloader, CHUNK_SIZE).to_a.join
+```
+
+This would result in progress bar advancing after each chunk up until all content has been downloaded, returning the result of the download in `response` variable.
 
 ### 2.3 current=
 
