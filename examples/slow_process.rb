@@ -22,6 +22,8 @@ downloader = Enumerator.new do |y|
   end
 end
 
-response = TTY::ProgressBar.new("[:bar] :current_byte/:total_byte", total: CONTENT_SIZE).iterate(downloader, CHUNK_SIZE).to_a.join
+bar = TTY::ProgressBar.new("[:bar] :current_byte/:total_byte", total: CONTENT_SIZE)
+
+response = bar.iterate(downloader, CHUNK_SIZE).to_a.join
 
 puts response
