@@ -199,6 +199,8 @@ response = bar.iterate(downloader, CHUNK_SIZE).to_a.join
 
 This would result in progress bar advancing after each chunk up until all content has been downloaded, returning the result of the download in `response` variable.
 
+Please run [slow_process example](examples/slow_process.rb) to see this in action.
+
 ### 2.3 current=
 
 **TTY::ProgressBar** allows you to set progress to a given value by calling `current=` method.
