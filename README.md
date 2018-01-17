@@ -174,6 +174,24 @@ By default, progress bar is advanced by `1` but you can change it by passing sec
 bar.iterate(30.times, 5)
 ```
 
+One particularly useful application of `iterate` is with Ruby's infamous [lazy enumerators](http://ruby-doc.org/core-2.5.0/Enumerator/Lazy.html), or slowly advancing enumerations, representing complex processes:
+
+```ruby
+downloader = Enumerator.new do |y|
+  start = 0
+  loop do
+    yield(download_from_server(start, CHUNK_SIZE))
+    raise StopIteration if download_finished?
+    start += CHUNK_SIZE
+  end
+end
+
+response = TTY::ProgressBar
+  .new("[:bar]", total: content_size) # you need to provide total for iterate not to call enumerator.count
+  .iterate(downloader, CHUNK_SIZE).to_a.join
+```
+Effect of this code would be progress bar advancing after each chunk downloading and returning the result of download in the end.
+
 ### 2.3 current=
 
 **TTY::ProgressBar** allows you to set progress to a given value by calling `current=` method.
