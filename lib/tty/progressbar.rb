@@ -80,6 +80,10 @@ module TTY
 
       @formatter.load
       reset
+
+      @first_render = true
+      @multibar     = nil
+      @row          = nil
     end
 
     # Reset progress to default configuration
@@ -96,9 +100,6 @@ module TTY
       @start_at          = Time.now
       @started           = false
       @tokens            = {}
-      @multibar          = nil
-      @row               = nil
-      @first_render      = true
 
       @meter.clear
     end
