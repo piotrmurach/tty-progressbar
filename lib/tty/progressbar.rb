@@ -202,7 +202,9 @@ module TTY
     def update(options = {})
       synchronize do
         options.each do |name, val|
-          @configuration.public_send("#{name}=", val)
+          if @configuration.respond_to?("#{name}=")
+            @configuration.public_send("#{name}=", val)
+          end
         end
       end
     end
