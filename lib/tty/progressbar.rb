@@ -260,7 +260,7 @@ module TTY
       write(formatted, true)
 
       @last_render_time  = Time.now
-      @last_render_width = formatted.length
+      @last_render_width = display_columns(formatted)
     end
 
     # Move cursor to a row of the current bar if the bar is rendered
@@ -430,6 +430,21 @@ module TTY
     # @api public
     def max_columns
       TTY::Screen.width
+    end
+
+    # Determine the monospace display width of a string
+    #
+    # @param [String] value
+    #   the value to determine width of
+    #
+    # @return [Integer]
+    #
+    # @api public
+    def display_columns(value)
+      require 'unicode/display_width'
+      Unicode::DisplayWidth.of(value)
+    rescue LoadError
+      value.length
     end
 
     # Show bar format

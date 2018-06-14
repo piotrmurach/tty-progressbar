@@ -18,4 +18,17 @@ RSpec.describe TTY::ProgressBar, '#width' do
       "\e[1G[==================]\n"
     ].join)
   end
+
+  it "handles unicode characters width" do
+    bar = TTY::ProgressBar.new("あめかんむり[:bar]", output: output, total: 20)
+    allow(TTY::Screen).to receive(:width).and_return(20)
+    4.times { bar.advance(5) }
+    output.rewind
+    expect(output.read).to eq([
+      "\e[1Gあめかんむり[==    ]",
+      "\e[1Gあめかんむり[===   ]",
+      "\e[1Gあめかんむり[===== ]",
+      "\e[1Gあめかんむり[======]\n"
+    ].join)
+  end
 end

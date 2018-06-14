@@ -30,7 +30,9 @@ module TTY
       #
       # @api public
       def format(value)
-        available_space = [0, @progress.max_columns - value.gsub(/:bar/, '').length].max
+        without_bar = value.gsub(/:bar/, '')
+        available_space = [0, @progress.max_columns -
+                              @progress.display_columns(without_bar)].max
         width = [@progress.width, available_space].min
         complete_length = (width * @progress.ratio).round
         complete   = Array.new(complete_length, @progress.complete)
