@@ -16,9 +16,11 @@ end
 require 'timecop'
 require 'tty-progressbar'
 
-StringIO.undef_method :tty?
-StringIO.define_method :tty? do
-  true
+class StringIO
+  undef_method :tty?
+  def tty?
+    true
+  end
 end
 
 RSpec.configure do |config|
