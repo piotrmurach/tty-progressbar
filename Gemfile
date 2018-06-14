@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'unicode-display_width', '~> 1.4.0'
+
 group :test do
   gem 'pastel',  '~> 0.7.2'
   gem 'coveralls', '~> 0.8.13'
