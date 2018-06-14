@@ -7,6 +7,16 @@ RSpec.describe TTY::ProgressBar, '::new' do
     }.to raise_error(ArgumentError, /Expected bar formatting string, got `{:output=>#{output}}` instead\./)
   end
 
+  it "allows to change formatting string" do
+    bar = TTY::ProgressBar.new("[:bar]", output: output, total: 4)
+    bar.advance(2)
+    bar.format = "(:bar)"
+    bar.advance(2)
+    output.rewind
+
+    expect(output.read).to eq("\e[1G[==  ]\e[1G(====)\n")
+  end
+
   it "displays output where width == total" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)
     progress.advance

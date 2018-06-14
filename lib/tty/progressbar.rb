@@ -23,7 +23,7 @@ module TTY
 
     CURSOR_LOCK = Monitor.new
 
-    attr_reader :format
+    attr_accessor :format
 
     attr_reader :current
 
