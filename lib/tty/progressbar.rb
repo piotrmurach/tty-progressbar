@@ -257,7 +257,10 @@ module TTY
       @tokens.each do |token, val|
         formatted = formatted.gsub(":#{token}", val)
       end
-      write(formatted, true)
+
+      padded = padout(formatted)
+
+      write(padded, true)
 
       @last_render_time  = Time.now
       @last_render_width = display_columns(formatted)
@@ -479,8 +482,10 @@ module TTY
     #
     # @api private
     def padout(message)
-      if @last_render_width > message.length
-        remaining_width = @last_render_width - message.length
+      message_length = display_columns(message)
+
+      if @last_render_width > message_length
+        remaining_width = @last_render_width - message_length
         message += ' ' * remaining_width
       end
       message
