@@ -8,7 +8,7 @@ RSpec.describe TTY::ProgressBar, 'custom token' do
     output.rewind
     expect(output.read).to eq([
       "\e[1G(1) Hello Piotr!",
-      "\e[1G(4) Bye Piotr!\n"
+      "\e[1G(4) Bye Piotr!  \n"
     ].join)
   end
 end

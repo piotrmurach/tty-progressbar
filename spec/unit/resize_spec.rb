@@ -11,7 +11,7 @@ RSpec.describe TTY::ProgressBar, '#resize' do
       "\e[1G[==        ]",
       "\e[1G[====      ]",
       "\e[0m\e[2K\e[1G",
-      "\e[1G[===  ]",
+      "\e[1G[===  ]     ",
       "\e[1G[==== ]",
       "\e[1G[=====]\n"
     ].join)
