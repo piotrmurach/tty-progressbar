@@ -34,10 +34,18 @@ module TTY
         available_space = [0, @progress.max_columns -
                               @progress.display_columns(without_bar)].max
         width = [@progress.width, available_space].min
-        complete_length = (width * @progress.ratio).round
-        complete   = Array.new(complete_length, @progress.complete)
-        incomplete = Array.new(width - complete_length, @progress.incomplete)
-        complete[-1] = @progress.head if complete_length > 0
+        complete_bar_length = (width * @progress.ratio).round
+        complete_char_length = @progress.display_columns(@progress.complete)
+        incomplete_char_length = @progress.display_columns(@progress.incomplete)
+
+        # decimal number of items only when unicode chars are used
+        # otherwise it has no effect on regular ascii chars
+        complete_items   = (complete_bar_length / complete_char_length.to_f).round
+        incomplete_items = (width - complete_items * complete_char_length) / incomplete_char_length
+
+        complete   = Array.new(complete_items, @progress.complete)
+        incomplete = Array.new(incomplete_items, @progress.incomplete)
+        complete[-1] = @progress.head if complete_bar_length > 0
 
         bar = ''
         bar += complete.join
