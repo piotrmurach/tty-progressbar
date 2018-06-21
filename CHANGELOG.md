@@ -1,5 +1,19 @@
 # Change log
 
+## [v0.15.0] - 2018-06-xx
+
+### Added
+* Add #format= for overriding formatting string
+* Add #display_columns for determining display width of multibyte characters
+
+### Changed
+* Change #update to only set configuration if actually present
+* Change bar formatter to handle multibyte characters
+
+### Fixed
+* Fix to stop reseting multibar state when registered bar reset by Eric Hodel(@drbrain)
+* Fix rendered bar to pad formatted output when it gets shorter by Eric Hodel(@drbrain)
+
 ## [v0.14.0] - 2017-01-17
 
 ### Changed
@@ -160,6 +174,7 @@
 
 * Initial implementation and release
 
+[v0.15.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.14.0...v0.15.0
 [v0.14.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.13.0...v0.14.0
 [v0.13.0]: https://github.com/peter-murach/tty-progressbar/compare/v0.12.2...v0.13.0
 [v0.12.2]: https://github.com/peter-murach/tty-progressbar/compare/v0.12.1...v0.12.2
