@@ -26,6 +26,7 @@
 * Includes many predefined tokens to calculate ETA, Bytes ... [tokens](#41-tokens)
 * Allows to define your [custom tokens](#42-custom-formatters)
 * Supports parallel multi progress bars [multi](#6-ttyprogressbarmulti-api)
+* Handles Unicode characters in progress bar [unicode](#44-unicode)
 * Works on all ECMA-48 compatible terminals
 
 ## Installation
@@ -70,6 +71,7 @@ Or install it yourself as:
   * [4.1 Tokens](#41-tokens)
   * [4.2 Custom Formatters](#42-custom-formatters)
   * [4.3 Custom Tokens](#43-custom-tokens)
+  * [4.4 Unicode](#44-unicode)
 * [5. Logging](#5-logging)
 * [6. TTY::ProgressBar::Multi API](#6-ttyprogressbarmulti-api)
   * [6.1 new](#61-new)
@@ -472,6 +474,22 @@ which outputs:
 ```ruby
 (1) Hello Piotr!
 (4) Bye Piotr!
+```
+
+### 4.4 Unicode
+
+If your progress bar contains Unicode characters or multibyte characters that are not monospaced, you will need to add the following gem to your application as a dependency:
+
+```ruby
+gem 'unicode-display_width'
+```
+
+This will make it possible to specify Unicode chars, for example, for bar progression:
+
+```ruby
+bar = TTY::ProgressBar.new("Unicode [:bar]", total: 30, complete: 'あ')
+#
+# => Unicode [あああああああああああああああ]
 ```
 
 ## 5. Logging
