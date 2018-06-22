@@ -5,6 +5,8 @@
 ### Added
 * Add #format= for overriding formatting string
 * Add #display_columns for determining display width of multibyte characters
+* Add :inset option to bar configuration options
+* Add unicode-display_width dependency
 
 ### Changed
 * Change #update to only set configuration if actually present
@@ -13,6 +15,8 @@
 ### Fixed
 * Fix to stop reseting multibar state when registered bar reset by Eric Hodel(@drbrain)
 * Fix rendered bar to pad formatted output when it gets shorter by Eric Hodel(@drbrain)
+* Fix multi bar to advance in steps matching each bar advance progress
+* Fix multi bar rendering for widths exceeding screen columns width
 
 ## [v0.14.0] - 2017-01-17
 
