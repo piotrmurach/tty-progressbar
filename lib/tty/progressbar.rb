@@ -145,7 +145,7 @@ module TTY
       return if done?
 
       synchronize do
-        emit(:progress)
+        emit(:progress, progress)
         if progress.respond_to?(:to_hash)
           tokens, progress = progress, 1
         end

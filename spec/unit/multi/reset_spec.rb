@@ -17,9 +17,9 @@ RSpec.describe TTY::ProgressBar::Multi, '#reset' do
     progress_updates =
       output.read.scan(/#{Regexp.escape top}|#{Regexp.escape bottom}/)
     expect(progress_updates.shift).to match(top)
-    expect(progress_updates.shift).to match(bottom)
-    expect(progress_updates.shift).to match(bottom)
     expect(progress_updates.shift).to match(top)
+    expect(progress_updates.shift).to match(bottom)
+    expect(progress_updates.shift).to match(bottom)
     expect(progress_updates.shift).to match(bottom)
     expect(progress_updates.shift).to match(bottom)
 
