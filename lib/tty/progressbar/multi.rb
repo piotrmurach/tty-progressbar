@@ -18,6 +18,8 @@ module TTY
 
       def_delegators :@bars, :each, :empty?, :length, :[]
 
+      def_delegators :@top_bar, :width, :width=
+
       DEFAULT_INSET = {
         top:    Gem.win_platform? ? '+ '   : "\u250c ",
         middle: Gem.win_platform? ? '|-- ' : "\u251c\u2500\u2500 ",
@@ -51,6 +53,9 @@ module TTY
         @top_bar = nil
         @top_bar = register(format, observable: false) if format
 
+        @width = @options[:width]
+        @top_bar.update(width: @width) if @width
+
         @callbacks = {
           progress: [],
           stopped:  [],
@@ -73,7 +78,8 @@ module TTY
           @bars << bar
           observe(bar) if observable
           if @top_bar
-            @top_bar.update(total: total, width: total)
+            @top_bar.update(total: total)
+            @top_bar.update(width: total) unless @width
           end
         end
 
