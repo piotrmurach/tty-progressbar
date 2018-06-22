@@ -39,6 +39,15 @@ module TTY
 
     def_delegator :@formatter, :use
 
+    # Determine terminal width
+    #
+    # @return [Integer]
+    #
+    # @api public
+    def self.max_columns
+      TTY::Screen.width
+    end
+
     # Create progress bar
     #
     # @param [String] format
@@ -424,15 +433,6 @@ module TTY
 
       write(sanitized_message + "\n", true)
       render
-    end
-
-    # Determine terminal width
-    #
-    # @return [Integer]
-    #
-    # @api public
-    def max_columns
-      TTY::Screen.width
     end
 
     # Determine the monospace display width of a string
