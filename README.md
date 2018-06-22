@@ -304,10 +304,10 @@ trap(:WINCH) { bar.resize }
 
 The progress bar fires events when it is progressing, stopped or finished. You can register to listen for events using the `on` message.
 
-Every time an `advance` is called the `:progress` event gets fired which you can listen for:
+Every time an `advance` is called the `:progress` event gets fired which you can listen for inside a block which includes the actual amount of progress as a first yielded argument:
 
 ```ruby
-bar.on(:progress) { ... }
+bar.on(:progress) { |amount| ... }
 ```
 
 When the progress bar finishes and completes then the `:done` event is fired. You can listen for this event:
