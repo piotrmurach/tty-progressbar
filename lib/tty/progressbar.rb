@@ -33,7 +33,7 @@ module TTY
 
     def_delegators :@configuration, :total, :width, :no_width,
                    :complete, :incomplete, :head, :hide_cursor, :clear,
-                   :output, :frequency, :interval, :width=
+                   :output, :frequency, :interval, :inset, :width=
 
     def_delegators :@meter, :rate, :mean_rate
 
@@ -260,6 +260,11 @@ module TTY
       return if done?
       if hide_cursor && @last_render_width == 0 && !(@current >= total)
         write(TTY::Cursor.hide)
+      end
+
+      if @multibar
+        characters_in = @multibar.line_inset(self)
+        update(inset: display_columns(characters_in))
       end
 
       formatted = @formatter.decorate(self, @format)

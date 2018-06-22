@@ -31,8 +31,9 @@ module TTY
       # @api public
       def format(value)
         without_bar = value.gsub(/:bar/, '')
-        available_space = [0, @progress.max_columns -
-                              @progress.display_columns(without_bar)].max
+        available_space = [0, ProgressBar.max_columns -
+                              @progress.display_columns(without_bar) -
+                              @progress.inset].max
         width = [@progress.width, available_space].min
         complete_bar_length = (width * @progress.ratio).round
         complete_char_length = @progress.display_columns(@progress.complete)
