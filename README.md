@@ -478,18 +478,22 @@ which outputs:
 
 ### 4.4 Unicode
 
-If your progress bar contains Unicode characters or multibyte characters that are not monospaced, you will need to add the following gem to your application as a dependency:
+The format string and both complete, head and incompelte can contain Unicode characters that aren't monospaced.
 
-```ruby
-gem 'unicode-display_width'
-```
-
-This will make it possible to specify Unicode chars, for example, for bar progression:
+For example, you can specify complete bar progression character to be unicode non-monospaced:
 
 ```ruby
 bar = TTY::ProgressBar.new("Unicode [:bar]", total: 30, complete: 'あ')
 #
 # => Unicode [あああああああああああああああ]
+```
+
+Similarly, the formatted string can include Unicode characters:
+
+```ruby
+bar = TTY::ProgressBar.new("あめかんむり[:bar]", total: 20)
+#
+# => あめかんむり[==    ]
 ```
 
 ## 5. Logging
