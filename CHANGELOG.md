@@ -1,11 +1,12 @@
 # Change log
 
-## [v0.15.0] - 2018-06-xx
+## [v0.15.0] - 2018-06-24
 
 ### Added
 * Add #format= for overriding formatting string
 * Add #display_columns for determining display width of multibyte characters
 * Add :inset option to bar configuration options
+* Add ability to configure width for multi bar with top level bar
 * Add unicode-display_width dependency
 
 ### Changed
