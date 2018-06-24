@@ -478,9 +478,9 @@ which outputs:
 
 ### 4.4 Unicode
 
-The format string and both complete, head and incompelte can contain Unicode characters that aren't monospaced.
+The format string as well as `:complete`, `:head` and `:incompelte` configuration options can contain Unicode characters that aren't monospaced.
 
-For example, you can specify complete bar progression character to be unicode non-monospaced:
+For example, you can specify complete bar progression character to be Unicode non-monospaced:
 
 ```ruby
 bar = TTY::ProgressBar.new("Unicode [:bar]", total: 30, complete: 'あ')
