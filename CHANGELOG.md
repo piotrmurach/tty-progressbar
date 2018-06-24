@@ -17,9 +17,9 @@
 * Fix to stop reseting multibar state when registered bar reset by Eric Hodel(@drbrain)
 * Fix rendered bar to pad formatted output when it gets shorter by Eric Hodel(@drbrain)
 * Fix multi bar to advance in steps matching each bar advance progress
-* Fix multi bar rendering for widths exceeding screen columns width
+* Fix multi bar rendering for widths exceeding screen columns count
 
-## [v0.14.0] - 2017-01-17
+## [v0.14.0] - 2018-01-17
 
 ### Changed
 * Change to only output to a console and stop output to a file, pipe etc...
