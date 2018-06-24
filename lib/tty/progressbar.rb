@@ -5,6 +5,7 @@ require 'forwardable'
 require 'monitor'
 require 'tty-cursor'
 require 'tty-screen'
+require 'unicode/display_width'
 
 require_relative 'progressbar/configuration'
 require_relative 'progressbar/formatter'
@@ -46,6 +47,18 @@ module TTY
     # @api public
     def self.max_columns
       TTY::Screen.width
+    end
+
+    # Determine the monospace display width of a string
+    #
+    # @param [String] value
+    #   the value to determine width of
+    #
+    # @return [Integer]
+    #
+    # @api public
+    def self.display_columns(value)
+      Unicode::DisplayWidth.of(value)
     end
 
     # Create progress bar
@@ -264,7 +277,7 @@ module TTY
 
       if @multibar
         characters_in = @multibar.line_inset(self)
-        update(inset: display_columns(characters_in))
+        update(inset: self.class.display_columns(characters_in))
       end
 
       formatted = @formatter.decorate(self, @format)
@@ -277,7 +290,7 @@ module TTY
       write(padded, true)
 
       @last_render_time  = Time.now
-      @last_render_width = display_columns(formatted)
+      @last_render_width = self.class.display_columns(formatted)
     end
 
     # Move cursor to a row of the current bar if the bar is rendered
@@ -440,21 +453,6 @@ module TTY
       render
     end
 
-    # Determine the monospace display width of a string
-    #
-    # @param [String] value
-    #   the value to determine width of
-    #
-    # @return [Integer]
-    #
-    # @api public
-    def display_columns(value)
-      require 'unicode/display_width'
-      Unicode::DisplayWidth.of(value)
-    rescue LoadError
-      value.length
-    end
-
     # Show bar format
     #
     # @return [String]
@@ -487,7 +485,7 @@ module TTY
     #
     # @api private
     def padout(message)
-      message_length = display_columns(message)
+      message_length = self.class.display_columns(message)
 
       if @last_render_width > message_length
         remaining_width = @last_render_width - message_length

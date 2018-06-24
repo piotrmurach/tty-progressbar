@@ -32,12 +32,12 @@ module TTY
       def format(value)
         without_bar = value.gsub(/:bar/, '')
         available_space = [0, ProgressBar.max_columns -
-                              @progress.display_columns(without_bar) -
+                              ProgressBar.display_columns(without_bar) -
                               @progress.inset].max
         width = [@progress.width, available_space].min
-        complete_bar_length = (width * @progress.ratio).round
-        complete_char_length = @progress.display_columns(@progress.complete)
-        incomplete_char_length = @progress.display_columns(@progress.incomplete)
+        complete_bar_length    = (width * @progress.ratio).round
+        complete_char_length   = ProgressBar.display_columns(@progress.complete)
+        incomplete_char_length = ProgressBar.display_columns(@progress.incomplete)
 
         # decimal number of items only when unicode chars are used
         # otherwise it has no effect on regular ascii chars
