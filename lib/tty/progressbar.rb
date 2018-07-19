@@ -354,10 +354,6 @@ module TTY
     #
     # @api public
     def finish
-      # reenable cursor if it is turned off
-      if hide_cursor && @last_render_width != 0
-        write(TTY::Cursor.show, false)
-      end
       return if done?
       @current = total unless no_width
       render
@@ -365,6 +361,12 @@ module TTY
     ensure
       @meter.clear
       @done = true
+
+      # reenable cursor if it is turned off
+      if hide_cursor && @last_render_width != 0
+        write(TTY::Cursor.show, false)
+      end
+
       emit(:done)
     end
 

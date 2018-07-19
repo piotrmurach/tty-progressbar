@@ -11,7 +11,7 @@ RSpec.describe TTY::ProgressBar, '#hide_cursor' do
       "\e[1G[==   ]",
       "\e[1G[===  ]",
       "\e[1G[==== ]",
-      "\e[?25h\e[1G[=====]\n"
+      "\e[1G[=====]\n\e[?25h"
     ].join)
   end
 
@@ -22,6 +22,6 @@ RSpec.describe TTY::ProgressBar, '#hide_cursor' do
     progress.advance(6)
     expect(progress.complete?).to eq(true)
     output.rewind
-    expect(output.read).to eq("\e[1G[=====]\n")
+    expect(output.read).to eq("\e[1G[=====]\n\e[?25h")
   end
 end
