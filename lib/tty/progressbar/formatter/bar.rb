@@ -46,7 +46,7 @@ module TTY
 
         complete   = Array.new(complete_items, @progress.complete)
         incomplete = Array.new(incomplete_items, @progress.incomplete)
-        complete[-1] = @progress.head if complete_bar_length > 0
+        complete[-1] = @progress.head if complete_bar_length > 0 && complete.size.positive?
 
         bar = ''
         bar += complete.join
