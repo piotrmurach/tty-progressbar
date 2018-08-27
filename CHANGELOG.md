@@ -1,5 +1,13 @@
 # Change log
 
+## [v0.15.2] - 2018-08-27
+
+### Added
+* Add strings-ansi dependency
+
+### Fixed
+* Fix to handle ANSI codes in bar formatting to allow correct size calculation
+
 ## [v0.15.1] - 2018-07-19
 
 ### Fixed
@@ -184,6 +192,7 @@
 
 * Initial implementation and release
 
+[v0.15.2]: https://github.com/piotrmurach/tty-progressbar/compare/v0.15.1...v0.15.2
 [v0.15.1]: https://github.com/piotrmurach/tty-progressbar/compare/v0.15.0...v0.15.1
 [v0.15.0]: https://github.com/piotrmurach/tty-progressbar/compare/v0.14.0...v0.15.0
 [v0.14.0]: https://github.com/piotrmurach/tty-progressbar/compare/v0.13.0...v0.14.0
