@@ -1,3 +1,7 @@
+<div align="center">
+  <a href="https://piotrmurach.github.io/tty" target="_blank"><img width="130" src="https://cdn.rawgit.com/piotrmurach/tty/master/images/tty.png" alt="tty logo" /></a>
+</div>
+
 # TTY::ProgressBar [![Gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
 
 [![Gem Version](https://badge.fury.io/rb/tty-progressbar.svg)][gem]
