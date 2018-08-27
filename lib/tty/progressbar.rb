@@ -5,6 +5,7 @@ require 'forwardable'
 require 'monitor'
 require 'tty-cursor'
 require 'tty-screen'
+require 'strings-ansi'
 require 'unicode/display_width'
 
 require_relative 'progressbar/configuration'
@@ -58,7 +59,7 @@ module TTY
     #
     # @api public
     def self.display_columns(value)
-      Unicode::DisplayWidth.of(value)
+      Unicode::DisplayWidth.of(Strings::ANSI.sanitize(value))
     end
 
     # Create progress bar
