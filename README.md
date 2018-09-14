@@ -482,7 +482,7 @@ which outputs:
 
 ### 4.4 Unicode
 
-The format string as well as `:complete`, `:head` and `:incompelte` configuration options can contain Unicode characters that aren't monospaced.
+The format string as well as `:complete`, `:head` and `:incomplete` configuration options can contain Unicode characters that aren't monospaced.
 
 For example, you can specify complete bar progression character to be Unicode non-monospaced:
 
