@@ -356,7 +356,7 @@ end
 If you prefer for the animated bar to display a specific character for a head of progression then use `:head` option:
 
 ```ruby
-bar = TTY::ProressBar.new("[:bar]", head: '>')
+bar = TTY::ProgressBar.new("[:bar]", head: '>')
 #
 # [=======>      ]
 ```
