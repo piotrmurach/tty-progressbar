@@ -17,6 +17,7 @@ end
 
 require 'timecop'
 require 'tty-progressbar'
+require 'stringio'
 
 class StringIO
   undef_method :tty?
