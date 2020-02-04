@@ -1,4 +1,4 @@
-require "lib/tty/progressbar/version"
+require_relative "lib/tty/progressbar/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "tty-progressbar"
