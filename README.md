@@ -227,7 +227,7 @@ bar.ratio = 0.5
 
 ### 2.5 width=
 
-You can set how many terminal columns will the `:bar` actually span excluding any other tokens and/or text. For example if you need the bar to be always 20 columns wwide do:
+You can set how many terminal columns will the `:bar` actually span excluding any other tokens and/or text. For example if you need the bar to be always 20 columns wide do:
 
 ```ruby
 bar.width = 20
@@ -241,7 +241,7 @@ bar = TTY::ProgressBar.new("[:bar]", width: 20)
 
 ### 2.6 start
 
-By default the timer for internal time esitamation is started automatically when the `advance` method is called. However, if you require control on when the progression timer is started use `start` call:
+By default the timer for internal time estimation is started automatically when the `advance` method is called. However, if you require control on when the progression timer is started use `start` call:
 
 ```ruby
 bar.start  # => sets timer and draws initial progress bar
@@ -283,7 +283,7 @@ After resetting the bar if you wish to draw and start the bar and its timers use
 
 ### 2.11 complete?
 
-During progresion you can check if a bar is finished or not by calling `complete?`. The bar will only return `true` if the progression finished successfuly, otherwise `false` will be returned.
+During progression you can check if a bar is finished or not by calling `complete?`. The bar will only return `true` if the progression finished successfully, otherwise `false` will be returned.
 
 ```ruby
 bar.complete? # => false
@@ -414,9 +414,9 @@ These are the tokens that are currently supported:
 * `:total_byte` the total progress in bytes
 * `:percent` the completion percentage
 * `:elapsed` the elapsed time in seconds
-* `:eta` the esitmated time to completion in seconds
+* `:eta` the estimated time to completion in seconds
 * `:rate` the current rate of progression per second
-* `:byte_rate` the current rate of pregression in bytes per second
+* `:byte_rate` the current rate of progression in bytes per second
 * `:mean_rate` the averaged rate of progression per second
 * `:mean_byte` the averaged rate of progression in bytes per second
 
@@ -424,7 +424,7 @@ These are the tokens that are currently supported:
 
 If the provided tokens do not meet your needs, you can write your own formatter and instrument formatting pipeline to use a formatter you prefer. This option is preferred if you are going to rely on progress bar internal data such as `rate`, `current` etc. which will all be available on the passed in progress bar instance.
 
-For example, begin by creating custom formatter called `TimeFormatter` that will dynamicly update `:time` token in format string. The methods that you need to specify are `initialize`, `matches?` and `format` like follows:
+For example, begin by creating custom formatter called `TimeFormatter` that will dynamically update `:time` token in format string. The methods that you need to specify are `initialize`, `matches?` and `format` like follows:
 
 ```ruby
 class TimeFormatter
@@ -544,7 +544,7 @@ bar = multibar.register("[:bar]", total: 30)
 
 The `register` call returns the newly created progress bar which answers all the progress bar api messages.
 
-Please remember to specify total value for each registered progress bar, either when sending `register` message or when using `update` to dynamicaly assign the total value.
+Please remember to specify total value for each registered progress bar, either when sending `register` message or when using `update` to dynamically assign the total value.
 
 ### 6.3 advance
 
@@ -572,7 +572,7 @@ Finally, wait for the threads to finish:
 
 ### 6.4 start
 
-By default the top level multi bar will be rendered as the first bar and have its timer started when on of the regsitered bars advances. However, if you wish to start timers and draw the top level multi bar do:
+By default the top level multi bar will be rendered as the first bar and have its timer started when on of the registered bars advances. However, if you wish to start timers and draw the top level multi bar do:
 
 ```ruby
 multibar.start  # => sets timer and draws top level multi progress bar
