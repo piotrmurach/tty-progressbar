@@ -79,6 +79,7 @@ module TTY
           observe(bar) if observable
           if @top_bar
             @top_bar.update(total: total)
+            @top_bar.continue
             @top_bar.update(width: total) unless @width
           end
         end

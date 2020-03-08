@@ -371,6 +371,14 @@ module TTY
       emit(:done)
     end
 
+    # Continue rendering if after bar is done total number is updated
+    #
+    # @api public
+    def continue
+      @done = false
+      @stopped = false
+    end
+
     # Stop and cancel the progress at the current position
     #
     # @api public
