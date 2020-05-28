@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "lib/tty/progressbar/version"
 
 Gem::Specification.new do |spec|
@@ -19,9 +21,8 @@ Gem::Specification.new do |spec|
       "source_code_uri"   => "https://github.com/piotrmurach/tty-progressbar"
     }
   end
-  spec.files         = Dir["lib/**/*", "README.md", "CHANGELOG.md", "LICENSE.txt"]
-  spec.extra_rdoc_files = ["README.md", "CHANGELOG.md"]
-  spec.bindir        = "exe"
+  spec.files         = Dir["lib/**/*"]
+  spec.extra_rdoc_files = ["README.md", "CHANGELOG.md", "LICENSE.txt"]
   spec.require_paths = ["lib"]
   spec.required_ruby_version = ">= 2.0.0"
 
