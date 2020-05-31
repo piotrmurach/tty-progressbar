@@ -1,5 +1,14 @@
 # Change log
 
+## [v0.18.0] - 2020-06-xx
+
+### Changed
+* Change gemspec to load version directly and remove test artifacts
+* Change to update strings-ansi
+
+### Fixed
+* Fix MultiBar top bar to display current/total correctly
+
 ## [v0.17.0] - 2019-05-31
 
 ### Changed
@@ -201,6 +210,7 @@
 
 * Initial implementation and release
 
+[v0.18.0]: https://github.com/piotrmurach/tty-progressbar/compare/v0.17.0...v0.18.0
 [v0.17.0]: https://github.com/piotrmurach/tty-progressbar/compare/v0.16.0...v0.17.0
 [v0.16.0]: https://github.com/piotrmurach/tty-progressbar/compare/v0.15.1...v0.16.0
 [v0.15.1]: https://github.com/piotrmurach/tty-progressbar/compare/v0.15.0...v0.15.1
