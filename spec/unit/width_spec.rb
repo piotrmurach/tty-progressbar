@@ -45,8 +45,8 @@ RSpec.describe TTY::ProgressBar, '#width' do
     output.rewind
 
     expect(output.read).to eq([
-      "\e[1G[あああめめめめめめ]",
-      "\e[1G[あああああめめめめ]",
+      "\e[1G[ああめめめめめめめ]",
+      "\e[1G[ああああめめめめめ]",
       "\e[1G[あああああああめめ]",
       "\e[1G[あああああああああ]\n"
     ].join)
@@ -61,8 +61,8 @@ RSpec.describe TTY::ProgressBar, '#width' do
     output.rewind
 
     expect(output.read).to eq([
-      "\e[1G[あああ            ]",
-      "\e[1G[あああああ        ]",
+      "\e[1G[ああ              ]",
+      "\e[1G[ああああ          ]",
       "\e[1G[あああああああ    ]",
       "\e[1G[あああああああああ]\n"
     ].join)
@@ -77,8 +77,8 @@ RSpec.describe TTY::ProgressBar, '#width' do
     output.rewind
 
     expect(output.read).to eq([
-      "\e[1G[xxxxxめめめめめめ]",
-      "\e[1G[xxxxxxxxxめめめめ]",
+      "\e[1G[xxxxめめめめめめめ]",
+      "\e[1G[xxxxxxxxめめめめめ]",
       "\e[1G[xxxxxxxxxxxxxxめめ]",
       "\e[1G[xxxxxxxxxxxxxxxxxx]\n"
     ].join)
