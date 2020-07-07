@@ -76,11 +76,11 @@ RSpec.describe TTY::ProgressBar, ':bar token' do
       output.rewind
 
       expect(output.read).to eq([
-        "\e[1G[##>〜〜〜]",
-        "\e[1G[####>〜〜]",
-        "\e[1G[####>〜〜]",
-        "\e[1G[######>〜]",
-        "\e[1G[########>]\n"
+        "\e[1G[#>〜〜〜]",
+        "\e[1G[###>〜〜]",
+        "\e[1G[###>〜〜]",
+        "\e[1G[#####>〜]",
+        "\e[1G[#######>]\n"
       ].join)
     end
 
@@ -92,11 +92,11 @@ RSpec.describe TTY::ProgressBar, ':bar token' do
       output.rewind
 
       expect(output.read).to eq([
-        "\e[1G[#語〜〜〜]",
-        "\e[1G[###語〜〜]",
-        "\e[1G[###語〜〜]",
-        "\e[1G[#####語〜]",
-        "\e[1G[#######語]\n"
+        "\e[1G[語〜〜〜]",
+        "\e[1G[##語〜〜]",
+        "\e[1G[##語〜〜]",
+        "\e[1G[####語〜]",
+        "\e[1G[######語]\n"
       ].join)
     end
 
@@ -108,11 +108,11 @@ RSpec.describe TTY::ProgressBar, ':bar token' do
       output.rewind
 
       expect(output.read).to eq([
-        "\e[1G[>------]",
-        "\e[1G[本>----]",
-        "\e[1G[本>----]",
-        "\e[1G[本本>--]",
-        "\e[1G[本本本>]\n"
+        "\e[1G[> ------]",
+        "\e[1G[本> ----]",
+        "\e[1G[本> ----]",
+        "\e[1G[本本> --]",
+        "\e[1G[本本本> ]\n"
       ].join)
     end
 
@@ -124,11 +124,11 @@ RSpec.describe TTY::ProgressBar, ':bar token' do
       output.rewind
 
       expect(output.read).to eq([
-        "\e[1G[>〜〜〜]",
-        "\e[1G[本>〜〜]",
-        "\e[1G[本>〜〜]",
-        "\e[1G[本本>〜]",
-        "\e[1G[本本本>]\n"
+        "\e[1G[> 〜〜〜]",
+        "\e[1G[本> 〜〜]",
+        "\e[1G[本> 〜〜]",
+        "\e[1G[本本> 〜]",
+        "\e[1G[本本本> ]\n"
       ].join)
     end
   end

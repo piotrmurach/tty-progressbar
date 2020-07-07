@@ -29,4 +29,20 @@ RSpec.describe TTY::ProgressBar, ':head' do
       "\e[1G[----ᗧ]\n"
     ].join)
   end
+
+  it "exceeds 2 characters" do
+    progress = TTY::ProgressBar.new("[:bar]",
+      output: output,
+      head: '>>>',
+      complete: '-', incomplete: '.', total: 20)
+    5.times { progress.advance(4) }
+    output.rewind
+    expect(output.read).to eq([
+      "\e[1G[->>>................]",
+      "\e[1G[----->>>............]",
+      "\e[1G[--------->>>........]",
+      "\e[1G[------------->>>....]",
+      "\e[1G[----------------->>>]\n"
+    ].join)
+  end
 end

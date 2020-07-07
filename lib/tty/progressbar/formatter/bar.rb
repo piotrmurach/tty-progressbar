@@ -59,15 +59,15 @@ module TTY
         complete   = Array.new(complete_items, @progress.complete)
         incomplete = Array.new(incomplete_items, @progress.incomplete)
 
-        if complete.size > 0 && head_char_length > 0
-          extra_space = width - complete_width -
-                        incomplete_items * incomplete_char_length
-          if 0 < extra_space && (head_char_length == extra_space &&
-                                 complete_char_length == extra_space)
-            complete << @progress.head
-          else
-            complete[-1] = @progress.head
+        if complete_items > 0 && head_char_length > 0
+          # see how many head chars per complete char
+          times = (head_char_length / complete_char_length.to_f).round
+          if complete_items < times # not enough complete chars to fit
+            incomplete.pop(times - complete_items)
           end
+          complete.pop(times)
+          extra_space = " " * (times * complete_char_length - head_char_length)
+          complete << "#{@progress.head}#{extra_space}"
         end
 
         value.gsub(MATCHER, "#{complete.join}#{incomplete.join}")
