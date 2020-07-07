@@ -23,6 +23,6 @@ RSpec.describe TTY::ProgressBar, "rendering" do
     }.to perform_slower_than {
       output_write << (template % [rem, head, done])
       output_write.rewind
-    }.at_most(200).times
+    }.at_most(226).times
   end
 end
