@@ -1,4 +1,6 @@
-RSpec.describe TTY::ProgressBar::Converter, '#to_time' do
+# frozen_string_literal: true
+
+RSpec.describe TTY::ProgressBar::Converter, "#to_time" do
   subject(:converter) { described_class }
 
   it "converts seconds to seconds" do

@@ -1,4 +1,6 @@
-RSpec.describe TTY::ProgressBar::Converter, '#to_seconds' do
+# frozen_string_literal: true
+
+RSpec.describe TTY::ProgressBar::Converter, "#to_seconds" do
   subject(:converter) { described_class }
 
   it "ensure 5 digit precision for < 1" do
