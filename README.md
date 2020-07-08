@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://piotrmurach.github.io/tty" target="_blank"><img width="130" src="https://cdn.rawgit.com/piotrmurach/tty/master/images/tty.png" alt="tty logo" /></a>
+  <a href="https://piotrmurach.github.io/tty" target="_blank"><img width="130" src="https://github.com/piotrmurach/tty/raw/master/images/tty.png" alt="tty logo" /></a>
 </div>
 
 # TTY::ProgressBar [![Gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
@@ -38,7 +38,7 @@
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'tty-progressbar'
+gem "tty-progressbar"
 ```
 
 And then execute:
@@ -252,7 +252,7 @@ bar.start  # => sets timer and draws initial progress bar
 Once the progress bar has been started you can change its configuration option(s) by calling `update`:
 
 ```ruby
-bar.update(complete: '+', frequency: 10)
+bar.update(complete: "+", frequency: 10)
 ```
 
 ### 2.8 finish
@@ -356,7 +356,7 @@ end
 If you prefer for the animated bar to display a specific character for a head of progression then use `:head` option:
 
 ```ruby
-bar = TTY::ProgressBar.new("[:bar]", head: '>')
+bar = TTY::ProgressBar.new("[:bar]", head: ">")
 #
 # [=======>      ]
 ```
@@ -469,8 +469,8 @@ You can define custom tokens by passing pairs `name: value` to `advance` method 
 
 ```ruby
 bar = TTY::ProgressBar.new("(:current) :title", total: 4)
-bar.advance(title: 'Hello Piotr!')
-bar.advance(3, title: 'Bye Piotr!')
+bar.advance(title: "Hello Piotr!")
+bar.advance(3, title: "Bye Piotr!")
 ```
 
 which outputs:
@@ -487,7 +487,7 @@ The format string as well as `:complete`, `:head` and `:incomplete` configuratio
 For example, you can specify complete bar progression character to be Unicode non-monospaced:
 
 ```ruby
-bar = TTY::ProgressBar.new("Unicode [:bar]", total: 30, complete: 'あ')
+bar = TTY::ProgressBar.new("Unicode [:bar]", total: 30, complete: "あ")
 #
 # => Unicode [あああああああああああああああ]
 ```
@@ -505,7 +505,7 @@ bar = TTY::ProgressBar.new("あめかんむり[:bar]", total: 20)
 If you want to print messages out to terminal along with the progress bar use the `log` method. The messages will appear above the progress bar and will continue scrolling up as more are logged out.
 
 ```ruby
-bar.log('Piotrrrrr')
+bar.log("Piotrrrrr")
 bar.advance
 ```
 
@@ -630,9 +630,9 @@ In addition to all [configuration options](#3-configuration) you can style multi
 
 ```ruby
 TTY::ProgressBar::Multi.new("[:bar]", style: {
-  top: '. '
-  middle: '|-> '
-  bottom: '|__ '
+  top: ". "
+  middle: "|-> "
+  bottom: "|__ "
 })
 ```
 
@@ -645,7 +645,7 @@ This section demonstrates some of the possible uses for the **TTY::ProgressBar**
 Creating a progress bar that displays in color is as simple as coloring the `:complete` and `:incomplete` character options. In order to help with coloring you can use [pastel](https://github.com/piotrmurach/pastel) library like so:
 
 ```ruby
-require 'pastel'
+require "pastel"
 
 pastel = Pastel.new
 green  = pastel.on_green(" ")
@@ -698,6 +698,10 @@ This will result in output similar to:
 
 This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
+## Code of Conduct
+
+Everyone interacting in the TTY::ProgressBar project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/piotrmurach/tty-progressbar/blob/master/CODE_OF_CONDUCT.md).
+
 ## Copyright
 
-Copyright (c) 2014-2018 Piotr Murach. See LICENSE for further details.
+Copyright (c) 2014 Piotr Murach. See LICENSE for further details.
