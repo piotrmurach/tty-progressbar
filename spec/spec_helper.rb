@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-if ENV['COVERAGE'] || ENV['TRAVIS']
-  require 'simplecov'
-  require 'coveralls'
+if ENV["COVERAGE"] || ENV["TRAVIS"]
+  require "simplecov"
+  require "coveralls"
 
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
     SimpleCov::Formatter::HTMLFormatter,
@@ -10,14 +10,14 @@ if ENV['COVERAGE'] || ENV['TRAVIS']
   ])
 
   SimpleCov.start do
-    command_name 'spec'
-    add_filter 'spec'
+    command_name "spec"
+    add_filter "spec"
   end
 end
 
-require 'timecop'
-require 'tty-progressbar'
-require 'stringio'
+require "timecop"
+require "tty-progressbar"
+require "stringio"
 
 class StringIO
   undef_method :tty?
@@ -29,6 +29,7 @@ end
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+    expectations.max_formatted_output_length = nil
   end
 
   config.mock_with :rspec do |mocks|
@@ -43,7 +44,7 @@ RSpec.configure do |config|
   config.warnings = true
 
   if config.files_to_run.one?
-    config.default_formatter = 'doc'
+    config.default_formatter = "doc"
   end
 
   config.profile_examples = 2
