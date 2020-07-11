@@ -340,6 +340,7 @@ There are number of configuration options that can be provided:
 * [:interval](#34-interval) used to measure the speed, by default `1 sec`
 * `:hide_cursor` to hide display cursor defaulting to `false`
 * `:clear` to clear the finished bar defaulting to `false`
+* `:clear_head` to clear the head character when the progress is done, defaults to `false`
 
 All the above options can be passed in as hash options or block parameters:
 
