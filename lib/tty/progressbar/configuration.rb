@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TTY
   class ProgressBar
     class Configuration
@@ -15,6 +17,8 @@ module TTY
 
       attr_accessor :head
 
+      attr_accessor :clear_head
+
       attr_accessor :hide_cursor
 
       attr_accessor :clear
@@ -29,11 +33,12 @@ module TTY
 
       def initialize(options)
         self.total   = options[:total] if options[:total]
-        @width   = options.fetch(:width) { total }
+        @width       = options.fetch(:width) { total }
         @no_width    = options.fetch(:no_width) { false }
         @incomplete  = options.fetch(:incomplete) { ' ' }
         @complete    = options.fetch(:complete) { '=' }
         @head        = options.fetch(:head) { @complete || '=' }
+        @clear_head  = options.fetch(:clear_head) { false }
         @hide_cursor = options.fetch(:hide_cursor) { false }
         @clear       = options.fetch(:clear) { false }
         @output      = options.fetch(:output) { $stderr }

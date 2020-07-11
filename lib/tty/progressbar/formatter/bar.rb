@@ -59,7 +59,8 @@ module TTY
         complete   = Array.new(complete_items, @progress.complete)
         incomplete = Array.new(incomplete_items, @progress.incomplete)
 
-        if complete_items > 0 && head_char_length > 0
+        if complete_items > 0 && head_char_length > 0 &&
+            (incomplete_items > 0 || incomplete_items.zero? && !@progress.clear_head)
           # see how many head chars per complete char
           times = (head_char_length / complete_char_length.to_f).round
           if complete_items < times # not enough complete chars to fit

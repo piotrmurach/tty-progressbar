@@ -33,8 +33,8 @@ module TTY
 
     attr_reader :row
 
-    def_delegators :@configuration, :total, :width, :no_width,
-                   :complete, :incomplete, :head, :hide_cursor, :clear,
+    def_delegators :@configuration, :total, :width, :no_width, :complete,
+                   :incomplete, :head, :clear_head, :hide_cursor, :clear,
                    :output, :frequency, :interval, :inset, :width=
 
     def_delegators :@meter, :rate, :mean_rate
