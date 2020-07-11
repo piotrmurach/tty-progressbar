@@ -371,10 +371,10 @@ module TTY
       emit(:done)
     end
 
-    # Continue rendering if after bar is done total number is updated
+    # Resume rendering when bar is done or stopped to update information
     #
     # @api public
-    def continue
+    def resume
       @done = false
       @stopped = false
     end

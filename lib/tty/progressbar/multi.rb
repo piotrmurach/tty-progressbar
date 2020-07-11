@@ -79,7 +79,7 @@ module TTY
           observe(bar) if observable
           if @top_bar
             @top_bar.update(total: total)
-            @top_bar.continue
+            @top_bar.resume if @top_bar.done?
             @top_bar.update(width: total) unless @width
           end
         end
@@ -174,6 +174,17 @@ module TTY
       def stopped?
         synchronize do
           (@bars - [@top_bar]).dup.any?(&:stopped?)
+        end
+      end
+
+      # Check if all bars are stopped or finished
+      #
+      # @return [Boolean]
+      #
+      # @api public
+      def done?
+        synchronize do
+          (@bars - [@top_bar]).dup.all?(&:done?)
         end
       end
 
