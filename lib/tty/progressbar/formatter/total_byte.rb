@@ -10,7 +10,7 @@ module TTY
     class TotalByteFormatter
       MATCHER = /:total_byte/i.freeze
 
-      def initialize(progress, *args, &block)
+      def initialize(progress)
         @progress = progress
       end
 

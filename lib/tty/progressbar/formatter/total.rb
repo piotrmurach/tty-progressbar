@@ -8,7 +8,7 @@ module TTY
     class TotalFormatter
       MATCHER = /:total\b/i.freeze
 
-      def initialize(progress, *args, &block)
+      def initialize(progress)
         @progress = progress
       end
 
