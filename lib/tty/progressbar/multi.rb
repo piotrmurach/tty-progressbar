@@ -140,7 +140,7 @@ module TTY
       # @api public
       def total
         synchronize do
-          (@bars - [@top_bar]).dup.map(&:total).reduce(&:+)
+          (@bars - [@top_bar]).map(&:total).reduce(&:+)
         end
       end
 
@@ -151,7 +151,7 @@ module TTY
       # @api public
       def current
         synchronize do
-          (@bars - [@top_bar]).dup.map(&:current).reduce(&:+)
+          (@bars - [@top_bar]).map(&:current).reduce(&:+)
         end
       end
 
@@ -162,7 +162,7 @@ module TTY
       # @api public
       def complete?
         synchronize do
-          (@bars - [@top_bar]).dup.all?(&:complete?)
+          (@bars - [@top_bar]).all?(&:complete?)
         end
       end
 
@@ -184,7 +184,7 @@ module TTY
       # @api public
       def done?
         synchronize do
-          (@bars - [@top_bar]).dup.all?(&:done?)
+          (@bars - [@top_bar]).all?(&:done?)
         end
       end
 
@@ -192,14 +192,14 @@ module TTY
       #
       # @api public
       def stop
-        @bars.dup.each(&:stop)
+        @bars.each(&:stop)
       end
 
       # Finish all progress bars
       #
       # @api public
       def finish
-        @bars.dup.each(&:finish)
+        @bars.each(&:finish)
       end
 
       # Find the number of characters to move into the line
