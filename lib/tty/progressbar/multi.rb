@@ -166,14 +166,14 @@ module TTY
         end
       end
 
-      # Check if any of the registered progress bars is stopped
+      # Check if all of the registered progress bars is stopped
       #
       # @return [Boolean]
       #
       # @api public
       def stopped?
         synchronize do
-          (@bars - [@top_bar]).dup.any?(&:stopped?)
+          (@bars - [@top_bar]).all?(&:stopped?)
         end
       end
 
