@@ -338,7 +338,7 @@ There are number of configuration options that can be provided:
 * [:output](#32-output) the output stream defaulting to `stderr`
 * [:frequency](#33-frequency) used to throttle the output, by default `0`
 * [:interval](#34-interval) used to measure the speed, by default `1 sec`
-* `:hide_cursor` to hide display cursor defaulting to `false`
+* [:hide_cursor](#35-hide_cursor) to hide display cursor defaulting to `false`
 * `:clear` to clear the finished bar defaulting to `false`
 * `:clear_head` to clear the head character when the progress is done, defaults to `false`
 
@@ -394,6 +394,25 @@ The `interval` option is an `integer` that represents the number of seconds, for
 TTY::ProgressBar.new(":rate/minute", total: 100, interval: 60) # 1 minute
 
 TTY::ProgressBar.new(":rate/hour", total: 100, interval: 3600) # 1 hour
+```
+
+### 3.5 :hide_cursor
+
+By default the cursor is visible during progress bar rendering. If you wish to hide it, you can do so with the `:hide_cursor` option.
+
+Please note that hiding cursor changes user's terminal and you need to ensure that the cursor is made visible after your code finishes. This means also handling premature interrupt signals and other unpredictable events.
+
+One solution is to wrap your progress rendering inside the `begin` and `ensure` like so:
+
+```ruby
+progress = TTY::ProgressBar.new("[:bar]", hide_cursor: true)
+
+begin
+  # logic to advance progress bar
+ensure
+  progress.stop # or progress.finish
+  # both methods will ensure that cursor is made visible again
+end
 ```
 
 ## 4. Formatting
