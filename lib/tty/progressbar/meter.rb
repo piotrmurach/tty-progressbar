@@ -103,7 +103,7 @@ module TTY
           last_value / (last_at - @start_time)
         end
       end
-      alias_method :avg_rate, :mean_rate
+      alias avg_rate mean_rate
 
       # Reset the meter by clearing out it's metrics
       #

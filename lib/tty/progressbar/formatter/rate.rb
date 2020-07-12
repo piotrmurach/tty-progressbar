@@ -11,7 +11,7 @@ module TTY
       MATCHER = /:rate/i.freeze
 
       def initialize(progress)
-        @progress  = progress
+        @progress = progress
       end
 
       # Determines whether this formatter is applied or not.

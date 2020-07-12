@@ -58,8 +58,8 @@ module TTY
 
         @callbacks = {
           progress: [],
-          stopped:  [],
-          done:     []
+          stopped: [],
+          done: []
         }
       end
 

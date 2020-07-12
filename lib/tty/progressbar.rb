@@ -21,7 +21,7 @@ module TTY
     extend Forwardable
     include MonitorMixin
 
-    ECMA_CSI = "\e[".freeze
+    ECMA_CSI = "\e["
 
     CURSOR_LOCK = Monitor.new
 
