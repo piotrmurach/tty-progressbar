@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, '::new' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, ".new" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "fails to initialize without formatting string" do
     expect {
@@ -18,22 +18,46 @@ RSpec.describe TTY::ProgressBar, '::new' do
   end
 
   it "displays output where width == total" do
-    progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)
+    progress = described_class.new("[:bar]", output: output, total: 10)
     progress.advance
     output.rewind
     expect(output.read).to eq("\e[1G[=         ]")
   end
 
   it "yields configuration to block" do
-    progress = TTY::ProgressBar.new "[:bar]" do |config|
+    progress = described_class.new "[:bar]" do |config|
       config.output = output
-      config.total  = 10
-      config.clear  = true
+      config.total = 10
+      config.width = 40
+      config.interval = 30
+      config.frequency = 1.5
+      config.head = ">>"
+      config.complete = "#"
+      config.incomplete = "-"
+      config.clear = true
+      config.clear_head = true
+      config.hide_cursor = true
     end
+
     expect(progress.output).to eq(output)
     expect(progress.total).to eq(10)
-    expect(progress.width).to eq(10)
+    expect(progress.width).to eq(40)
     expect(progress.clear).to eq(true)
+    expect(progress.interval).to eq(30)
+    expect(progress.frequency).to eq(1.5)
+    expect(progress.head).to eq(">>")
+    expect(progress.complete).to eq("#")
+    expect(progress.incomplete).to eq("-")
+    expect(progress.clear_head).to eq(true)
+    expect(progress.hide_cursor).to eq(true)
+  end
+
+  it "overrides option configuration inside a block" do
+    bar = described_class.new(":bar", complete: "#") do |config|
+      config.complete = "x"
+    end
+
+    expect(bar.complete).to eq("x")
   end
 
   it "displays output where width > total" do
