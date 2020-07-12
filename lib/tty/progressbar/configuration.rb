@@ -34,9 +34,9 @@ module TTY
         self.total   = options[:total] if options[:total]
         @width       = options.fetch(:width) { total }
         @no_width    = options.fetch(:no_width) { false }
-        @incomplete  = options.fetch(:incomplete) { ' ' }
-        @complete    = options.fetch(:complete) { '=' }
-        @head        = options.fetch(:head) { @complete || '=' }
+        @incomplete  = options.fetch(:incomplete) { " " }
+        @complete    = options.fetch(:complete) { "=" }
+        @head        = options.fetch(:head) { @complete || "=" }
         @clear_head  = options.fetch(:clear_head) { false }
         @hide_cursor = options.fetch(:hide_cursor) { false }
         @clear       = options.fetch(:clear) { false }

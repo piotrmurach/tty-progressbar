@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require 'io/console'
-require 'forwardable'
-require 'monitor'
-require 'tty-cursor'
-require 'tty-screen'
-require 'strings-ansi'
-require 'unicode/display_width'
+require "io/console"
+require "forwardable"
+require "monitor"
+require "tty-cursor"
+require "tty-screen"
+require "strings-ansi"
+require "unicode/display_width"
 
-require_relative 'progressbar/configuration'
-require_relative 'progressbar/formatter'
-require_relative 'progressbar/meter'
-require_relative 'progressbar/version'
+require_relative "progressbar/configuration"
+require_relative "progressbar/formatter"
+require_relative "progressbar/meter"
+require_relative "progressbar/version"
 
 module TTY
   # Used for creating terminal progress bar
@@ -63,6 +63,12 @@ module TTY
     end
 
     # Create progress bar
+    #
+    # @example
+    #   bar = TTY::Progressbar.new
+    #   bar.configure do |config|
+    #     config.total = 20
+    #   end
     #
     # @param [String] format
     #   the tokenized string that displays the output
@@ -400,7 +406,7 @@ module TTY
     #
     # @api public
     def clear_line
-      output.print(ECMA_CSI + '0m' + TTY::Cursor.clear_line)
+      output.print(ECMA_CSI + "0m" + TTY::Cursor.clear_line)
     end
 
     # Check if progress is finised
@@ -453,7 +459,7 @@ module TTY
     #
     # @api public
     def log(message)
-      sanitized_message = message.gsub(/\r|\n/, ' ')
+      sanitized_message = message.gsub(/\r|\n/, " ")
       if done?
         write(sanitized_message + "\n", false)
         return
@@ -500,7 +506,7 @@ module TTY
 
       if @last_render_width > message_length
         remaining_width = @last_render_width - message_length
-        message += ' ' * remaining_width
+        message += " " * remaining_width
       end
       message
     end

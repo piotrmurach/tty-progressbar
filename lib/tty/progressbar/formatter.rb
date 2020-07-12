@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require_relative 'pipeline'
+require_relative "pipeline"
 
-require_relative 'formatter/bar'
-require_relative 'formatter/current'
-require_relative 'formatter/current_byte'
-require_relative 'formatter/elapsed'
-require_relative 'formatter/estimated'
-require_relative 'formatter/percent'
-require_relative 'formatter/rate'
-require_relative 'formatter/byte_rate'
-require_relative 'formatter/mean_rate'
-require_relative 'formatter/mean_byte'
-require_relative 'formatter/total'
-require_relative 'formatter/total_byte'
+require_relative "formatter/bar"
+require_relative "formatter/current"
+require_relative "formatter/current_byte"
+require_relative "formatter/elapsed"
+require_relative "formatter/estimated"
+require_relative "formatter/percent"
+require_relative "formatter/rate"
+require_relative "formatter/byte_rate"
+require_relative "formatter/mean_rate"
+require_relative "formatter/mean_byte"
+require_relative "formatter/total"
+require_relative "formatter/total_byte"
 
 module TTY
   class ProgressBar

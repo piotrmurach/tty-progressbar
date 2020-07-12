@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'forwardable'
-require 'monitor'
+require "forwardable"
+require "monitor"
 
-require_relative '../progressbar'
+require_relative "../progressbar"
 
 module TTY
   class ProgressBar
@@ -21,9 +21,9 @@ module TTY
       def_delegators :@top_bar, :width, :width=
 
       DEFAULT_INSET = {
-        top:    Gem.win_platform? ? '+ '   : "\u250c ",
-        middle: Gem.win_platform? ? '|-- ' : "\u251c\u2500\u2500 ",
-        bottom: Gem.win_platform? ? '|__ ' : "\u2514\u2500\u2500 "
+        top:    Gem.win_platform? ? "+ "   : "\u250c ",
+        middle: Gem.win_platform? ? "|-- " : "\u251c\u2500\u2500 ",
+        bottom: Gem.win_platform? ? "|__ " : "\u2514\u2500\u2500 "
       }.freeze
 
       # Number of currently occupied rows in terminal display
@@ -213,7 +213,7 @@ module TTY
       #
       # @api public
       def line_inset(bar)
-        return '' if @top_bar.nil?
+        return "" if @top_bar.nil?
 
         case bar.row
         when @top_bar.row

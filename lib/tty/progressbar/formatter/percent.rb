@@ -25,7 +25,7 @@ module TTY
 
       def format(value)
         percent = @progress.width == 0 ? 100 : (@progress.ratio * 100).to_i
-        value.gsub(MATCHER, percent.to_s + '%')
+        value.gsub(MATCHER, percent.to_s + "%")
       end
     end # PercentFormatter
   end # ProgressBar

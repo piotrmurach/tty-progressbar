@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../converter'
+require_relative "../converter"
 
 module TTY
   class ProgressBar

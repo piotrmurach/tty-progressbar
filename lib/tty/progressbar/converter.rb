@@ -21,13 +21,13 @@ module TTY
         seconds -= minutes * 60
 
         if hours > 99
-          sprintf('%dh', hours)
+          sprintf("%dh", hours)
         elsif hours > 0
-          sprintf('%2dh%2dm', hours, minutes)
+          sprintf("%2dh%2dm", hours, minutes)
         elsif minutes > 0
-          sprintf('%2dm%2ds', minutes, seconds)
+          sprintf("%2dm%2ds", minutes, seconds)
         else
-          sprintf('%2ds', seconds)
+          sprintf("%2ds", seconds)
         end
       end
       module_function :to_time
@@ -66,8 +66,8 @@ module TTY
       # @api public
       def to_bytes(value, options = {})
         decimals       = options.fetch(:decimals) { 2 }
-        separator      = options.fetch(:separator) { '.' }
-        unit_separator = options.fetch(:unit_separator) { '' }
+        separator      = options.fetch(:separator) { "." }
+        unit_separator = options.fetch(:unit_separator) { "" }
 
         base    = 1024
         pattern = "%.#{decimals}f"
