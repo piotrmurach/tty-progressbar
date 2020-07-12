@@ -7,7 +7,6 @@ module TTY
       attr_reader :total
 
       attr_accessor :width
-      #attr_reader :width
 
       attr_accessor :no_width
 
@@ -46,16 +45,6 @@ module TTY
         @interval    = options.fetch(:interval) { 1 } # 1 sec
         @inset       = options.fetch(:inset) { 0 }
       end
-
-      # def width=(value)
-      #   return if value.nil?
-
-      #   if value < ProgressBar.max_columns
-      #     @width = value
-      #   else
-      #     @width = ProgressBar.max_columns
-      #   end
-      # end
 
       def total=(value)
         fail ArgumentError unless value
