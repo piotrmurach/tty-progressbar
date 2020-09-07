@@ -1,13 +1,20 @@
 # Change log
 
-## [v0.18.0] - 2020-06-xx
+## [v0.18.0] - unreleased
+
+### Added
+* Add #resume to allow stopped bar to continue progressing
+* Add :clear_head option to remove head when progress is done
+* Add #configure to allow runtime configuration
+* Add Multi#done? to check if all bar are stopped or finished
 
 ### Changed
+* Change Multi#stopped? to check that all bars are stopped
 * Change gemspec to load version directly and remove test artifacts
-* Change to update strings-ansi
+* Change to update strings-ansi and tty-screen dependencies
 
 ### Fixed
-* Fix MultiBar top bar to display current/total correctly
+* Fix MultiBar top bar to allow resuming progress when stopped/done (@d4be4st)
 
 ## [v0.17.0] - 2019-05-31
 
