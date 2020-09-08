@@ -27,4 +27,15 @@ RSpec.describe TTY::ProgressBar, "rendering" do
       output_write << renderer.result(binding)
     }.at_most(10).times
   end
+
+  it "performs bar rendering 2.3k i/s" do
+    output = StringIO.new
+    progress = described_class.new("[:bar]", output: output, total: 10,
+                                             width: 10)
+
+    expect {
+      progress.advance
+      progress.reset
+    }.to perform_at_least(2300).ips
+  end
 end
