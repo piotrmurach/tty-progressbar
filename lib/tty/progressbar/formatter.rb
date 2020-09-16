@@ -30,19 +30,19 @@ module TTY
       # Prepare default pipeline formatters
       #
       # @api private
-      def load
-        @pipeline.use TTY::ProgressBar::CurrentFormatter
-        @pipeline.use TTY::ProgressBar::TotalFormatter
-        @pipeline.use TTY::ProgressBar::TotalByteFormatter
-        @pipeline.use TTY::ProgressBar::ElapsedFormatter
-        @pipeline.use TTY::ProgressBar::EstimatedFormatter
-        @pipeline.use TTY::ProgressBar::PercentFormatter
-        @pipeline.use TTY::ProgressBar::ByteFormatter
-        @pipeline.use TTY::ProgressBar::ByteRateFormatter
-        @pipeline.use TTY::ProgressBar::RateFormatter
-        @pipeline.use TTY::ProgressBar::MeanRateFormatter
-        @pipeline.use TTY::ProgressBar::MeanByteFormatter
-        @pipeline.use TTY::ProgressBar::BarFormatter
+      def load(progress)
+        @pipeline.use TTY::ProgressBar::CurrentFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::TotalFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::TotalByteFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::ElapsedFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::EstimatedFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::PercentFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::ByteFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::ByteRateFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::RateFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::MeanRateFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::MeanByteFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::BarFormatter.new(progress)
       end
     end # Formatter
   end # ProgressBar

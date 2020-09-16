@@ -23,4 +23,14 @@ RSpec.describe TTY::ProgressBar, 'custom formatter' do
     output.rewind
     expect(output.read).to eq("\e[1GHello")
   end
+
+  it "enforces class formatter" do
+    progress = TTY::ProgressBar.new(":hi", output: output, total: 10)
+    stub_const("HiFormatter", Class.new)
+    formatter = HiFormatter.new
+
+    expect {
+      progress.use(formatter)
+    }.to raise_error(ArgumentError, "Formatter needs to be a class")
+  end
 end

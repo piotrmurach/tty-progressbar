@@ -19,24 +19,29 @@ module TTY
       # Add a new formatter
       #
       # @example
-      #   use(TTY::ProgressBar::TotalFormatter)
+      #   use(TTY::ProgressBar::TotalFormatter.new(progress_bar))
       #
       # @api public
       def use(formatter)
-        formatters << proc { |progress| formatter.new(progress) }
+        formatters << formatter
       end
 
       # Decorate the tokenized string with actual values
       #
+      # @example
+      #   decorate("[:bar] :current :elapsed")
+      #
+      # @param [String] tokenized
+      #   the string with tokens
+      #
       # @return [nil]
       #
       # @api private
-      def decorate(progress, tokenized)
+      def decorate(tokenized)
         base = tokenized.dup
         formatters.inject(base) do |formatted, formatter|
-          instance = formatter.call(progress)
-          if instance.respond_to?(:matches?) && instance.matches?(formatted)
-            instance.format(formatted)
+          if formatter.respond_to?(:matches?) && formatter.matches?(formatted)
+            formatter.format(formatted)
           else
             formatted
           end

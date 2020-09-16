@@ -39,8 +39,6 @@ module TTY
 
     def_delegators :@meter, :rate, :mean_rate
 
-    def_delegator :@formatter, :use
-
     # Determine terminal width
     #
     # @return [Integer]
@@ -107,7 +105,7 @@ module TTY
       @meter     = TTY::ProgressBar::Meter.new(interval)
       @callbacks = Hash.new { |h, k| h[k] = [] }
 
-      @formatter.load
+      @formatter.load(self)
       reset
 
       @first_render = true
@@ -141,6 +139,19 @@ module TTY
     # @api private
     def attach_to(multibar)
       @multibar = multibar
+    end
+
+    # Use custom token formatter
+    #
+    # @param [Object] formatter_class
+    #   the formatter class to add to formatting pipeline
+    #
+    # @api public
+    def use(formatter_class)
+      unless formatter_class.is_a?(Class)
+        raise ArgumentError, "Formatter needs to be a class"
+      end
+      @formatter.use(formatter_class.new(self))
     end
 
     # Start progression by drawing bar and setting time
@@ -287,7 +298,7 @@ module TTY
         update(inset: self.class.display_columns(characters_in))
       end
 
-      formatted = @formatter.decorate(self, @format)
+      formatted = @formatter.decorate(@format)
       @tokens.each do |token, val|
         formatted = formatted.gsub(":#{token}", val)
       end
