@@ -3,9 +3,7 @@ RSpec.describe TTY::ProgressBar, "#render" do
 
   it "pads out longer previous lines" do
     progress = TTY::ProgressBar.new ":current_byte" do |config|
-      config.no_width = true
-      config.output   = output
-      config.total    = 1_048_577
+      config.output = output
     end
 
     progress.advance(1)

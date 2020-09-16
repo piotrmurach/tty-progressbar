@@ -8,11 +8,11 @@ module TTY
 
       attr_accessor :width
 
-      attr_accessor :no_width
-
       attr_accessor :incomplete
 
       attr_accessor :complete
+
+      attr_accessor :unknown
 
       attr_accessor :head
 
@@ -33,9 +33,9 @@ module TTY
       def initialize(options)
         self.total   = options[:total] if options[:total]
         @width       = options.fetch(:width) { total }
-        @no_width    = options.fetch(:no_width) { false }
         @incomplete  = options.fetch(:incomplete) { " " }
         @complete    = options.fetch(:complete) { "=" }
+        @unknown     = options.fetch(:unknown) { "<=>" }
         @head        = options.fetch(:head) { @complete || "=" }
         @clear_head  = options.fetch(:clear_head) { false }
         @hide_cursor = options.fetch(:hide_cursor) { false }

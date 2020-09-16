@@ -33,9 +33,9 @@ module TTY
 
     attr_reader :row
 
-    def_delegators :@configuration, :total, :width, :no_width, :complete,
-                   :incomplete, :head, :clear_head, :hide_cursor, :clear,
-                   :output, :frequency, :interval, :inset, :width=
+    def_delegators :@configuration, :total, :width, :complete, :incomplete,
+                   :head, :clear_head, :hide_cursor, :clear, :output,
+                   :frequency, :interval, :inset, :width=, :unknown
 
     def_delegators :@meter, :rate, :mean_rate
 
@@ -77,7 +77,7 @@ module TTY
     # @option options [Numeric] :width
     #   the maximum width for the bars display including
     #   all formatting options
-    # @option options [Boolean] :no_width
+    # @option options [Boolean] :indeterminate
     #   true when progression is unknown defaulting to false
     # @option options [Boolean] :clear
     #   whether or not to clear the progress line
@@ -117,9 +117,10 @@ module TTY
     #
     # @api public
     def reset
-      @width             = 0 if no_width
+      @width             = 0 if indeterminate?
       @render_period     = frequency == 0 ? 0 : 1.0 / frequency
       @current           = 0
+      @unknown           = 0
       @last_render_time  = Time.now
       @last_render_width = 0
       @done              = false
@@ -129,6 +130,15 @@ module TTY
       @tokens            = {}
 
       @meter.clear
+    end
+
+    # Check if progress can be determinted or not
+    #
+    # @return [Boolean]
+    #
+    # @api public
+    def indeterminate?
+      total.nil?
     end
 
     # Attach this bar to multi bar
@@ -180,12 +190,16 @@ module TTY
         if progress.respond_to?(:to_hash)
           tokens, progress = progress, 1
         end
-        @start_at  = Time.now if @current.zero? && !@started
-        @current  += progress
-        @tokens    = tokens
+        @start_at = Time.now if @current.zero? && !@started
+        @current += progress
+        # When progress is unknown increase by 2% up to max 200%, after
+        # that reset back to 0%
+        @unknown += 2 if indeterminate?
+        @unknown = 0 if @unknown > 199
+        @tokens = tokens
         @meter.sample(Time.now, progress)
 
-        if !no_width && @current >= total
+        if !indeterminate? && @current >= total
           finish && return
         end
 
@@ -274,12 +288,20 @@ module TTY
 
     # Ratio of completed over total steps
     #
+    # When the total is unknown the progress ratio oscillates
+    # by going up from 0 to 1 and then down from 1 to 0 and
+    # up again to infinity.
+    #
     # @return [Float]
     #
     # @api public
     def ratio
       synchronize do
-        proportion = total > 0 ? (@current.to_f / total) : 0
+        proportion = if total
+                       total > 0 ? (@current.to_f / total) : 0
+                     else
+                       (@unknown > 100 ? 200 - @unknown : @unknown).to_f / 100
+                     end
         [[proportion, 0].max, 1].min
       end
     end
@@ -373,7 +395,7 @@ module TTY
     # @api public
     def finish
       return if done?
-      @current = total unless no_width
+      @current = total unless indeterminate?
       render
       clear ? clear_line : write("\n", false)
     ensure

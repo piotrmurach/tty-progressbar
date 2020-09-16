@@ -14,6 +14,21 @@ RSpec.describe TTY::ProgressBar, ':bar token' do
     ].join)
   end
 
+  it "animates unknown progress without total" do
+    progress = TTY::ProgressBar.new("[:bar]", output: output, total: nil, width: 5)
+    2.times { progress.advance }
+    progress.update(total: 5)
+    3.times { progress.advance }
+    output.rewind
+    expect(output.read).to eq([
+      "\e[1G[<=>  ]",
+      "\e[1G[<=>  ]",
+      "\e[1G[===  ]",
+      "\e[1G[==== ]",
+      "\e[1G[=====]\n"
+    ].join)
+  end
+
   it "animates colors correctly" do
     red = "\e[31m \e[0m"
     green = "\e[32m \e[0m"

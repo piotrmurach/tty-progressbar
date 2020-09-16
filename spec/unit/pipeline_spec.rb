@@ -2,7 +2,7 @@ RSpec.describe TTY::ProgressBar::Pipeline, '#decorate' do
   subject(:pipeline) { described_class.new }
 
   it "decorates tokenized string with pipeline formatters" do
-    progress_bar = double(current: '3', total: '10')
+    progress_bar = double(current: '3', total: '10', indeterminate?: false)
     pipeline.use TTY::ProgressBar::CurrentFormatter.new(progress_bar)
     pipeline.use TTY::ProgressBar::TotalFormatter.new(progress_bar)
     tokenized = "[:current/:total]"

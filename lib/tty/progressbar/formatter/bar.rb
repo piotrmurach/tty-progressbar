@@ -34,7 +34,24 @@ module TTY
         available_space = [0, ProgressBar.max_columns -
                               ProgressBar.display_columns(without_bar) -
                               @progress.inset].max
-        width = [@progress.width, available_space].min
+        width = [@progress.width.to_i, available_space].min
+
+        # When we don't know the total progress, use either user
+        # defined width or rely on terminal width detection
+        if @progress.indeterminate?
+          buffer = []
+          width = available_space if width.zero?
+          width -= @progress.unknown.size
+          complete = (width * @progress.ratio).round
+          incomplete = width - complete
+
+          buffer << " " * complete
+          buffer << @progress.unknown
+          buffer << " " * incomplete
+
+          return value.gsub(MATCHER, buffer.join)
+        end
+
         complete_bar_length    = (width * @progress.ratio).round
         complete_char_length   = ProgressBar.display_columns(@progress.complete)
         incomplete_char_length = ProgressBar.display_columns(@progress.incomplete)
