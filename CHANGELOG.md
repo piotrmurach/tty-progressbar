@@ -7,11 +7,13 @@
 * Add :clear_head option to remove head when progress is done
 * Add #configure to allow runtime configuration
 * Add Multi#done? to check if all bar are stopped or finished
+* Add indeterminate progress support when no total is given
 
 ### Changed
 * Change Multi#stopped? to check that all bars are stopped
 * Change gemspec to load version directly and remove test artifacts
 * Change to update strings-ansi and tty-screen dependencies
+* Change Pipeline to inject progress bar instance only once
 
 ### Fixed
 * Fix MultiBar top bar to allow resuming progress when stopped/done (@d4be4st)
