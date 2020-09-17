@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "forwardable"
+
 require_relative "pipeline"
 
 require_relative "formatter/bar"
@@ -17,7 +19,7 @@ require_relative "formatter/total_byte"
 
 module TTY
   class ProgressBar
-    class Formatter
+    class Formatters
       extend Forwardable
 
       def_delegators :@pipeline, :decorate, :use
@@ -44,6 +46,6 @@ module TTY
         @pipeline.use TTY::ProgressBar::MeanByteFormatter.new(progress)
         @pipeline.use TTY::ProgressBar::BarFormatter.new(progress)
       end
-    end # Formatter
+    end # Formatters
   end # ProgressBar
 end # TTY

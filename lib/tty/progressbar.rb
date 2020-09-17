@@ -9,7 +9,7 @@ require "strings-ansi"
 require "unicode/display_width"
 
 require_relative "progressbar/configuration"
-require_relative "progressbar/formatter"
+require_relative "progressbar/formatters"
 require_relative "progressbar/meter"
 require_relative "progressbar/version"
 
@@ -101,16 +101,16 @@ module TTY
       @configuration = TTY::ProgressBar::Configuration.new(options)
       yield @configuration if block_given?
 
-      @formatter = TTY::ProgressBar::Formatter.new
-      @meter     = TTY::ProgressBar::Meter.new(interval)
+      @formatters = TTY::ProgressBar::Formatters.new
+      @meter = TTY::ProgressBar::Meter.new(interval)
       @callbacks = Hash.new { |h, k| h[k] = [] }
 
-      @formatter.load(self)
+      @formatters.load(self)
       reset
 
       @first_render = true
-      @multibar     = nil
-      @row          = nil
+      @multibar = nil
+      @row = nil
     end
 
     # Reset progress to default configuration
@@ -161,7 +161,7 @@ module TTY
       unless formatter_class.is_a?(Class)
         raise ArgumentError, "Formatter needs to be a class"
       end
-      @formatter.use(formatter_class.new(self))
+      @formatters.use(formatter_class.new(self))
     end
 
     # Start progression by drawing bar and setting time
@@ -320,7 +320,7 @@ module TTY
         update(inset: self.class.display_columns(characters_in))
       end
 
-      formatted = @formatter.decorate(@format)
+      formatted = @formatters.decorate(@format)
       @tokens.each do |token, val|
         formatted = formatted.gsub(":#{token}", val)
       end
