@@ -28,7 +28,7 @@ module TTY
       # Format :byte_rate token
       #
       # @param [String] value
-      #  the value being formatted
+      #  the value to format
       #
       # @api public
       def format(value)

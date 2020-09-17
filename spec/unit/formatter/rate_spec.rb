@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, ':rate token' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, ":rate token" do
+  let(:output) { StringIO.new("", "w+") }
 
   before { Timecop.safe_mode = false }
 
@@ -25,6 +25,26 @@ RSpec.describe TTY::ProgressBar, ':rate token' do
       "\e[1G10.00",
       "\e[1G15.00",
       "\e[1G20.00\n"
+    ].join)
+    Timecop.return
+  end
+
+  it "displays rate per sec when no total" do
+    time_now = Time.local(2014, 10, 5, 12, 0, 0)
+    Timecop.freeze(time_now)
+    progress = TTY::ProgressBar.new(":rate", output: output, total: nil)
+    5.times do |i|
+      time_now = Time.local(2014, 10, 5, 12, 0, i * 2)
+      Timecop.freeze(time_now)
+      progress.advance(i * 10)
+    end
+    output.rewind
+    expect(output.read).to eq([
+      "\e[1G 0.00",
+      "\e[1G 5.00",
+      "\e[1G10.00",
+      "\e[1G15.00",
+      "\e[1G20.00"
     ].join)
     Timecop.return
   end

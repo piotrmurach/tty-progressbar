@@ -26,7 +26,7 @@ module TTY
       # Format :current token
       #
       # @param [String] value
-      #  the value being formatted
+      #  the value to format
       #
       # @api public
       def format(value)

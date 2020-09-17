@@ -25,7 +25,7 @@ module TTY
         !!(value.to_s =~ MATCHER)
       end
 
-      # Format :rate token
+      # Format :mean_rate token
       #
       # @param [String] value
       #  the value being formatted

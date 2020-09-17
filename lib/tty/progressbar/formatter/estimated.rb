@@ -25,7 +25,17 @@ module TTY
         !!(value.to_s =~ MATCHER)
       end
 
+      # Format :eta token
+      #
+      # @param [String] value
+      #  the value to format
+      #
+      # @api public
       def format(value)
+        if @progress.indeterminate?
+          return value.gsub(MATCHER, "--s")
+        end
+
         elapsed   = Time.now - @progress.start_at
         estimated = (elapsed / @progress.ratio).to_f - elapsed
         estimated = (estimated.infinite? || estimated < 0) ? 0.0 : estimated

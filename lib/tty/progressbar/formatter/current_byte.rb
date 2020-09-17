@@ -25,6 +25,12 @@ module TTY
         !!(value.to_s =~ MATCHER)
       end
 
+      # Format :current_byte token
+      #
+      # @param [String] value
+      #  the value to format
+      #
+      # @api public
       def format(value)
         bytes = Converter.to_bytes(@progress.current)
         value.gsub(MATCHER, bytes)

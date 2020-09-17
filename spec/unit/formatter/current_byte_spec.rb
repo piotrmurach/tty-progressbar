@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, ':current_byte token' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, ":current_byte token" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "displays bytes processed" do
     progress = described_class.new(":current_byte", output: output, total: 102_400)

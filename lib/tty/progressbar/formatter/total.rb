@@ -23,8 +23,15 @@ module TTY
         !!(value.to_s =~ MATCHER)
       end
 
+      # Format :total token
+      #
+      # @param [String] value
+      #  the value to format
+      #
+      # @api public
       def format(value)
-        value.gsub(MATCHER, @progress.total.to_s)
+        display = @progress.indeterminate? ? "-" : @progress.total.to_s
+        value.gsub(MATCHER, display)
       end
     end # TotalFormatter
   end # ProgressBar

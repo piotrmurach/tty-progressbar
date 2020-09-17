@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, ':elapsed token' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, ":elapsed token" do
+  let(:output) { StringIO.new("", "w+") }
 
   before { Timecop.safe_mode = false }
 

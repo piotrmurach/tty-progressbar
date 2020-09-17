@@ -25,8 +25,18 @@ module TTY
         !!(value.to_s =~ MATCHER)
       end
 
+      # Format :total_byte token
+      #
+      # @param [String] value
+      #  the value to format
+      #
+      # @api public
       def format(value)
-        bytes = Converter.to_bytes(@progress.total)
+        bytes = if @progress.indeterminate?
+                  "-B"
+                else
+                  Converter.to_bytes(@progress.total)
+                end
         value.gsub(MATCHER, bytes)
       end
     end # TotalByteFormatter

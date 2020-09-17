@@ -25,6 +25,12 @@ module TTY
         !!(value.to_s =~ MATCHER)
       end
 
+      # Format :elapsed token
+      #
+      # @param [String] value
+      #  the value to format
+      #
+      # @api public
       def format(value)
         elapsed = (Time.now - @progress.start_at)
         value.gsub(MATCHER, Converter.to_time(elapsed))

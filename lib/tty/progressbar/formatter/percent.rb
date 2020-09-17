@@ -23,9 +23,16 @@ module TTY
         !!(value.to_s =~ MATCHER)
       end
 
+      # Format :percent token
+      #
+      # @param [String] value
+      #  the value to format
+      #
+      # @api public
       def format(value)
         percent = @progress.width == 0 ? 100 : (@progress.ratio * 100).to_i
-        value.gsub(MATCHER, percent.to_s + "%")
+        display = @progress.indeterminate? ? "-" : percent.to_s
+        value.gsub(MATCHER, display + "%")
       end
     end # PercentFormatter
   end # ProgressBar
