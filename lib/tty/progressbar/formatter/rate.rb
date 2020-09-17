@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "../converter"
+require_relative "../formatter"
 
 module TTY
   class ProgressBar
@@ -8,22 +9,7 @@ module TTY
     #
     # @api private
     class RateFormatter
-      MATCHER = /:rate/i.freeze
-
-      def initialize(progress)
-        @progress = progress
-      end
-
-      # Determines whether this formatter is applied or not.
-      #
-      # @param [Object] value
-      #
-      # @return [Boolean]
-      #
-      # @api private
-      def matches?(value)
-        !!(value.to_s =~ MATCHER)
-      end
+      include TTY::ProgressBar::Formatter[/:rate/i.freeze]
 
       # Format :rate token
       #
@@ -33,7 +19,7 @@ module TTY
       # @api public
       def format(value)
         formatted = Converter.to_seconds(@progress.rate)
-        value.gsub(MATCHER, formatted)
+        value.gsub(matcher, formatted)
       end
     end # RateFormatter
   end # ProgressBar

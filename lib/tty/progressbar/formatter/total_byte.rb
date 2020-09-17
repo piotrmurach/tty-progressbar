@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "../converter"
+require_relative "../formatter"
 
 module TTY
   class ProgressBar
@@ -8,22 +9,7 @@ module TTY
     #
     # @api private
     class TotalByteFormatter
-      MATCHER = /:total_byte/i.freeze
-
-      def initialize(progress)
-        @progress = progress
-      end
-
-      # Determines whether this formatter is applied or not.
-      #
-      # @param [Object] value
-      #
-      # @return [Boolean]
-      #
-      # @api private
-      def matches?(value)
-        !!(value.to_s =~ MATCHER)
-      end
+      include TTY::ProgressBar::Formatter[/:total_byte/i.freeze]
 
       # Format :total_byte token
       #
@@ -37,7 +23,7 @@ module TTY
                 else
                   Converter.to_bytes(@progress.total)
                 end
-        value.gsub(MATCHER, bytes)
+        value.gsub(matcher, bytes)
       end
     end # TotalByteFormatter
   end # ProgressBar

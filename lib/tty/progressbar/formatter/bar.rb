@@ -1,27 +1,14 @@
 # frozen_string_literal: true
 
+require_relative "../formatter"
+
 module TTY
   class ProgressBar
     # Used by {Pipeline} to format bar
     #
     # @api private
     class BarFormatter
-      MATCHER = /:bar/.freeze
-
-      def initialize(progress)
-        @progress = progress
-      end
-
-      # Determines whether this formatter is applied or not.
-      #
-      # @param [Object] value
-      #
-      # @return [Boolean]
-      #
-      # @api private
-      def matches?(value)
-        !!(value.to_s =~ MATCHER)
-      end
+      include TTY::ProgressBar::Formatter[/:bar/i.freeze]
 
       # Format :bar token
       #
@@ -49,7 +36,7 @@ module TTY
           buffer << @progress.unknown
           buffer << " " * incomplete
 
-          return value.gsub(MATCHER, buffer.join)
+          return value.gsub(matcher, buffer.join)
         end
 
         complete_bar_length    = (width * @progress.ratio).round
@@ -88,7 +75,7 @@ module TTY
           complete << "#{@progress.head}#{extra_space}"
         end
 
-        value.gsub(MATCHER, "#{complete.join}#{incomplete.join}")
+        value.gsub(matcher, "#{complete.join}#{incomplete.join}")
       end
     end # BarFormatter
   end #  ProgressBar
