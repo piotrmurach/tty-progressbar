@@ -11,6 +11,6 @@ bar = TTY::ProgressBar.new("downloading [:bar] :current/:total :current_byte " \
   sleep(0.05)
   bar.advance
   if i == 69
-    bar.update(indeterminate: false, total: 170)
+    bar.update(total: 170)
   end
 end
