@@ -67,10 +67,15 @@ Or install it yourself as:
   * [2.12 resize](#212-resize)
   * [2.13 on](#213-on)
 * [3. Configuration](#3-configuration)
-  * [3.1 :head](#31-head)
-  * [3.2 :output](#32-output)
-  * [3.3 :frequency](#33-frequency)
-  * [3.4 :interval](#34-interval)
+  * [3.1 :total](#31-total)
+  * [3.1 :width](#32-width)
+  * [3.3 :complete](#33-complete)
+  * [3.4 :incomplete](#34-incomplete)
+  * [3.5 :head](#35-head)
+  * [3.6 :output](#36-output)
+  * [3.7 :frequency](#37-frequency)
+  * [3.8 :interval](#38-interval)
+  * [3.9 :hide_cursor](#39-hide_cursor)
 * [4. Formatting](#4-formatting)
   * [4.1 Tokens](#41-tokens)
   * [4.2 Custom Formatters](#42-custom-formatters)
@@ -330,15 +335,15 @@ bar.on(:stopped) { ... }
 
 There are number of configuration options that can be provided:
 
-* `:total` total number of steps to completion
-* `:width` of the bars display in terminal columns excluding formatting options. Defaults to total steps
-* `:complete` completion character by default `=`
-* `:incomplete` incomplete character by default single space
-* [:head](#31-head) the head character by default `=`
-* [:output](#32-output) the output stream defaulting to `stderr`
-* [:frequency](#33-frequency) used to throttle the output, by default `0`
-* [:interval](#34-interval) used to measure the speed, by default `1 sec`
-* [:hide_cursor](#35-hide_cursor) to hide display cursor defaulting to `false`
+* [:total](#31-total) total number of steps to completion
+* [:width](#32-width) of the bars display in terminal columns excluding formatting options. Defaults to total steps
+* [:complete](#33-complete) completion character by default `=`
+* [:incomplete](#34-incomplete) incomplete character by default single space
+* [:head](#35-head) the head character by default `=`
+* [:output](#36-output) the output stream defaulting to `stderr`
+* [:frequency](#37-frequency) used to throttle the output, by default `0`
+* [:interval](#38-interval) used to measure the speed, by default `1 sec`
+* [:hide_cursor](#39-hide_cursor) to hide display cursor defaulting to `false`
 * `:clear` to clear the finished bar defaulting to `false`
 * `:clear_head` to clear the head character when the progress is done, defaults to `false`
 
@@ -352,17 +357,71 @@ TTY::ProgressBar.new "[:bar]" do |config|
 end
 ```
 
-### 3.1 :head
+### 3.1 :total
+
+The `:total` option determines the final value at which the progress bar fills up and stops.
+
+```ruby
+TTY::ProgressBar.new("[:bar]", total: 30)
+```
+
+Setting `:total` to nil or leaving it out will cause the progress bar to render indeterminate animation:
+
+```ruby
+# [                    <=>                 ]
+```
+
+### 3.2 :width
+
+The progress bar width defaults to the total value and is capped at the maximum terminal width minus all the labels. If you want to enforce the bar to be the same length use the `:width` option:
+
+```ruby
+TTY::ProgressBar.new("[:bar]", width: 30)
+```
+
+### 3.3 :complete
+
+By default, the `=` character is used to mark progression but this can be changed with `:complete` option:
+
+```ruby
+TTY::ProgressBar.new("[:bar]", complete: "x")
+```
+
+Then the output will look like this:
+
+```ruby
+# [xxxxxxxx      ]
+```
+
+### 3.4 :incomplete
+
+By default no characters are shown to mark the remaining progress. You can change this with `:incomplete` option:
+
+```ruby
+TTY::ProgressBar.new("[:bar]", incomplete: "_")
+```
+
+A possible output may look like this:
+
+```ruby
+# [======_________]
+```
+
+### 3.5 :head
 
 If you prefer for the animated bar to display a specific character for a head of progression then use `:head` option:
 
 ```ruby
-bar = TTY::ProgressBar.new("[:bar]", head: ">")
-#
+TTY::ProgressBar.new("[:bar]", head: ">")
+```
+
+This will result in output like this:
+
+```ruby
 # [=======>      ]
 ```
 
-### 3.2 :output
+### 3.6 :output
 
 The progress bar only outputs to a console and when output is redirected to a file or a pipe it does nothing. This is so, for example, your error logs do not overflow with progress bars output.
 
@@ -374,7 +433,7 @@ bar = TTY::ProgressBar.new(output: $stdout)
 
 The output stream defaults to `stderr`.
 
-### 3.3 :frequency
+### 3.7 :frequency
 
 Each time the `advance` is called it causes the progress bar to repaint. In cases when there is a huge number of updates per second, you may need to limit the rendering process by using the `frequency` option.
 
@@ -384,7 +443,7 @@ The `frequency` option accepts `integer` representing number of `Hz` units, for 
 TTY::ProgressBar.new("[:bar]", total: 30, frequency: 10) # 10 Hz
 ```
 
-### 3.4 :interval
+### 3.8 :interval
 
 For every call of `advance` method the **ProgressBar** takes a sample for speed measurement. By default the samples are grouped per second but you can change that by passing the `interval` option.
 
@@ -396,7 +455,7 @@ TTY::ProgressBar.new(":rate/minute", total: 100, interval: 60) # 1 minute
 TTY::ProgressBar.new(":rate/hour", total: 100, interval: 3600) # 1 hour
 ```
 
-### 3.5 :hide_cursor
+### 3.9 :hide_cursor
 
 By default the cursor is visible during progress bar rendering. If you wish to hide it, you can do so with the `:hide_cursor` option.
 
