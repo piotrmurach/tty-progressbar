@@ -26,19 +26,32 @@ module TTY
         # When we don't know the total progress, use either user
         # defined width or rely on terminal width detection
         if @progress.indeterminate?
-          buffer = []
           width = available_space if width.zero?
-          width -= @progress.unknown.size
-          complete = (width * @progress.ratio).round
-          incomplete = width - complete
 
-          buffer << " " * complete
-          buffer << @progress.unknown
-          buffer << " " * incomplete
-
-          return value.gsub(matcher, buffer.join)
+          format_indeterminate(value, width)
+        else
+          format_determinate(value, width)
         end
+      end
 
+      private
+
+      # @api private
+      def format_indeterminate(value, width)
+        buffer = []
+        width -= @progress.unknown.size
+        complete = (width * @progress.ratio).round
+        incomplete = width - complete
+
+        buffer << " " * complete
+        buffer << @progress.unknown
+        buffer << " " * incomplete
+
+        value.gsub(matcher, buffer.join)
+      end
+
+      # @api private
+      def format_determinate(value, width)
         complete_bar_length    = (width * @progress.ratio).round
         complete_char_length   = ProgressBar.display_columns(@progress.complete)
         incomplete_char_length = ProgressBar.display_columns(@progress.incomplete)
