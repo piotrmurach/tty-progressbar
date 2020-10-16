@@ -115,4 +115,10 @@ RSpec.describe TTY::ProgressBar::Multi, 'width' do
       "\e[1G#{bottom}[==========          ] two\n"
     ].join)
   end
+
+  it "doesn't attempt setting top level bar width without the format" do
+    expect {
+      TTY::ProgressBar::Multi.new(output: output, width: 20)
+    }.to_not raise_error
+  end
 end

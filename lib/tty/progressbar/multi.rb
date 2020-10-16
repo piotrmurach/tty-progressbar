@@ -54,7 +54,7 @@ module TTY
         @top_bar = register(format, observable: false) if format
 
         @width = @options[:width]
-        @top_bar.update(width: @width) if @width
+        @top_bar.update(width: @width) if @top_bar && @width
 
         @callbacks = {
           progress: [],
