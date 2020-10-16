@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://piotrmurach.github.io/tty" target="_blank"><img width="130" src="https://github.com/piotrmurach/tty/raw/master/images/tty.png" alt="tty logo" /></a>
+  <a href="https://ttytoolkit.org"><img width="130" src="https://github.com/piotrmurach/tty/raw/master/images/tty.png" alt="TTY Toolkit logo"/></a>
 </div>
 
 # TTY::ProgressBar [![Gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
@@ -28,7 +28,8 @@
 * Fully [configurable](#3-configuration)
 * Extremely flexible progress display [formatting](#4-formatting)
 * Includes many predefined tokens to calculate ETA, Bytes ... [tokens](#41-tokens)
-* Allows to define your [custom tokens](#42-custom-formatters)
+* Allows for definition of [custom tokens](#42-custom-formatters)
+* Implements [indeterminate](#31-total) progress to show an unbounded operation
 * Supports parallel multi progress bars [multi](#6-ttyprogressbarmulti-api)
 * Handles Unicode characters in progress bar [unicode](#44-unicode)
 * Works on all ECMA-48 compatible terminals
@@ -64,8 +65,9 @@ Or install it yourself as:
   * [2.9 stop](#29-stop)
   * [2.10 reset](#210-reset)
   * [2.11 complete?](#211-complete)
-  * [2.12 resize](#212-resize)
-  * [2.13 on](#213-on)
+  * [2.12 indeterminate?](#212-indeterminate)
+  * [2.13 resize](#213-resize)
+  * [2.14 on](#214-on)
 * [3. Configuration](#3-configuration)
   * [3.1 :total](#31-total)
   * [3.1 :width](#32-width)
@@ -294,7 +296,15 @@ During progression you can check if a bar is finished or not by calling `complet
 bar.complete? # => false
 ```
 
-### 2.12 resize
+### 2.12 indeterminate?
+
+You can make a progress bar indeterminate by setting `:total` to nil. In this state, an animation is displayed to show unbounded task. You can check if the progress bar is indeterminate with the `indeterminate?` method:
+
+```ruby
+bar.indeterminate? # => false
+```
+
+### 2.13 resize
 
 If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length. However, if you don't provide any width the `resize` will use terminal current width as its base for scaling.
 
@@ -309,7 +319,7 @@ To handle automatic resizing you can trap `:WINCH` signal:
 trap(:WINCH) { bar.resize }
 ```
 
-### 2.13 on
+### 2.14 on
 
 The progress bar fires events when it is progressing, stopped or finished. You can register to listen for events using the `on` message.
 
@@ -365,11 +375,13 @@ The `:total` option determines the final value at which the progress bar fills u
 TTY::ProgressBar.new("[:bar]", total: 30)
 ```
 
-Setting `:total` to nil or leaving it out will cause the progress bar to render indeterminate animation:
+Setting `:total` to nil or leaving it out will cause the progress bar to switch to indeterminate state. Instead of showing completeness for a task, it will render animation like `<=>` that moves left and right to show time-consuming and unbounded task:
 
 ```ruby
 # [                    <=>                 ]
 ```
+
+Run [examples/indeterminate](https://github.com/piotrmurach/tty-progressbar/blob/master/examples/indeterminate.rb) to see indeterminate progress animation in action.
 
 ### 3.2 :width
 
@@ -498,6 +510,18 @@ These are the tokens that are currently supported:
 * `:byte_rate` the current rate of progression in bytes per second
 * `:mean_rate` the averaged rate of progression per second
 * `:mean_byte` the averaged rate of progression in bytes per second
+
+In the indeterminate state, the progress bar displays `-` for tokens that cannot be calculated like `:total`, `:total_byte`, `:percent` and `:eta`. The following format:
+
+```ruby
+"[:bar] :current/:total :total_byte :percent ET::elapsed ETA::eta :rate/s"
+```
+
+Will result in:
+
+```ruby
+[                 <=>                    ] 23/- -B -% ET: 1s ETA:--s 18.01/s
+```
 
 ### 4.2 Custom Formatters
 
