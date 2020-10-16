@@ -503,28 +503,32 @@ These are the tokens that are currently supported:
 
 If the provided tokens do not meet your needs, you can write your own formatter and instrument formatting pipeline to use a formatter you prefer. This option is preferred if you are going to rely on progress bar internal data such as `rate`, `current` etc. which will all be available on the passed in progress bar instance.
 
-For example, begin by creating custom formatter called `TimeFormatter` that will dynamically update `:time` token in format string. The methods that you need to specify are `initialize`, `matches?` and `format` like follows:
+For example, let's say you want to add `:time` token. First, start by creating a custom formatter class called `TimeFormatter` that will dynamically update `:time` token in the formatted string. In order for the `TimeFormatter` to recognise the `:time` token, you'll need to include the `TTY::ProgressBar::Formatter` module with a regular expression matching the token like so:
 
 ```ruby
 class TimeFormatter
-  def initialize(progress)
-    @progress = progress # current progress bar instance
-  end
+  include TTY::ProgressBar::Formatter[/:time/i]
+  ...
+end
+```
 
-  def matches?(value)  # specify condition to match for in display string
-    value.to_s =~ /:time/
-  end
+Next, add `format` method that will substitute the matched token with an actual value. For example, to see the time elapsed since the start do:
+
+```ruby
+class TimeFormatter
+  include TTY::ProgressBar::Formatter[/:time/i]
 
   def format(value)  # specify how display string is formatted
+    # access current progress bar instance to read start time
     transformed = (Time.now - @progress.start_at).to_s
-    value.gsub(/:time/, transformed)   # => :time token replacement
+    value.gsub(/:time/, transformed)   # replace :time token with a value
   end
 end
 ```
 
 Notice that you have access to all the configuration options inside the formatter by simply invoking them on the `@progress` instance.
 
-Create **TTY::ProgressBar** instance with new token:
+Create **TTY::ProgressBar** instance using the new token:
 
 ```ruby
 bar = TTY::ProgressBar.new(":time", total: 30)
@@ -536,7 +540,7 @@ Then add `TimeFormatter` to the pipeline like so:
 bar.use TimeFormatter
 ```
 
-and then invoke progression:
+Then invoke progression:
 
 ```ruby
 bar.advance
