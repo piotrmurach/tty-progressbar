@@ -17,6 +17,7 @@
 
 ### Fixed
 * Fix MultiBar top bar to allow resuming progress when stopped/done (@d4be4st)
+* Fix MultiBar to only set width when top bar present
 
 ## [v0.17.0] - 2019-05-31
 
