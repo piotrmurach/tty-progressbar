@@ -520,7 +520,7 @@ In the indeterminate state, the progress bar displays `-` for tokens that cannot
 Will result in:
 
 ```ruby
-[                 <=>                    ] 23/- -B -% ET: 1s ETA:--s 18.01/s
+# [                 <=>                    ] 23/- -B -% ET: 1s ETA:--s 18.01/s
 ```
 
 ### 4.2 Custom Formatters
