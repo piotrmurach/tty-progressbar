@@ -519,13 +519,14 @@ module TTY
     # @api public
     def inspect
       "#<#{self.class.name} " \
-      "@format=\"#{format}\", " \
+      "@format=\"#{@format}\", " \
       "@current=\"#{@current}\", " \
       "@total=\"#{total}\", " \
       "@width=\"#{width}\", " \
       "@complete=\"#{complete}\", " \
       "@head=\"#{head}\", " \
       "@incomplete=\"#{incomplete}\", " \
+      "@unknown=\"#{unknown}\", " \
       "@interval=\"#{interval}\">"
     end
 
