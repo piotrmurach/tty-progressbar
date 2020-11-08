@@ -34,9 +34,11 @@ RSpec.describe TTY::ProgressBar, ".new" do
       config.head = ">>"
       config.complete = "#"
       config.incomplete = "-"
+      config.unknown = "?"
       config.clear = true
       config.clear_head = true
       config.hide_cursor = true
+      config.bar_format = :block
     end
 
     expect(progress.output).to eq(output)
@@ -48,8 +50,19 @@ RSpec.describe TTY::ProgressBar, ".new" do
     expect(progress.head).to eq(">>")
     expect(progress.complete).to eq("#")
     expect(progress.incomplete).to eq("-")
+    expect(progress.unknown).to eq("?")
     expect(progress.clear_head).to eq(true)
     expect(progress.hide_cursor).to eq(true)
+    expect(progress.bar_format).to eq(:block)
+  end
+
+  it "raises error when bar format is set to unsupported type" do
+    expect {
+      described_class.new "[:bar]", bar_format: :unknown
+    }.to raise_error(ArgumentError,
+                     "unsupported bar format: :unknown. Available formats are: " \
+                     ":arrow, :block, :box, :burger, :circle, :classic, :dot,"\
+                     " :track, :wave")
   end
 
   it "overrides option configuration inside a block" do

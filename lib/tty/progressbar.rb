@@ -35,7 +35,7 @@ module TTY
 
     def_delegators :@configuration, :total, :width, :complete, :incomplete,
                    :head, :clear_head, :hide_cursor, :clear, :output,
-                   :frequency, :interval, :inset, :width=, :unknown
+                   :frequency, :interval, :inset, :width=, :unknown, :bar_format
 
     def_delegators :@meter, :rate, :mean_rate
 
