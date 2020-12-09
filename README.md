@@ -5,7 +5,7 @@
 # TTY::ProgressBar [![Gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
 
 [![Gem Version](https://badge.fury.io/rb/tty-progressbar.svg)][gem]
-[![Build Status](https://secure.travis-ci.org/piotrmurach/tty-progressbar.svg?branch=master)][travis]
+[![Actions CI](https://github.com/piotrmurach/tty-progressbar/workflows/CI/badge.svg?branch=master)][gh_actions_ci]
 [![Build status](https://ci.appveyor.com/api/projects/status/w3jafjeatt1ulufa?svg=true)][appveyor]
 [![Maintainability](https://api.codeclimate.com/v1/badges/e85416137d2057169575/maintainability)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/github/piotrmurach/tty-progressbar/badge.svg)][coverage]
@@ -13,7 +13,7 @@
 
 [gitter]: https://gitter.im/piotrmurach/tty
 [gem]: http://badge.fury.io/rb/tty-progressbar
-[travis]: http://travis-ci.org/piotrmurach/tty-progressbar
+[gh_actions_ci]: https://github.com/piotrmurach/tty-progressbar/actions?query=workflow%3ACI
 [appveyor]: https://ci.appveyor.com/project/piotrmurach/tty-progressbar
 [codeclimate]: https://codeclimate.com/github/piotrmurach/tty-progressbar/maintainability
 [coverage]: https://coveralls.io/github/piotrmurach/tty-progressbar
