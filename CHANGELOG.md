@@ -8,6 +8,7 @@
 * Add #configure to allow runtime configuration
 * Add Multi#done? to check if all bar are stopped or finished
 * Add indeterminate progress support when no total is given
+* Add :bar_format option to allow selecting preconfigured bar displays
 
 ### Changed
 * Change Multi#stopped? to check that all bars are stopped
