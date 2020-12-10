@@ -1,6 +1,9 @@
 AllCops:
   NewCops: enable
 
+Layout/LineLength:
+  Max: 80
+
 Lint/AssignmentInCondition:
   Enabled: false
 
@@ -10,7 +13,7 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   CountComments: true
   Max: 25
-  ExcludedMethods: []
+  IgnoredMethods: []
   Exclude:
     - "spec/**/*"
 
@@ -19,9 +22,6 @@ Metrics/ClassLength:
 
 Metrics/CyclomaticComplexity:
   Enabled: false
-
-Metrics/LineLength:
-  Max: 80
 
 Metrics/MethodLength:
   Max: 20
