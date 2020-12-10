@@ -1,8 +1,10 @@
-require_relative '../lib/tty-progressbar'
+# frozen_string_literal: true
+
+require_relative "../lib/tty-progressbar"
 
 files = [
-  'file1.txt', 'file2.txt', 'file3.txt', 'file4.txt', 'file5.txt',
-  'file6.txt', 'file7.txt', 'file8.txt', 'file9.txt', 'file10.txt'
+  "file1.txt", "file2.txt", "file3.txt", "file4.txt", "file5.txt",
+  "file6.txt", "file7.txt", "file8.txt", "file9.txt", "file10.txt"
 ]
 
 bar = TTY::ProgressBar.new("downloading :file :percent", total: files.size)

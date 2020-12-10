@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "../lib/tty-progressbar"
 
 bar = TTY::ProgressBar.new("Unicode [:bar]", total: 30,

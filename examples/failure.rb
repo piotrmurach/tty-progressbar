@@ -1,9 +1,11 @@
-require_relative '../lib/tty-progressbar'
+# frozen_string_literal: true
 
-bar = TTY::ProgressBar.new("downloading [:bar] :percent", head: '>', total: 30)
+require_relative "../lib/tty-progressbar"
+
+bar = TTY::ProgressBar.new("downloading [:bar] :percent", head: ">", total: 30)
 30.times do |i|
   if i == 15
-    bar.update(head: 'x')
+    bar.update(head: "x")
     bar.stop
     break
   end

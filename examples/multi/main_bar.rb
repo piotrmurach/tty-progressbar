@@ -1,4 +1,6 @@
-require_relative '../../lib/tty-progressbar'
+# frozen_string_literal: true
+
+require_relative "../../lib/tty-progressbar"
 
 bars = TTY::ProgressBar::Multi.new("main [:bar] :percent")
 

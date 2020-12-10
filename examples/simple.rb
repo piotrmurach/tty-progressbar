@@ -1,4 +1,6 @@
-require_relative '../lib/tty-progressbar'
+# frozen_string_literal: true
+
+require_relative "../lib/tty-progressbar"
 
 bar = TTY::ProgressBar.new("downloading [:bar] :elapsed :percent", total: 30)
 30.times do

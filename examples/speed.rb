@@ -1,4 +1,6 @@
-require_relative '../lib/tty-progressbar'
+# frozen_string_literal: true
+
+require_relative "../lib/tty-progressbar"
 
 bar = TTY::ProgressBar.new "downloading [:bar] :rate/s :mean_rate/s" do |conf|
   conf.total = 100
