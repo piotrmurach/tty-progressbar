@@ -64,10 +64,11 @@ Or install it yourself as:
   * [2.8 finish](#28-finish)
   * [2.9 stop](#29-stop)
   * [2.10 reset](#210-reset)
-  * [2.11 complete?](#211-complete)
-  * [2.12 indeterminate?](#212-indeterminate)
-  * [2.13 resize](#213-resize)
-  * [2.14 on](#214-on)
+  * [2.11 resume](#211-resume)
+  * [2.12 complete?](#212-complete)
+  * [2.13 indeterminate?](#213-indeterminate)
+  * [2.14 resize](#214-resize)
+  * [2.15 on](#215-on)
 * [3. Configuration](#3-configuration)
   * [3.1 :total](#31-total)
   * [3.1 :width](#32-width)
@@ -265,7 +266,7 @@ bar.update(complete: "+", frequency: 10)
 
 ### 2.8 finish
 
-In order to immediately stop and finish the progress call `finish`. This will finish drawing the progress and return to new line.
+In order to immediately stop and finish the progress call `finish`. This will finish drawing the progress by advancing it to 100% and returning to new line.
 
 ```ruby
 bar.finish
@@ -273,7 +274,7 @@ bar.finish
 
 ### 2.9 stop
 
-In order to immediately stop the bar in the current position and thus finish any further progress use `stop`:
+In order to immediately stop the bar in the current position and thus prevent any further progress use `stop`:
 
 ```ruby
 bar.stop
@@ -289,7 +290,15 @@ bar.reset
 
 After resetting the bar if you wish to draw and start the bar and its timers use `start` call.
 
-### 2.11 complete?
+### 2.11 resume
+
+When a bar is stopped, you can continue its progression using the `resume` method.
+
+```ruby
+bar.resume
+```
+
+### 2.12 complete?
 
 During progression you can check if a bar is finished or not by calling `complete?`. The bar will only return `true` if the progression finished successfully, otherwise `false` will be returned.
 
@@ -297,7 +306,7 @@ During progression you can check if a bar is finished or not by calling `complet
 bar.complete? # => false
 ```
 
-### 2.12 indeterminate?
+### 2.13 indeterminate?
 
 You can make a progress bar indeterminate by setting `:total` to nil. In this state, an animation is displayed to show unbounded task. You can check if the progress bar is indeterminate with the `indeterminate?` method:
 
@@ -305,7 +314,7 @@ You can make a progress bar indeterminate by setting `:total` to nil. In this st
 bar.indeterminate? # => false
 ```
 
-### 2.13 resize
+### 2.14 resize
 
 If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length. However, if you don't provide any width the `resize` will use terminal current width as its base for scaling.
 
@@ -320,7 +329,7 @@ To handle automatic resizing you can trap `:WINCH` signal:
 trap(:WINCH) { bar.resize }
 ```
 
-### 2.14 on
+### 2.15 on
 
 The progress bar fires events when it is progressing, stopped or finished. You can register to listen for events using the `on` message.
 
