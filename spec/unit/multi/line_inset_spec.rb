@@ -1,12 +1,12 @@
-RSpec.describe TTY::ProgressBar::Multi, '#line_inset' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar::Multi, "#line_inset" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "doesn't create inset when no top level bar" do
     bars = TTY::ProgressBar::Multi.new(output: output)
 
-    bar = bars.register 'example'
+    bar = bars.register "example"
 
-    expect(bars.line_inset(bar)).to eq('')
+    expect(bars.line_inset(bar)).to eq("")
   end
 
   it "defaults to the empty string for the top level bar" do
@@ -19,8 +19,8 @@ RSpec.describe TTY::ProgressBar::Multi, '#line_inset' do
   it "returns middle character for a top level bar" do
     bars = TTY::ProgressBar::Multi.new("Top level bar", output: output)
 
-    bar = bars.register 'middle', total: 10
-    bar2 = bars.register 'bottom', total: 10
+    bar = bars.register "middle", total: 10
+    bar2 = bars.register "bottom", total: 10
 
     bar.start
     bar2.start
@@ -32,8 +32,8 @@ RSpec.describe TTY::ProgressBar::Multi, '#line_inset' do
   it "decorates last bar" do
     bars = TTY::ProgressBar::Multi.new("Top spinner", output: output)
 
-    bar1 = bars.register 'middle', total: 10
-    bar = bars.register 'bottom', total: 10
+    bar1 = bars.register "middle", total: 10
+    bar = bars.register "bottom", total: 10
 
     bar1.start
     bar.start

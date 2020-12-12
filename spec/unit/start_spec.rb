@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, '#start' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, "#start" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "starts timer and draws initial progress" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)

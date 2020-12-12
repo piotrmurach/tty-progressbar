@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar::Multi, '#reset' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar::Multi, "#reset" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "leaves multibar state alone" do
     main = TTY::ProgressBar::Multi.new("", output: output, total: 10)

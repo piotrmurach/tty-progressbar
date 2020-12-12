@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, '#hide_cursor' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, "#hide_cursor" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "hides cursor" do
     progress = TTY::ProgressBar.new("[:bar]", output: output,

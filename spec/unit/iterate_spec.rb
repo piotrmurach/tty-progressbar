@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, '#iterate' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, "#iterate" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "iterates over a collection and yields" do
     bar = TTY::ProgressBar.new("[:bar]", output: output)

@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar::Multi, 'events' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar::Multi, "events" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "emits :progress event when any of the registerd bars advances" do
     events = []

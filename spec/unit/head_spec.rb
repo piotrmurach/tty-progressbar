@@ -1,8 +1,8 @@
-RSpec.describe TTY::ProgressBar, ':head' do
-  let(:output) { StringIO.new('', 'w+')}
+RSpec.describe TTY::ProgressBar, ":head" do
+  let(:output) { StringIO.new("", "w+")}
 
   it "animates head" do
-    progress = TTY::ProgressBar.new("[:bar]", output: output, head: '>', total: 5)
+    progress = TTY::ProgressBar.new("[:bar]", output: output, head: ">", total: 5)
     5.times { progress.advance }
     output.rewind
     expect(output.read).to eq([
@@ -17,8 +17,8 @@ RSpec.describe TTY::ProgressBar, ':head' do
   it "customises all output characters" do
     progress = TTY::ProgressBar.new("[:bar]",
       output: output,
-      head: 'ᗧ',
-      complete: '-', incomplete: '.', total: 5)
+      head: "ᗧ",
+      complete: "-", incomplete: ".", total: 5)
     5.times { progress.advance }
     output.rewind
     expect(output.read).to eq([
@@ -33,8 +33,8 @@ RSpec.describe TTY::ProgressBar, ':head' do
   it "exceeds 2 characters" do
     progress = TTY::ProgressBar.new("[:bar]",
       output: output,
-      head: '>>>',
-      complete: '-', incomplete: '.', total: 20)
+      head: ">>>",
+      complete: "-", incomplete: ".", total: 20)
     5.times { progress.advance(4) }
     output.rewind
     expect(output.read).to eq([

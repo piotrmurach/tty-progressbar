@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, '#width' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, "#width" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "handles width exceeding terminal width" do
     progress = TTY::ProgressBar.new "[:bar]" do |config|
@@ -38,7 +38,7 @@ RSpec.describe TTY::ProgressBar, '#width' do
 
   it "handles unicodes characters within bar" do
     bar = TTY::ProgressBar.new("[:bar]", output: output, total: 20,
-                                         complete: 'あ', incomplete: 'め')
+                                         complete: "あ", incomplete: "め")
     allow(TTY::Screen).to receive(:width).and_return(20)
 
     4.times { bar.advance(5) }
@@ -54,7 +54,7 @@ RSpec.describe TTY::ProgressBar, '#width' do
 
   it "handles unicodes characters within bar" do
     bar = TTY::ProgressBar.new("[:bar]", output: output, total: 20,
-                                         complete: 'あ', incomplete: ' ')
+                                         complete: "あ", incomplete: " ")
     allow(TTY::Screen).to receive(:width).and_return(20)
 
     4.times { bar.advance(5) }
@@ -70,7 +70,7 @@ RSpec.describe TTY::ProgressBar, '#width' do
 
   it "handles unicodes characters within bar" do
     bar = TTY::ProgressBar.new("[:bar]", output: output, total: 20,
-                                         complete: 'x', incomplete: 'め')
+                                         complete: "x", incomplete: "め")
     allow(TTY::Screen).to receive(:width).and_return(20)
 
     4.times { bar.advance(5) }

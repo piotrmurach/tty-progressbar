@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, '#complete?' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, "#complete?" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "checks for completness" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 3)

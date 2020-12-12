@@ -1,7 +1,7 @@
-RSpec.describe TTY::ProgressBar, '#finish' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, "#finish" do
+  let(:output) { StringIO.new("", "w+") }
 
-  it 'finishes progress' do
+  it "finishes progress" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)
     progress.advance
     progress.finish

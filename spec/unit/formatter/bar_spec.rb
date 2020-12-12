@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, ':bar token' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, ":bar token" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "animates bar" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 5)
@@ -47,9 +47,9 @@ RSpec.describe TTY::ProgressBar, ':bar token' do
   end
 
   describe "when unicode chars & odd width" do
-    let(:done) { '本' }
-    let(:head) { '語' }
-    let(:rem)  { '〜' }
+    let(:done) { "本" }
+    let(:head) { "語" }
+    let(:rem)  { "〜" }
 
     it "head, complete & incomplete are unicode chars" do
       progress = TTY::ProgressBar.new("[:bar]", output: output,

@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar::Multi, '#finish' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar::Multi, "#finish" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "finishes all bars with top level" do
     bars = TTY::ProgressBar::Multi.new("main [:bar]", output: output)

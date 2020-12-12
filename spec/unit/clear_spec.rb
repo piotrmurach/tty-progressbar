@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, 'clear' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, "clear" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "clears progress bar when finished" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 5,

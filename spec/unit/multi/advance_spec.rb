@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar::Multi, 'advance' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar::Multi, "advance" do
+  let(:output) { StringIO.new("", "w+") }
   let(:save)    { TTY::Cursor.save }
   let(:restore) { TTY::Cursor.restore }
   let(:top) { TTY::ProgressBar::Multi::DEFAULT_INSET[:top] }

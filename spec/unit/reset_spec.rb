@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, '#reset' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, "#reset" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "resets current progress" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)

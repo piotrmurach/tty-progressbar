@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar, '#resize' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar, "#resize" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "resizes output down by x2" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 5, width: 10)

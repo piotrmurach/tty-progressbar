@@ -1,5 +1,5 @@
-RSpec.describe TTY::ProgressBar::Multi, '#register' do
-  let(:output) { StringIO.new('', 'w+') }
+RSpec.describe TTY::ProgressBar::Multi, "#register" do
+  let(:output) { StringIO.new("", "w+") }
 
   it "registers a TTY::ProgressBar instance" do
     bars = TTY::ProgressBar::Multi.new(output: output)
