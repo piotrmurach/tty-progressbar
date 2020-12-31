@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, ":rate token" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   before { Timecop.safe_mode = false }
 

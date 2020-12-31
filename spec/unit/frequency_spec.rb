@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "frequency" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   before { Timecop.safe_mode = false }
 
   it "limits frequency to 500Hz, permiting every second one" do
     time_now = Time.local(2014, 10, 5, 12, 0, 0, 0)
     Timecop.freeze(time_now)
-    progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10, frequency: 500)
+    progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10,
+                                              frequency: 500)
 
     10.times do |sec|
       time_now = Time.local(2014, 10, 5, 12, 0, 0, sec * 1000)

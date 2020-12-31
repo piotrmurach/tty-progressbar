@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar::Multi.new, "#resume" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
   let(:save)    { TTY::Cursor.save }
   let(:restore) { TTY::Cursor.restore }
   let(:top) { TTY::ProgressBar::Multi::DEFAULT_INSET[:top] }
@@ -10,7 +12,7 @@ RSpec.describe TTY::ProgressBar::Multi.new, "#resume" do
     top_bar = TTY::ProgressBar::Multi.new("[:bar] top (:current/:total)", output: output)
 
     bar1 = top_bar.register("[:bar] one", total: 5)
-    bar1. advance(5)
+    bar1.advance(5)
 
     expect(top_bar.done?).to eq(true)
     expect(bar1.done?).to eq(true)

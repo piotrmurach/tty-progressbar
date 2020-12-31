@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar::Multi, "advance" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
   let(:save)    { TTY::Cursor.save }
   let(:restore) { TTY::Cursor.restore }
   let(:top) { TTY::ProgressBar::Multi::DEFAULT_INSET[:top] }
@@ -88,7 +90,7 @@ RSpec.describe TTY::ProgressBar::Multi, "advance" do
       save,
       "\e[2A",   # up 2 lines,
       "\e[1G#{middle}[==   ] two",
-      restore,
+      restore
     ].join)
 
     bar1.advance

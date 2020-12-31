@@ -1,10 +1,15 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, ".new" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "fails to initialize without formatting string" do
     expect {
       TTY::ProgressBar.new(output: output)
-    }.to raise_error(ArgumentError, /Expected bar formatting string, got `{:output=>#{output}}` instead\./)
+    }.to raise_error(
+      ArgumentError,
+      /Expected bar formatting string, got `{:output=>#{output}}` instead\./
+    )
   end
 
   it "allows to change formatting string" do
@@ -59,10 +64,11 @@ RSpec.describe TTY::ProgressBar, ".new" do
   it "raises error when bar format is set to unsupported type" do
     expect {
       described_class.new "[:bar]", bar_format: :unknown
-    }.to raise_error(ArgumentError,
-                     "unsupported bar format: :unknown. Available formats are: " \
-                     ":arrow, :block, :box, :burger, :circle, :classic, :dot,"\
-                     " :track, :wave")
+    }.to raise_error(
+      ArgumentError,
+      "unsupported bar format: :unknown. Available formats are: " \
+      ":arrow, :block, :box, :burger, :circle, :classic, :dot, :track, :wave"
+    )
   end
 
   it "overrides option configuration inside a block" do

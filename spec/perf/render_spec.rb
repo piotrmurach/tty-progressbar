@@ -14,8 +14,12 @@ RSpec.describe TTY::ProgressBar, "rendering" do
     output_progress = StringIO.new
     output_write = StringIO.new
     # Progress bar
-    progress = TTY::ProgressBar.new("[:bar]", output: output_progress,
-      incomplete: rem, head: head, complete: done, total: 5, width: 10)
+    progress = TTY::ProgressBar.new(
+      "[:bar]",
+      output: output_progress,
+      incomplete: rem, head: head, complete: done,
+      total: 5, width: 10
+    )
     # ERB renderer
     template = "<%= done %> - <%= head %> - <%= rem %>"
     renderer = ERB.new(template)

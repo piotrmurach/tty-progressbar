@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar::Pipeline, "#decorate" do
   subject(:pipeline) { described_class.new }
 

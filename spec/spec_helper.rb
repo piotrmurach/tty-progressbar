@@ -36,7 +36,8 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  # Limits the available syntax to the non-monkey patched syntax that is recommended.
+  # Limits the available syntax to the non-monkey patched syntax
+  # that is recommended.
   config.disable_monkey_patching!
 
   # This setting enables warnings. It's recommended, but in some cases may

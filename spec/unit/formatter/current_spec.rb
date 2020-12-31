@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, ":current token" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "displays current value" do
     progress = TTY::ProgressBar.new("|:current|", output: output, total: 10)

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "#log" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "logs message" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)
@@ -14,7 +16,7 @@ RSpec.describe TTY::ProgressBar, "#log" do
       "\e[1G[=         ]",
       "\e[1Gfoo bar     \n",
       "\e[1G[=         ]",
-      "\e[1G[==        ]",
+      "\e[1G[==        ]"
     ].join)
   end
 

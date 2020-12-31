@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "#update" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "updates bar configuration options" do
     progress = TTY::ProgressBar.new "[:bar]" do |config|

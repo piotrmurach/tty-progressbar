@@ -1,5 +1,6 @@
-RSpec.describe TTY::ProgressBar::Meter, "#rate" do
+# frozen_string_literal: true
 
+RSpec.describe TTY::ProgressBar::Meter, "#rate" do
   before { Timecop.safe_mode = false }
 
   after { Timecop.return }

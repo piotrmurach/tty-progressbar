@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "#complete?" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "checks for completness" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 3)
@@ -9,8 +11,6 @@ RSpec.describe TTY::ProgressBar, "#complete?" do
       progress.advance
     end
     completes << progress.complete?
-    expect(completes).to eq([
-      false, false, false, true
-    ])
+    expect(completes).to eq([false, false, false, true])
   end
 end

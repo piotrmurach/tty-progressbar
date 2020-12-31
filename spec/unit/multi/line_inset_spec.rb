@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar::Multi, "#line_inset" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "doesn't create inset when no top level bar" do
     bars = TTY::ProgressBar::Multi.new(output: output)
@@ -44,13 +46,13 @@ RSpec.describe TTY::ProgressBar::Multi, "#line_inset" do
 
   it "allows customization" do
     opts = {
-        output: output,
-        style: {
-          top: ". ",
-          middle: "--",
-          bottom: "---",
-        }
+      output: output,
+      style: {
+        top: ". ",
+        middle: "--",
+        bottom: "---"
       }
+    }
     bars = TTY::ProgressBar::Multi.new("Top level spinner", opts)
     middle_bar = bars.register "", total: 10
     bottom_bar = bars.register "", total: 10

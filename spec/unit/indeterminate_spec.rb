@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "indeterminate" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "animates indeterminate progress" do
     progress = described_class.new("[:bar]", output: output, width: 10)

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar::Multi, "#register" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "registers a TTY::ProgressBar instance" do
     bars = TTY::ProgressBar::Multi.new(output: output)
@@ -20,7 +22,8 @@ RSpec.describe TTY::ProgressBar::Multi, "#register" do
 
     bars.register("[:bar]")
 
-    expect(TTY::ProgressBar).to have_received(:new).with("[:bar]", {total: 100, output: output})
+    expect(TTY::ProgressBar).to have_received(:new)
+      .with("[:bar]", { total: 100, output: output })
   end
 
   it "registers bars with top level" do

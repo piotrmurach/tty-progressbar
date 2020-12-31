@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "#width" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "handles width exceeding terminal width" do
     progress = TTY::ProgressBar.new "[:bar]" do |config|

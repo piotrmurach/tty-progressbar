@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "#iterate" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "iterates over a collection and yields" do
     bar = TTY::ProgressBar.new("[:bar]", output: output)
     values = []
-    bar.iterate(5.times) { |val| values << val}
+    bar.iterate(5.times) { |val| values << val }
 
     expect(bar.complete?).to eq(true)
     output.rewind
@@ -43,7 +45,7 @@ RSpec.describe TTY::ProgressBar, "#iterate" do
 
     progress.each { |v| values << v }
 
-    expect(values).to eq([0,1,2,3,4])
+    expect(values).to eq([0, 1, 2, 3, 4])
   end
 
   it "does not uses collection's count if total is provided" do
@@ -55,7 +57,7 @@ RSpec.describe TTY::ProgressBar, "#iterate" do
 
     progress.each { |v| values << v }
 
-    expect(values).to eq([0,1,2,3,4])
+    expect(values).to eq([0, 1, 2, 3, 4])
   end
 
   it "iterates over an infinite enumerator and renders bar correctly" do

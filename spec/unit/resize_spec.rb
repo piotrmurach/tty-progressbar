@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "#resize" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "resizes output down by x2" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 5, width: 10)

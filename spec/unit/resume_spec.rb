@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "#resume" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "resumes stopped progression" do
     progress = described_class.new("[:bar]", output: output, total: 10)
@@ -20,7 +22,7 @@ RSpec.describe TTY::ProgressBar, "#resume" do
       "\e[1G[===       ]\n", # stop render
       "\e[1G[====      ]",
       "\e[1G[=====     ]",
-      "\e[1G[======    ]",
+      "\e[1G[======    ]"
     ].join)
   end
 end

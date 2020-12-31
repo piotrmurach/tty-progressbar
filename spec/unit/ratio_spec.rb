@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "#ratio=" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "allows to set ratio" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)

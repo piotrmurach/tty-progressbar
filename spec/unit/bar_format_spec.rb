@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, ":bar_format" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
   let(:formats) { TTY::ProgressBar::Formats::FORMATS }
 
-  TTY::ProgressBar::Formats::FORMATS.keys.each do |format|
+  TTY::ProgressBar::Formats::FORMATS.each_key do |format|
     it "displays progress with #{format.inspect} format characters" do
       complete = formats[format][:complete]
       incomplete = formats[format][:incomplete]
       progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10,
-                                      bar_format: format)
+                                                bar_format: format)
       5.times { progress.advance(2) }
       output.rewind
       expect(output.read).to eq([

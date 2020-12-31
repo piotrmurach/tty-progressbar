@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, ":percent token" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "displays percent finished" do
     progress = TTY::ProgressBar.new(":percent", output: output, total: 5)

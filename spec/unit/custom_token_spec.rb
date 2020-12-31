@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "custom token" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "allows to specify custom tokens" do
     progress = TTY::ProgressBar.new("(:current) :title", output: output, total: 4)

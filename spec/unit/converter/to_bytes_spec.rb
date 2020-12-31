@@ -16,7 +16,7 @@ RSpec.describe TTY::ProgressBar::Converter, "#to_bytes" do
   end
 
   it "converts 12345 to bytes" do
-    expect(converter.to_bytes(12345)).to eq("12.06KB")
+    expect(converter.to_bytes(12_345)).to eq("12.06KB")
   end
 
   it "converts 2000 to bytes" do
@@ -24,19 +24,19 @@ RSpec.describe TTY::ProgressBar::Converter, "#to_bytes" do
   end
 
   it "converts 1234567 to bytes" do
-    expect(converter.to_bytes(1234567)).to eq("1.18MB")
+    expect(converter.to_bytes(1_234_567)).to eq("1.18MB")
   end
 
   it "converts 1234567 to bytes with :separator" do
-    expect(converter.to_bytes(1234567, separator: ",")).to eq("1,18MB")
+    expect(converter.to_bytes(1_234_567, separator: ",")).to eq("1,18MB")
   end
 
   it "converts 1234567 to bytes with :unit_separator" do
-    expect(converter.to_bytes(1234567, unit_separator: " ")).to eq("1.18 MB")
+    expect(converter.to_bytes(1_234_567, unit_separator: " ")).to eq("1.18 MB")
   end
 
   it "converts 1234567 to bytes with comma as a separator" do
-    expect(converter.to_bytes(1234567, decimals: 1)).to eq("1.2MB")
+    expect(converter.to_bytes(1_234_567, decimals: 1)).to eq("1.2MB")
   end
 
   it "converts 10_000_000 to bytes" do

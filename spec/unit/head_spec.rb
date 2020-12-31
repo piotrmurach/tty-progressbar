@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, ":head" do
-  let(:output) { StringIO.new("", "w+")}
+  let(:output) { StringIO.new }
 
   it "animates head" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, head: ">", total: 5)
@@ -15,10 +17,12 @@ RSpec.describe TTY::ProgressBar, ":head" do
   end
 
   it "customises all output characters" do
-    progress = TTY::ProgressBar.new("[:bar]",
+    progress = TTY::ProgressBar.new(
+      "[:bar]",
       output: output,
       head: "ᗧ",
-      complete: "-", incomplete: ".", total: 5)
+      complete: "-", incomplete: ".", total: 5
+    )
     5.times { progress.advance }
     output.rewind
     expect(output.read).to eq([
@@ -48,7 +52,7 @@ RSpec.describe TTY::ProgressBar, ":head" do
 
   it "clears head after finishing" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 5,
-                                   head: ">", clear_head: true)
+                                              head: ">", clear_head: true)
     5.times { progress.advance }
     output.rewind
     expect(output.read).to eq([

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "custom formatter" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "allows for custom tag" do
     progress = TTY::ProgressBar.new(":hi", output: output, total: 10)

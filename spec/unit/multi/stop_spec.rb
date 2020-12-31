@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar::Multi, "#stop" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "stops all bars when top level stops" do
     bars = TTY::ProgressBar::Multi.new("main [:bar]", output: output)

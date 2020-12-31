@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "#hide_cursor" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "hides cursor" do
-    progress = TTY::ProgressBar.new("[:bar]", output: output,
-      total: 5, hide_cursor: true)
+    progress = TTY::ProgressBar.new("[:bar]", output: output, total: 5,
+                                              hide_cursor: true)
     5.times { progress.advance }
     output.rewind
     expect(output.read).to eq([
@@ -16,9 +18,8 @@ RSpec.describe TTY::ProgressBar, "#hide_cursor" do
   end
 
   it "reenables cursor on finish" do
-    progress = TTY::ProgressBar.new("[:bar]", output: output,
-      total: 5, hide_cursor: true)
-
+    progress = TTY::ProgressBar.new("[:bar]", output: output, total: 5,
+                                              hide_cursor: true)
     progress.advance(6)
     expect(progress.complete?).to eq(true)
     output.rewind

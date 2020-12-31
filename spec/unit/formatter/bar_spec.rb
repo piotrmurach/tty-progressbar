@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, ":bar token" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "animates bar" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 5)
@@ -15,7 +17,8 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
   end
 
   it "animates unknown progress without total" do
-    progress = TTY::ProgressBar.new("[:bar]", output: output, total: nil, width: 5)
+    progress = TTY::ProgressBar.new("[:bar]", output: output, total: nil,
+                                              width: 5)
     2.times { progress.advance }
     progress.update(total: 5)
     3.times { progress.advance }
@@ -33,7 +36,7 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
     red = "\e[31m \e[0m"
     green = "\e[32m \e[0m"
     progress = TTY::ProgressBar.new("[:bar]", total: 5, complete: green,
-                                    incomplete: red, output: output)
+                                              incomplete: red, output: output)
 
     5.times { progress.advance }
     output.rewind
@@ -42,7 +45,7 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
       "\e[1G[#{green}#{green}#{red}#{red}#{red}]",
       "\e[1G[#{green}#{green}#{green}#{red}#{red}]",
       "\e[1G[#{green}#{green}#{green}#{green}#{red}]",
-      "\e[1G[#{green}#{green}#{green}#{green}#{green}]\n",
+      "\e[1G[#{green}#{green}#{green}#{green}#{green}]\n"
     ].join)
   end
 
@@ -52,8 +55,9 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
     let(:rem)  { "〜" }
 
     it "head, complete & incomplete are unicode chars" do
-      progress = TTY::ProgressBar.new("[:bar]", output: output,
-        incomplete: rem, head: head, complete: done, total: 5, width: 9)
+      progress = TTY::ProgressBar.new("[:bar]", output: output, incomplete: rem,
+                                                head: head, complete: done,
+                                                total: 5, width: 9)
 
       5.times { progress.advance }
       output.rewind
@@ -68,8 +72,9 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
     end
 
     it "head & complete unicode chars vs incomplete ascii char" do
-      progress = TTY::ProgressBar.new("[:bar]", output: output,
-        incomplete: "-", head: head, complete: done, total: 5, width: 9)
+      progress = TTY::ProgressBar.new("[:bar]", output: output, incomplete: "-",
+                                                head: head, complete: done,
+                                                total: 5, width: 9)
 
       5.times { progress.advance }
       output.rewind
@@ -84,8 +89,9 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
     end
 
     it "head & complete ascii chars vs incomplete unicode char" do
-      progress = TTY::ProgressBar.new("[:bar]", output: output,
-        incomplete: rem, head: ">", complete: "#", total: 5, width: 9)
+      progress = TTY::ProgressBar.new("[:bar]", output: output, incomplete: rem,
+                                                head: ">", complete: "#",
+                                                total: 5, width: 9)
 
       5.times { progress.advance }
       output.rewind
@@ -100,8 +106,9 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
     end
 
     it "complete ascii chars vs head & incomplete unicode char" do
-      progress = TTY::ProgressBar.new("[:bar]", output: output,
-        incomplete: rem, head: head, complete: "#", total: 5, width: 9)
+      progress = TTY::ProgressBar.new("[:bar]", output: output, incomplete: rem,
+                                                head: head, complete: "#",
+                                                total: 5, width: 9)
 
       5.times { progress.advance }
       output.rewind
@@ -116,8 +123,9 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
     end
 
     it "head & incomplete ascii chars vs complete unicode char" do
-      progress = TTY::ProgressBar.new("[:bar]", output: output,
-        incomplete: "-", head: ">", complete: done, total: 5, width: 9)
+      progress = TTY::ProgressBar.new("[:bar]", output: output, incomplete: "-",
+                                                head: ">", complete: done,
+                                                total: 5, width: 9)
 
       5.times { progress.advance }
       output.rewind
@@ -132,8 +140,9 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
     end
 
     it "head ascii char vs complete & incomplete unicode chars" do
-      progress = TTY::ProgressBar.new("[:bar]", output: output,
-        incomplete: rem, head: ">", complete: done, total: 5, width: 9)
+      progress = TTY::ProgressBar.new("[:bar]", output: output, incomplete: rem,
+                                                head: ">", complete: done,
+                                                total: 5, width: 9)
 
       5.times { progress.advance }
       output.rewind

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "clear" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "clears progress bar when finished" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 5,
-     clear: true)
+                                              clear: true)
     5.times { progress.advance }
     output.rewind
     expect(output.read).to eq([

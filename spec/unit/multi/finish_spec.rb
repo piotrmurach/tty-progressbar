@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar::Multi, "#finish" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "finishes all bars with top level" do
     bars = TTY::ProgressBar::Multi.new("main [:bar]", output: output)

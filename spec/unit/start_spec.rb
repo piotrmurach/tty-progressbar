@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe TTY::ProgressBar, "#start" do
-  let(:output) { StringIO.new("", "w+") }
+  let(:output) { StringIO.new }
 
   it "starts timer and draws initial progress" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 10)
