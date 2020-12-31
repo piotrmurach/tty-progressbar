@@ -14,4 +14,8 @@ RSpec.describe TTY::ProgressBar::Converter, "#to_seconds" do
   it "ensures 2 digit precision for > 1" do
     expect(converter.to_seconds(11.2)).to eq("11.20")
   end
+
+  it "specifies precision to be 3 digits" do
+    expect(converter.to_seconds(11.12345, precision: 3)).to eq("11.123")
+  end
 end
