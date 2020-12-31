@@ -448,6 +448,18 @@ This will result in output like this:
 
 There are number of preconfigured bar formats you can choose from.
 
+| Name       | Display      |
+|:-----------|:-------------|
+| `:arrow`   | `▸▸▸▸▸▹▹▹▹▹` |
+| `:block`   | `██████████` |
+| `:box`     | `■■■■■□□□□□` |
+| `:burger`  | `≡≡≡≡≡≡≡≡≡≡` |
+| `:circle`  | `●●●●●○○○○○` |
+| `:classic` | `==========` |
+| `:dot`     | `･･････････` |
+| `:track`   | `▬▬▬▬▬═════` |
+| `:wave`    | `~~~~~_____` |
+
 For example, you can specify `:box` format with the `:bar_format` option:
 
 ```ruby
@@ -460,16 +472,22 @@ This will result in output like this:
 # [■■■■■□□□□□□□□□□]
 ```
 
-You can overwrite `:complete`, `:incomplete` or `:head` characters:
+You can overwrite `:complete`, `:incomplete`, `:head` and `:unknown` characters:
 
 ```ruby
-TTY::ProgressBar.new("[:bar]", bar_format: :box, incomplete: " ")
+TTY::ProgressBar.new("[:bar]", bar_format: :box, incomplete: " ", unknown: "?")
 ```
 
-This will display the following:
+This will display the following when total is given:
 
 ```ruby
 # [■■■■■          ]
+```
+
+And for the unknown progress the `?` character will move from left to right:
+
+```ruby
+# [   ?           ]
 ```
 
 For the full list of available bar formats check the [lib/tty/progressbar/formats.rb](https://github.com/piotrmurach/tty-progressbar/blob/master/lib/tty/progressbar/formats.rb).
