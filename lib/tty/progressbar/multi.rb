@@ -105,14 +105,14 @@ module TTY
       def observe(bar)
         bar.on(:progress, &progress_handler)
            .on(:done) { emit(:done) if complete? }
-           .on(:stopped)  { emit(:stopped) if stopped? }
+           .on(:stopped) { emit(:stopped) if stopped? }
       end
 
       # Handle the progress event
       #
       # @api private
       def progress_handler
-        -> (progress) do
+        ->(progress) do
           @top_bar.advance(progress) if @top_bar
           emit(:progress, progress)
         end

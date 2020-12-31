@@ -38,18 +38,18 @@ module TTY
       def initialize(options)
         self.total   = options[:total] if options[:total]
         @width       = options.fetch(:width) { total }
-        @bar_format  = options.fetch(:bar_format) { :classic }
+        @bar_format  = options.fetch(:bar_format, :classic)
         @incomplete  = options.fetch(:incomplete) { fetch_char(@bar_format, :incomplete) }
         @complete    = options.fetch(:complete) { fetch_char(@bar_format, :complete) }
         @unknown     = options.fetch(:unknown) { fetch_char(@bar_format, :unknown) }
         @head        = options.fetch(:head) { @complete || "=" }
-        @clear_head  = options.fetch(:clear_head) { false }
-        @hide_cursor = options.fetch(:hide_cursor) { false }
-        @clear       = options.fetch(:clear) { false }
+        @clear_head  = options.fetch(:clear_head, false)
+        @hide_cursor = options.fetch(:hide_cursor, false)
+        @clear       = options.fetch(:clear, false)
         @output      = options.fetch(:output) { $stderr }
-        @frequency   = options.fetch(:frequency) { 0 } # 0Hz
-        @interval    = options.fetch(:interval) { 1 } # 1 sec
-        @inset       = options.fetch(:inset) { 0 }
+        @frequency   = options.fetch(:frequency, 0) # 0Hz
+        @interval    = options.fetch(:interval, 1) # 1 sec
+        @inset       = options.fetch(:inset, 0)
       end
 
       def total=(value)

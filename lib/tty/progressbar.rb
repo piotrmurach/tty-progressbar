@@ -161,6 +161,7 @@ module TTY
       unless formatter_class.is_a?(Class)
         raise ArgumentError, "Formatter needs to be a class"
       end
+
       @formatters.use(formatter_class.new(self))
     end
 
@@ -205,6 +206,7 @@ module TTY
 
         now = Time.now
         return if (now - @last_render_time) < @render_period
+
         render
       end
     end
@@ -311,6 +313,7 @@ module TTY
     # @api private
     def render
       return if done?
+
       if hide_cursor && @last_render_width == 0 && !(@current >= total)
         write(TTY::Cursor.hide)
       end
@@ -382,6 +385,7 @@ module TTY
     # @api public
     def resize(new_width = nil)
       return if done?
+
       synchronize do
         clear_line
         if new_width
@@ -395,6 +399,7 @@ module TTY
     # @api public
     def finish
       return if done?
+
       @current = total unless indeterminate?
       render
       clear ? clear_line : write("\n", false)
@@ -427,6 +432,7 @@ module TTY
         write(TTY::Cursor.show, false)
       end
       return if done?
+
       render
       clear ? clear_line : write("\n", false)
     ensure
@@ -494,12 +500,12 @@ module TTY
     def log(message)
       sanitized_message = message.gsub(/\r|\n/, " ")
       if done?
-        write(sanitized_message + "\n", false)
+        write("#{sanitized_message}\n", false)
         return
       end
       sanitized_message = padout(sanitized_message)
 
-      write(sanitized_message + "\n", true)
+      write("#{sanitized_message}\n", true)
       render
     end
 
@@ -553,7 +559,7 @@ module TTY
     # @api private
     def emit(name, *args)
       @callbacks[name].each do |callback|
-        callback.call(*args)
+        callback.(*args)
       end
     end
 
