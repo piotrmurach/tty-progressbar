@@ -1,7 +1,7 @@
-# frozen_string_literal: true
+# frozen_string_literal: false
 
 RSpec.describe TTY::ProgressBar, ":bar_format" do
-  let(:output) { StringIO.new }
+  let(:output) { StringIO.new("", "w+") }
   let(:formats) { TTY::ProgressBar::Formats::FORMATS }
 
   TTY::ProgressBar::Formats::FORMATS.each_key do |format|
