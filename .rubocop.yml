@@ -1,8 +1,11 @@
 AllCops:
   NewCops: enable
 
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
 Layout/LineLength:
-  Max: 80
+  Max: 82
 
 Lint/AssignmentInCondition:
   Enabled: false
@@ -29,13 +32,20 @@ Metrics/MethodLength:
 Naming/BinaryOperatorParameterName:
   Enabled: false
 
+Style/AccessorGrouping:
+  Enabled: false
+
 Style/AsciiComments:
   Enabled: false
 
+Style/Lambda:
+  Enabled: false
+
 Style/LambdaCall:
-  SupportedStyles:
-  - call
-  - braces
+  EnforcedStyle: braces
+
+Style/FormatStringToken:
+  Enabled: false
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
