@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 RSpec.describe TTY::ProgressBar::Multi, "advance" do
-  let(:output) { StringIO.new }
-  let(:save)    { TTY::Cursor.save }
+  let(:output) { RSpec::Support::Ruby.truffleruby? ? OutputIO.new : StringIO.new }
+  let(:save) { TTY::Cursor.save }
   let(:restore) { TTY::Cursor.restore }
   let(:top) { TTY::ProgressBar::Multi::DEFAULT_INSET[:top] }
   let(:middle) { TTY::ProgressBar::Multi::DEFAULT_INSET[:middle] }
