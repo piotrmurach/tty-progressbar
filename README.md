@@ -650,8 +650,8 @@ bar.advance(3, title: "Bye Piotr!")
 which outputs:
 
 ```ruby
-(1) Hello Piotr!
-(4) Bye Piotr!
+# (1) Hello Piotr!
+# (4) Bye Piotr!
 ```
 
 ### 4.4 Unicode
@@ -804,8 +804,8 @@ In addition to all [configuration options](#3-configuration) you can style multi
 
 ```ruby
 TTY::ProgressBar::Multi.new("[:bar]", style: {
-  top: ". "
-  middle: "|-> "
+  top: ". ",
+  middle: "|-> ",
   bottom: "|__ "
 })
 ```
