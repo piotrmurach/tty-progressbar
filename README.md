@@ -371,10 +371,18 @@ There are number of configuration options that can be provided:
 All the above options can be passed in as hash options or block parameters:
 
 ```ruby
-TTY::ProgressBar.new "[:bar]" do |config|
+bar = TTY::ProgressBar.new("[:bar]") do |config|
   config.total = 30
   config.frequency = 10
   config.clear = true
+end
+```
+
+The progress bar's configuration can also be changed at runtime with `configure`:
+
+```ruby
+bar.configure do |config|
+  config.total = 100   # takes precedence over the original value
 end
 ```
 

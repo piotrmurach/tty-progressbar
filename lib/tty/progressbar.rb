@@ -132,6 +132,13 @@ module TTY
       @meter.clear
     end
 
+    # Access instance configuration
+    #
+    # @api public
+    def configure
+      yield @configuration
+    end
+
     # Check if progress can be determinted or not
     #
     # @return [Boolean]
