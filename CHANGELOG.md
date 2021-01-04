@@ -15,6 +15,7 @@
 * Change gemspec to load version directly and remove test artifacts
 * Change to update strings-ansi and tty-screen dependencies
 * Change Pipeline to inject progress bar instance only once
+* Change :elapsed and :eta to show days after running for 24 hours
 
 ### Fixed
 * Fix MultiBar top bar to allow resuming progress when stopped/done (@d4be4st)

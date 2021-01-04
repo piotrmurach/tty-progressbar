@@ -15,13 +15,15 @@ module TTY
       #
       # @api public
       def to_time(seconds)
+        days = (seconds / (24 * HOURSECONDS).to_f).floor
+        seconds -= days * 24 * HOURSECONDS
         hours = (seconds / HOURSECONDS.to_f).floor
         seconds -= hours * HOURSECONDS
         minutes = (seconds / 60).floor
         seconds -= minutes * 60
 
-        if hours > 99
-          format("%dh", hours)
+        if days > 0 # over 24 hours switch to days
+          format("%dd%2dh%2dm", days, hours, minutes)
         elsif hours > 0
           format("%2dh%2dm", hours, minutes)
         elsif minutes > 0

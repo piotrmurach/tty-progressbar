@@ -15,7 +15,7 @@ RSpec.describe TTY::ProgressBar::Converter, "#to_time" do
     expect(converter.to_time(3600)).to eq(" 1h 0m")
   end
 
-  it "converts secodns to hours" do
-    expect(converter.to_time(100 * 3600)).to eq("100h")
+  it "converts seconds to days and hours" do
+    expect(converter.to_time(100 * 3600)).to eq("4d 4h 0m")
   end
 end
