@@ -9,6 +9,7 @@
 * Add Multi#done? to check if all bar are stopped or finished
 * Add indeterminate progress support when no total is given
 * Add :bar_format option to allow selecting preconfigured bar displays
+* Add :eta_time format token to display the estimated time of day at completion
 
 ### Changed
 * Change Multi#stopped? to check that all bars are stopped

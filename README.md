@@ -573,6 +573,7 @@ These are the tokens that are currently supported:
 * `:percent` the completion percentage
 * `:elapsed` the elapsed time in seconds
 * `:eta` the estimated time to completion in seconds
+* `:eta_time` the estimated time of day at completion
 * `:rate` the current rate of progression per second
 * `:byte_rate` the current rate of progression in bytes per second
 * `:mean_rate` the averaged rate of progression per second

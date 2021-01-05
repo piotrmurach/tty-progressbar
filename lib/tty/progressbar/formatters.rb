@@ -9,6 +9,7 @@ require_relative "formatter/current"
 require_relative "formatter/current_byte"
 require_relative "formatter/elapsed"
 require_relative "formatter/estimated"
+require_relative "formatter/estimated_time"
 require_relative "formatter/percent"
 require_relative "formatter/rate"
 require_relative "formatter/byte_rate"
@@ -37,6 +38,7 @@ module TTY
         @pipeline.use TTY::ProgressBar::TotalFormatter.new(progress)
         @pipeline.use TTY::ProgressBar::TotalByteFormatter.new(progress)
         @pipeline.use TTY::ProgressBar::ElapsedFormatter.new(progress)
+        @pipeline.use TTY::ProgressBar::EstimatedTimeFormatter.new(progress)
         @pipeline.use TTY::ProgressBar::EstimatedFormatter.new(progress)
         @pipeline.use TTY::ProgressBar::PercentFormatter.new(progress)
         @pipeline.use TTY::ProgressBar::ByteFormatter.new(progress)
