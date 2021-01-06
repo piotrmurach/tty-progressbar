@@ -17,7 +17,7 @@ module TTY
       #  the value to format
       #
       # @api public
-      def format(value)
+      def call(value)
         elapsed = (Time.now - @progress.start_at)
         value.gsub(matcher, Converter.to_time(elapsed))
       end

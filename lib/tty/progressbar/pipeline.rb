@@ -41,7 +41,7 @@ module TTY
         base = tokenized.dup
         formatters.inject(base) do |formatted, formatter|
           if formatter.respond_to?(:matches?) && formatter.matches?(formatted)
-            formatter.format(formatted)
+            formatter.(formatted)
           else
             formatted
           end

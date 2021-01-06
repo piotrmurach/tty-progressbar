@@ -15,7 +15,7 @@ RSpec.describe TTY::ProgressBar, "custom formatter" do
         value.to_s =~ /:hi/
       end
 
-      def format(value)
+      def call(value)
         value.gsub(/:hi/, "Hello")
       end
     end)

@@ -17,7 +17,7 @@ module TTY
       #  the value being formatted
       #
       # @api public
-      def format(value)
+      def call(value)
         formatted = Converter.to_seconds(@progress.mean_rate)
         value.gsub(matcher, formatted)
       end

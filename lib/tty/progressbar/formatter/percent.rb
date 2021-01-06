@@ -16,7 +16,7 @@ module TTY
       #  the value to format
       #
       # @api public
-      def format(value)
+      def call(value)
         percent = @progress.width == 0 ? 100 : (@progress.ratio * 100).to_i
         display = @progress.indeterminate? ? "-" : percent.to_s
         value.gsub(matcher, "#{display}%")

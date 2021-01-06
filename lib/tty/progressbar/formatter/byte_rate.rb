@@ -17,7 +17,7 @@ module TTY
       #  the value to format
       #
       # @api public
-      def format(value)
+      def call(value)
         formatted = Converter.to_bytes(@progress.rate)
         value.gsub(matcher, formatted)
       end

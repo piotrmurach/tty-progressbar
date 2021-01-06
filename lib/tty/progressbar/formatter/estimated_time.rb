@@ -14,7 +14,7 @@ module TTY
       #   the value to format
       #
       # @api public
-      def format(value)
+      def call(value)
         if @progress.indeterminate?
           return value.gsub(matcher, "--:--:--")
         end

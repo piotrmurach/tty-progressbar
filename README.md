@@ -614,16 +614,16 @@ class TimeFormatter
 end
 ```
 
-Next, add `format` method that will substitute the matched token with an actual value. For example, to see the time elapsed since the start do:
+Next, add `call` method that will substitute the matched token with an actual value. For example, to see the time elapsed since the start do:
 
 ```ruby
 class TimeFormatter
   include TTY::ProgressBar::Formatter[/:time/i]
 
-  def format(value)  # specify how display string is formatted
+  def call(value)  # specify how display string is formatted
     # access current progress bar instance to read start time
-    transformed = (Time.now - @progress.start_at).to_s
-    value.gsub(/:time/, transformed)   # replace :time token with a value
+    transformed = (Time.now - progress.start_at).to_s
+    value.gsub(matcher, transformed)   # replace :time token with a value
   end
 end
 ```

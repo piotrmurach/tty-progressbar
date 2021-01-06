@@ -14,7 +14,7 @@ module TTY
       #  the value to format
       #
       # @api public
-      def format(value)
+      def call(value)
         value.gsub(matcher, @progress.current.to_s)
       end
     end # CurrentFormatter

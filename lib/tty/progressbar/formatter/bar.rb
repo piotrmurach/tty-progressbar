@@ -16,7 +16,7 @@ module TTY
       #  the value being formatted
       #
       # @api public
-      def format(value)
+      def call(value)
         without_bar = value.gsub(/:bar/, "")
         available_space = [0, ProgressBar.max_columns -
                               ProgressBar.display_columns(without_bar) -

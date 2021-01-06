@@ -16,7 +16,7 @@ module TTY
       #  the value to format
       #
       # @api public
-      def format(value)
+      def call(value)
         display = @progress.indeterminate? ? "-" : @progress.total.to_s
         value.gsub(matcher, display)
       end
