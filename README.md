@@ -459,13 +459,23 @@ There are number of preconfigured bar formats you can choose from.
 | Name       | Display      |
 |:-----------|:-------------|
 | `:arrow`   | `▸▸▸▸▸▹▹▹▹▹` |
+| `:asterisk`| `✱✱✱✱✱✳✳✳✳✳` |
 | `:block`   | `██████████` |
 | `:box`     | `■■■■■□□□□□` |
+| `:bracket` | `❭❭❭❭❭❭❭❭❭❭` |
+| `:bracket_bold` | `❱❱❱❱❱❱❱❱❱❱` |
 | `:burger`  | `≡≡≡≡≡≡≡≡≡≡` |
+| `:button`  | `⦿⦿⦿⦿⦿⦾⦾⦾⦾⦾` |
+| `:chevron` | `››››››››››` |
 | `:circle`  | `●●●●●○○○○○` |
 | `:classic` | `==========` |
+| `:diamond` | `♦♦♦♦♦♢♢♢♢♢` |
 | `:dot`     | `･･････････` |
+| `:heart`   | `♥♥♥♥♥♡♡♡♡♡` |
+| `:rectangle` | `▮▮▮▮▮▯▯▯▯▯` |
+| `:star`    | `★★★★★☆☆☆☆☆` |
 | `:track`   | `▬▬▬▬▬═════` |
+| `:triangle`| `▶▶▶▶▶▷▷▷▷▷` |
 | `:wave`    | `~~~~~_____` |
 
 For example, you can specify `:box` format with the `:bar_format` option:

@@ -9,6 +9,11 @@ module TTY
           incomplete: "▹",
           unknown: "▸"
         },
+        asterisk: { # ✱✱✱✱✱✳✳✳✳✳
+          complete: "✱",
+          incomplete: "✳",
+          unknown: "✱"
+        },
         block: { # ██████████
           complete: "█",
           incomplete: " ",
@@ -19,10 +24,30 @@ module TTY
           incomplete: "□",
           unknown: "■"
         },
+        bracket: { # ❭❭❭❭❭❭❭❭❭❭
+         complete: "❭",
+         incomplete: " ",
+         unknown: "❬=❭"
+        },
+        bracket_bold: { # ❱❱❱❱❱❱❱❱❱❱
+          complete: "❱",
+          incomplete: " ",
+          unknown: "❰=❱"
+        },
         burger: { # ≡≡≡≡≡≡≡≡≡≡
           complete: "≡",
           incomplete: " ",
           unknown: "≡"
+        },
+        button: { # ⦿⦿⦿⦿⦿⦾⦾⦾⦾⦾
+          complete: "⦿",
+          incomplete: "⦾",
+          unknown: "⦿"
+        },
+        chevron: { # ››››››››››
+          complete: "›",
+          incomplete: " ",
+          unknown: "‹=›"
         },
         circle: { # ●●●●●○○○○○
           complete: "●",
@@ -34,15 +59,40 @@ module TTY
           incomplete: " ",
           unknown: "<=>"
         },
+        diamond: { # ♦♦♦♦♦♢♢♢♢♢
+          complete: "♦",
+          incomplete: "♢",
+          unknown: "♦"
+        },
         dot: { # ･･････････
           complete: "･",
           incomplete: " ",
           unknown: "･"
         },
+        heart: { # ♥♥♥♥♥♡♡♡♡♡
+          complete: "♥",
+          incomplete: "♡",
+          unknown: "♥"
+        },
+        rectangle: { # ▮▮▮▮▮▯▯▯▯▯
+          complete: "▮",
+          incomplete: "▯",
+          unknown: "▮"
+        },
+        star: { # ★★★★★☆☆☆☆☆
+          complete: "★",
+          incomplete: "☆",
+          unknown: "★"
+        },
         track: { # ▬▬▬▬▬═════
           complete: "▬",
           incomplete: "═",
           unknown: "▬"
+        },
+        triangle: { # ▶▶▶▶▶▷▷▷▷▷
+          complete: "▶",
+          incomplete: "▷",
+          unknown: "◀▶"
         },
         wave: { # ~~~~~_____
           complete: "~",
