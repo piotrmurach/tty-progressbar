@@ -14,6 +14,11 @@ module TTY
           incomplete: "✳",
           unknown: "✱"
         },
+        blade: { # ▰▰▰▰▰▱▱▱▱▱
+          complete: "▰",
+          incomplete: "▱",
+          unknown: "▰"
+        },
         block: { # ██████████
           complete: "█",
           incomplete: " ",

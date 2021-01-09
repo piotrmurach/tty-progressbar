@@ -460,6 +460,7 @@ There are number of preconfigured bar formats you can choose from.
 |:-----------|:-------------|
 | `:arrow`   | `▸▸▸▸▸▹▹▹▹▹` |
 | `:asterisk`| `✱✱✱✱✱✳✳✳✳✳` |
+| `:blade`   | `▰▰▰▰▰▱▱▱▱▱` |
 | `:block`   | `██████████` |
 | `:box`     | `■■■■■□□□□□` |
 | `:bracket` | `❭❭❭❭❭❭❭❭❭❭` |
