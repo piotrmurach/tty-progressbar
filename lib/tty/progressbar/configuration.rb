@@ -85,9 +85,12 @@ module TTY
         @unknown = value
       end
 
+      # Set total and adjust width if unset
+      #
+      # @param [Integer,nil] value
+      #
+      # @api public
       def total=(value)
-        raise ArgumentError unless value
-
         @total = value
         self.width = value if width.nil?
       end

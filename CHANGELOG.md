@@ -18,6 +18,7 @@
 * Change Pipeline to inject progress bar instance only once
 * Change :elapsed and :eta to show days after running for 24 hours
 * Change to ensure complete, incomplete and unknown option cannot be an empty string
+* Change to allow setting total to nil via accessor
 
 ### Fixed
 * Fix MultiBar top bar to allow resuming progress when stopped/done (@d4be4st)

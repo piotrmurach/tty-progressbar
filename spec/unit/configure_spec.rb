@@ -22,6 +22,16 @@ RSpec.describe TTY::ProgressBar, "#configure" do
     expect(progress.total).to eq(20)
   end
 
+  it "sets total option to nil value via accessor" do
+    progress = described_class.new(":bar", total: 10)
+
+    progress.configure do |config|
+      config.total = nil
+    end
+
+    expect(progress.total).to eq(nil)
+  end
+
   %i[complete incomplete unknown].each do |option|
     it "fails to set #{option.inspect} to an empty string via initialize" do
       expect {
