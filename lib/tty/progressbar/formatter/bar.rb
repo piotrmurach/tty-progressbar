@@ -39,9 +39,20 @@ module TTY
       # @api private
       def format_indeterminate(value, width)
         buffer = []
-        width -= @progress.unknown.size
-        complete = (width * @progress.ratio).round
-        incomplete = width - complete
+        possible_width = width
+        unknown_char_length    = ProgressBar.display_columns(@progress.unknown)
+        complete_char_length   = ProgressBar.display_columns(@progress.complete)
+        incomplete_char_length = ProgressBar.display_columns(@progress.incomplete)
+        head_char_length       = ProgressBar.display_columns(@progress.head)
+
+        possible_width -= unknown_char_length
+        max_char_length = [complete_char_length, incomplete_char_length,
+                           head_char_length].max
+        # figure out how many unicode chars would fit normally
+        # when the bar has total to prevent resizing
+        possible_width = (possible_width / max_char_length) * max_char_length
+        complete = (possible_width * @progress.ratio).round
+        incomplete = possible_width - complete
 
         buffer << " " * complete
         buffer << @progress.unknown

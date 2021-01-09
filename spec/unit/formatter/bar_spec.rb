@@ -155,5 +155,30 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
         "\e[1G[本本本> ]\n"
       ].join)
     end
+
+    it "unknown with ascii and unicode chars" do
+      progress = TTY::ProgressBar.new("[:bar]", output: output, incomplete: rem,
+                                                complete: done, head: ">",
+                                                unknown: "<#{done}>",
+                                                total: nil, width: 9)
+
+      5.times { progress.advance }
+      progress.update(total: 10)
+      5.times { progress.advance }
+      output.rewind
+
+      expect(output.read).to eq([
+        "\e[1G[<本>    ]",
+        "\e[1G[<本>    ]",
+        "\e[1G[<本>    ]",
+        "\e[1G[<本>    ]",
+        "\e[1G[<本>    ]",
+        "\e[1G[本> 〜〜]",
+        "\e[1G[本本> 〜]",
+        "\e[1G[本本> 〜]",
+        "\e[1G[本本本> ]",
+        "\e[1G[本本本> ]\n",
+      ].join)
+    end
   end
 end
