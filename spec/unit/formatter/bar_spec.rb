@@ -71,6 +71,23 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
       ].join)
     end
 
+    it "head unicode & ascii vs complete & incomplete unicode chars" do
+      progress = TTY::ProgressBar.new("[:bar]", output: output, incomplete: rem,
+                                                head: "#{head}>", complete: done,
+                                                total: 5, width: 9)
+
+      5.times { progress.advance }
+      output.rewind
+
+      expect(output.read).to eq([
+        "\e[1G[語> 〜〜]",
+        "\e[1G[語> 〜〜]",
+        "\e[1G[語> 〜〜]",
+        "\e[1G[本語> 〜]",
+        "\e[1G[本本語> ]\n"
+      ].join)
+    end
+
     it "head & complete unicode chars vs incomplete ascii char" do
       progress = TTY::ProgressBar.new("[:bar]", output: output, incomplete: "-",
                                                 head: head, complete: done,
