@@ -102,13 +102,18 @@ Or install it yourself as:
 
 ## 1. Usage
 
-**TTY::ProgressBar** requires only format string and total number of steps to completion. Once initialized, use `advance` method to indicated the progress like so:
+**TTY::ProgressBar** requires only format string with `:bar` [token](#41-tokens) and total number of steps to completion:
 
 ```ruby
 bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
+```
+
+Once initialized, use `advance` method to indicated the progress like so:
+
+```ruby
 30.times do
   sleep(0.1)
-  bar.advance(1)
+  bar.advance  # by default increases by 1
 end
 ```
 
@@ -118,7 +123,13 @@ This would produce animation in your terminal:
 # downloading [=======================       ]
 ```
 
-Use **TTY::ProgressBar::Multi** to display multiple parallel progress bars:
+When you don't know the total yet, you can set it to `nil` to switch to [indeterminate](#31-total) progress:
+
+```ruby
+# downloading [       <=>                    ]
+```
+
+Use [TTY::ProgressBar::Multi](#6-ttyprogressbarmulti-api) to display multiple parallel progress bars:
 
 ```ruby
 bars = TTY::ProgressBar::Multi.new("main [:bar] :percent")
