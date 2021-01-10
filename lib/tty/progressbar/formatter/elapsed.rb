@@ -18,8 +18,7 @@ module TTY
       #
       # @api public
       def call(value)
-        elapsed = (Time.now - @progress.start_at)
-        value.gsub(matcher, Converter.to_time(elapsed))
+        value.gsub(matcher, Converter.to_time(@progress.elapsed_time))
       end
     end # ElapsedFormatter
   end # ProgressBar

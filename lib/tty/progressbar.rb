@@ -31,6 +31,8 @@ module TTY
 
     attr_reader :start_at
 
+    attr_reader :elapsed_time
+
     attr_reader :row
 
     def_delegators :@configuration, :total, :width, :complete, :incomplete,
@@ -126,6 +128,8 @@ module TTY
       @done              = false
       @stopped           = false
       @start_at          = Time.now
+      @elapsed_time      = 0
+      @time_offset       = 0
       @started           = false
       @tokens            = {}
 
@@ -177,12 +181,19 @@ module TTY
     # @api public
     def start
       synchronize do
-        @started  = true
-        @start_at = Time.now
+        start_timer
         @meter.start
       end
 
       advance(0)
+    end
+
+    # Start or resume measuring elapsed time
+    #
+    # @api private
+    def start_timer
+      @started = true
+      @start_at = Time.now
     end
 
     # Advance the progress bar
@@ -198,7 +209,8 @@ module TTY
         if progress.respond_to?(:to_hash)
           tokens, progress = progress, 1
         end
-        @start_at = Time.now if @current.zero? && !@started
+        start_timer if !@started
+        @elapsed_time = Time.now - @start_at + @time_offset
         @current += progress
         # When progress is unknown increase by 2% up to max 200%, after
         # that reset back to 0%
@@ -413,6 +425,7 @@ module TTY
     ensure
       @meter.clear
       @done = true
+      @time_offset += Time.now - @start_at
 
       # reenable cursor if it is turned off
       if hide_cursor && @last_render_width != 0
@@ -426,6 +439,7 @@ module TTY
     #
     # @api public
     def resume
+      @started = false
       @done = false
       @stopped = false
     end
@@ -445,6 +459,7 @@ module TTY
     ensure
       @meter.clear
       @stopped = true
+      @time_offset += Time.now - @start_at
       emit(:stopped)
     end
 

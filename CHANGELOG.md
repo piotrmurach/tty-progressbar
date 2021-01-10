@@ -10,6 +10,7 @@
 * Add indeterminate progress support when no total is given
 * Add :bar_format option to allow selecting preconfigured bar displays
 * Add :eta_time format token to display the estimated time of day at completion
+* Add measurement of the total elapsed time that ignores stopped time intervals
 
 ### Changed
 * Change Multi#stopped? to check that all bars are stopped

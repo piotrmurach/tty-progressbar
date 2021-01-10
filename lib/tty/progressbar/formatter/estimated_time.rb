@@ -19,7 +19,7 @@ module TTY
           return value.gsub(matcher, "--:--:--")
         end
 
-        elapsed   = Time.now - @progress.start_at
+        elapsed = @progress.elapsed_time
         estimated = (elapsed / @progress.ratio).to_f - elapsed
         estimated = (estimated.infinite? || estimated < 0) ? 0.0 : estimated
 
