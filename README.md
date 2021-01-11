@@ -63,12 +63,13 @@ Or install it yourself as:
   * [2.7 update](#27-update)
   * [2.8 finish](#28-finish)
   * [2.9 stop](#29-stop)
-  * [2.10 reset](#210-reset)
-  * [2.11 resume](#211-resume)
-  * [2.12 complete?](#212-complete)
-  * [2.13 indeterminate?](#213-indeterminate)
-  * [2.14 resize](#214-resize)
-  * [2.15 on](#215-on)
+  * [2.10 pause](#210-pause)
+  * [2.11 reset](#211-reset)
+  * [2.12 resume](#212-resume)
+  * [2.13 complete?](#213-complete)
+  * [2.14 indeterminate?](#214-indeterminate)
+  * [2.15 resize](#215-resize)
+  * [2.16 on](#216-on)
 * [3. Configuration](#3-configuration)
   * [3.1 :total](#31-total)
   * [3.1 :width](#32-width)
@@ -291,7 +292,17 @@ In order to immediately stop the bar in the current position and thus prevent an
 bar.stop
 ```
 
-### 2.10 reset
+### 2.10 pause
+
+A running progress bar can be paused at the current position using `pause` method:
+
+```ruby
+bar.pause
+```
+
+A paused progress bar will stop accumulating any time measurements like elapsed time. It also won't return to a new line, so a progress animation can be smoothly resumed.
+
+### 2.11 reset
 
 In order to reset currently running or finished progress bar to its original configuration and initial position use `reset` like so:
 
@@ -301,15 +312,17 @@ bar.reset
 
 After resetting the bar if you wish to draw and start the bar and its timers use `start` call.
 
-### 2.11 resume
+### 2.12 resume
 
-When a bar is stopped, you can continue its progression using the `resume` method.
+When a bar is stopped or paused, you can continue its progression using the `resume` method.
 
 ```ruby
 bar.resume
 ```
 
-### 2.12 complete?
+A resumed progression will continue accumulating the total elapsed time without including time intervals for pausing or stopping.
+
+### 2.13 complete?
 
 During progression you can check if a bar is finished or not by calling `complete?`. The bar will only return `true` if the progression finished successfully, otherwise `false` will be returned.
 
@@ -317,7 +330,7 @@ During progression you can check if a bar is finished or not by calling `complet
 bar.complete? # => false
 ```
 
-### 2.13 indeterminate?
+### 2.14 indeterminate?
 
 You can make a progress bar indeterminate by setting `:total` to nil. In this state, an animation is displayed to show unbounded task. You can check if the progress bar is indeterminate with the `indeterminate?` method:
 
@@ -325,7 +338,7 @@ You can make a progress bar indeterminate by setting `:total` to nil. In this st
 bar.indeterminate? # => false
 ```
 
-### 2.14 resize
+### 2.15 resize
 
 If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length. However, if you don't provide any width the `resize` will use terminal current width as its base for scaling.
 
@@ -340,7 +353,7 @@ To handle automatic resizing you can trap `:WINCH` signal:
 trap(:WINCH) { bar.resize }
 ```
 
-### 2.15 on
+### 2.16 on
 
 The progress bar fires events when it is progressing, stopped or finished. You can register to listen for events using the `on` message.
 
@@ -360,6 +373,12 @@ Alternatively, when the progress bar gets stopped the `:stopped` event is fired.
 
 ```ruby
 bar.on(:stopped) { ... }
+```
+
+Anytime a progress bar is paused the `:paused` event will be fired. To listen for this event do:
+
+```ruby
+bar.on(:paused) { ... }
 ```
 
 ## 3. Configuration

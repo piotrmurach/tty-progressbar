@@ -127,6 +127,7 @@ module TTY
       @last_render_width = 0
       @done              = false
       @stopped           = false
+      @paused            = false
       @start_at          = Time.now
       @elapsed_time      = 0
       @time_offset       = 0
@@ -435,13 +436,16 @@ module TTY
       emit(:done)
     end
 
-    # Resume rendering when bar is done or stopped to update information
+    # Resume rendering when bar is done, stopped or paused
     #
     # @api public
     def resume
-      @started = false
-      @done = false
-      @stopped = false
+      synchronize do
+        @started = false
+        @done = false
+        @stopped = false
+        @paused = false
+      end
     end
 
     # Stop and cancel the progress at the current position
@@ -461,6 +465,15 @@ module TTY
       @stopped = true
       @time_offset += Time.now - @start_at
       emit(:stopped)
+    end
+
+    # Pause the progress at the current position
+    #
+    # @api public
+    def pause
+      @paused = true
+      @time_offset += Time.now - @start_at
+      emit(:paused)
     end
 
     # Clear current line
@@ -489,13 +502,22 @@ module TTY
       @stopped
     end
 
-    # Check if progress is finished or stopped
+    # Check if progress is paused
+    #
+    # @return [Boolean]
+    #
+    # @api public
+    def paused?
+      @paused
+    end
+
+    # Check if progress is finished, stopped or paused
     #
     # @return [Boolean]
     #
     # @api public
     def done?
-      @done || @stopped
+      @done || @stopped || @paused
     end
 
     # Register callback with this bar

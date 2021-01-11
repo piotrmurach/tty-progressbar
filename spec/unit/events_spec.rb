@@ -32,4 +32,14 @@ RSpec.describe TTY::ProgressBar, "events" do
 
     expect(events).to eq([:stopped])
   end
+
+  it "emits :paused event" do
+    events = []
+    bar = TTY::ProgressBar.new("[:bar]", output: output, total: 5)
+    bar.on(:paused) { events << :paused }
+
+    bar.pause
+
+    expect(events).to eq([:paused])
+  end
 end
