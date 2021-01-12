@@ -114,4 +114,54 @@ RSpec.describe TTY::ProgressBar::Multi, "events" do
     expect(events).to eq([:stopped])
     expect(bars.stopped?).to eq(true)
   end
+
+  it "emits :paused event when all registerd bars are paused under top level" do
+    events = []
+    bars = TTY::ProgressBar::Multi.new("[:bar]", output: output, total: 5)
+    bars.on(:paused) { events << :paused }
+
+    bar = bars.register "one [:bar]"
+
+    bar.pause
+
+    expect(events).to eq([:paused])
+    expect(bars.paused?).to eq(true)
+  end
+
+  it "emits :paused event when all registerd bars are paused without top level" do
+    events = []
+    bars = TTY::ProgressBar::Multi.new(output: output)
+    bars.on(:paused) { events << :paused }
+
+    bar = bars.register "one [:bar]", total: 5
+
+    bar.pause
+
+    expect(events).to eq([:paused])
+    expect(bars.paused?).to eq(true)
+  end
+
+  it "emits :paused event when registerd multi bar pauses" do
+    events = []
+    bars = TTY::ProgressBar::Multi.new("[:bar]", output: output, total: 5)
+    bars.on(:paused) { events << :paused }
+
+    bars.register "one [:bar]"
+
+    bars.pause
+
+    expect(events).to eq([:paused])
+  end
+
+  it "raises when trying to register an unknown event" do
+    bars = TTY::ProgressBar::Multi.new("[:bar]")
+
+    expect {
+      bars.on(:unknown) { }
+    }.to raise_error(
+      ArgumentError,
+      "The event unknown does not exist. Use :progress, :stopped, :paused or " \
+      ":done instead"
+    )
+  end
 end

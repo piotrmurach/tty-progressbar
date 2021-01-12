@@ -59,6 +59,7 @@ module TTY
         @callbacks = {
           progress: [],
           stopped: [],
+          paused: [],
           done: []
         }
       end
@@ -106,6 +107,7 @@ module TTY
         bar.on(:progress, &progress_handler)
            .on(:done) { emit(:done) if complete? }
            .on(:stopped) { emit(:stopped) if stopped? }
+           .on(:paused) { emit(:paused) if paused? }
       end
 
       # Handle the progress event
@@ -188,6 +190,17 @@ module TTY
         end
       end
 
+      # Check if all bars are paused
+      #
+      # @return [Boolean]
+      #
+      # @api public
+      def paused?
+        synchronize do
+          (@bars - [@top_bar]).all?(&:paused?)
+        end
+      end
+
       # Stop all progress bars
       #
       # @api public
@@ -200,6 +213,13 @@ module TTY
       # @api public
       def finish
         @bars.each(&:finish)
+      end
+
+      # Pause all progress bars
+      #
+      # @api public
+      def pause
+        @bars.each(&:pause)
       end
 
       # Find the number of characters to move into the line
@@ -233,8 +253,9 @@ module TTY
       # @api public
       def on(name, &callback)
         unless @callbacks.key?(name)
-          raise ArgumentError, "The event #{name} does not exist. "\
-                               " Use :progress, :stopped, or :done instead"
+          raise ArgumentError, "The event #{name} does not exist. " \
+                               "Use :progress, :stopped, :paused or " \
+                               ":done instead"
         end
         @callbacks[name] << callback
         self

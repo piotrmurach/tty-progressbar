@@ -12,6 +12,7 @@
 * Add :eta_time format token to display the estimated time of day at completion
 * Add measurement of the total elapsed time that ignores stopped time intervals
 * Add #pause to prevent bar from continuing progression and suspend time measurements
+* Add Multi#pause to allow suspending progression of all registered bars at once
 
 ### Changed
 * Change Multi#stopped? to check that all bars are stopped
