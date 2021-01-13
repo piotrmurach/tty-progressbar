@@ -95,9 +95,10 @@ Or install it yourself as:
   * [6.5 finish](#65-finish)
   * [6.6 stop](#66-stop)
   * [6.7 pause](#67-pause)
-  * [6.8 complete?](#68-complete)
-  * [6.9 on](#69-on)
-  * [6.10 :style](#610-style)
+  * [6.8 resume](#68-resume)
+  * [6.9 complete?](#69-complete)
+  * [6.10 on](#610-on)
+  * [6.11 :style](#611-style)
 * [7. Examples](#7-examples)
   * [7.1 Color](#71-color)
   * [7.2 Speed](#72-speed)
@@ -819,7 +820,15 @@ All running progress bars can be paused at their current positions using the `pa
 multibar.pause
 ````
 
-### 6.8 complete?
+### 6.8 resume
+
+When one or more registered progress bar is stopped or paused, they can be resumed all at once using the `resume` method:
+
+```ruby
+multibar.resume
+```
+
+### 6.9 complete?
 
 To check if all registered progress bars have been successfully finished use `complete?`
 
@@ -827,7 +836,7 @@ To check if all registered progress bars have been successfully finished use `co
 multibar.complete? # => true
 ```
 
-### 6.9 on
+### 6.10 on
 
 Similar to `TTY::ProgressBar` the multi bar fires events when it is progressing, stopped or finished. You can register to listen for events using the `on` message.
 
@@ -855,7 +864,7 @@ Anytime a registered progress bar pauses, a `:paused` event will be fired. To li
 multibar.on(:paused) { ... }
 ```
 
-### 6.10 :style
+### 6.11 :style
 
 In addition to all [configuration options](#3-configuration) you can style multi progress bar:
 

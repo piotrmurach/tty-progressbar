@@ -222,6 +222,13 @@ module TTY
         @bars.each(&:pause)
       end
 
+      # Resume all progress bars
+      #
+      # @api public
+      def resume
+        @bars.each(&:resume)
+      end
+
       # Find the number of characters to move into the line
       # before printing the bar
       #

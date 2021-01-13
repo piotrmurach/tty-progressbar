@@ -3,7 +3,7 @@
 ## [v0.18.0] - unreleased
 
 ### Added
-* Add #resume to allow stopped bar to continue progressing
+* Add #resume to allow stopped or paused bar to continue progressing
 * Add :clear_head option to remove head when progress is done
 * Add #configure to allow runtime configuration
 * Add Multi#done? to check if all bar are stopped or finished
@@ -13,6 +13,7 @@
 * Add measurement of the total elapsed time that ignores stopped time intervals
 * Add #pause to prevent bar from continuing progression and suspend time measurements
 * Add Multi#pause to allow suspending progression of all registered bars at once
+* Add Multi#resume to start again all registered bars that are stopped or paused
 
 ### Changed
 * Change Multi#stopped? to check that all bars are stopped
