@@ -23,6 +23,8 @@ module TTY
 
     ECMA_CSI = "\e["
 
+    NEWLINE = "\n"
+
     CURSOR_LOCK = Monitor.new
 
     attr_accessor :format
@@ -366,7 +368,7 @@ module TTY
           if @first_render
             @row = @multibar.next_row
             yield if block_given?
-            output.print "\n"
+            output.print NEWLINE
             @first_render = false
           else
             lines_up = (@multibar.rows + 1) - @row
@@ -422,7 +424,7 @@ module TTY
 
       @current = total unless indeterminate?
       render
-      clear ? clear_line : write("\n", false)
+      clear ? clear_line : write(NEWLINE, false)
     ensure
       @meter.clear
       @done = true
@@ -459,7 +461,7 @@ module TTY
       return if done?
 
       render
-      clear ? clear_line : write("\n", false)
+      clear ? clear_line : write(NEWLINE, false)
     ensure
       @meter.clear
       @stopped = true
@@ -480,7 +482,7 @@ module TTY
     #
     # @api public
     def clear_line
-      output.print(ECMA_CSI + "0m" + TTY::Cursor.clear_line)
+      output.print("#{ECMA_CSI}0m#{TTY::Cursor.clear_line}")
     end
 
     # Check if progress is finised
@@ -544,12 +546,12 @@ module TTY
     def log(message)
       sanitized_message = message.gsub(/\r|\n/, " ")
       if done?
-        write("#{sanitized_message}\n", false)
+        write("#{sanitized_message}#{NEWLINE}", false)
         return
       end
       sanitized_message = padout(sanitized_message)
 
-      write("#{sanitized_message}\n", true)
+      write("#{sanitized_message}#{NEWLINE}", true)
       render
     end
 
