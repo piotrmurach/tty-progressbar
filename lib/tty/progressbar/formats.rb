@@ -7,27 +7,27 @@ module TTY
         arrow: { # ▸▸▸▸▸▹▹▹▹▹
           complete: "▸",
           incomplete: "▹",
-          unknown: "▸"
+          unknown: "◂▸"
         },
         asterisk: { # ✱✱✱✱✱✳✳✳✳✳
           complete: "✱",
           incomplete: "✳",
-          unknown: "✱"
+          unknown: "✳✱✳"
         },
         blade: { # ▰▰▰▰▰▱▱▱▱▱
           complete: "▰",
           incomplete: "▱",
-          unknown: "▰"
+          unknown: "▱▰▱"
         },
         block: { # ██████████
           complete: "█",
           incomplete: " ",
-          unknown: "◀▶"
+          unknown: "█"
         },
         box: { # ■■■■■□□□□□
           complete: "■",
           incomplete: "□",
-          unknown: "■"
+          unknown: "□■□"
         },
         bracket: { # ❭❭❭❭❭❭❭❭❭❭
          complete: "❭",
@@ -42,12 +42,12 @@ module TTY
         burger: { # ≡≡≡≡≡≡≡≡≡≡
           complete: "≡",
           incomplete: " ",
-          unknown: "≡"
+          unknown: "<≡>"
         },
         button: { # ⦿⦿⦿⦿⦿⦾⦾⦾⦾⦾
           complete: "⦿",
           incomplete: "⦾",
-          unknown: "⦿"
+          unknown: "⦾⦿⦾"
         },
         chevron: { # ››››››››››
           complete: "›",
@@ -57,7 +57,7 @@ module TTY
         circle: { # ●●●●●○○○○○
           complete: "●",
           incomplete: "○",
-          unknown: "●"
+          unknown: "○●○"
         },
         classic: { # ==========
           complete: "=",
@@ -67,32 +67,32 @@ module TTY
         diamond: { # ♦♦♦♦♦♢♢♢♢♢
           complete: "♦",
           incomplete: "♢",
-          unknown: "♦"
+          unknown: "♢♦♢"
         },
         dot: { # ･･････････
           complete: "･",
           incomplete: " ",
-          unknown: "･"
+          unknown: "･･･"
         },
         heart: { # ♥♥♥♥♥♡♡♡♡♡
           complete: "♥",
           incomplete: "♡",
-          unknown: "♥"
+          unknown: "♡♥♡"
         },
         rectangle: { # ▮▮▮▮▮▯▯▯▯▯
           complete: "▮",
           incomplete: "▯",
-          unknown: "▮"
+          unknown: "▯▮▯"
         },
         star: { # ★★★★★☆☆☆☆☆
           complete: "★",
           incomplete: "☆",
-          unknown: "★"
+          unknown: "☆★☆"
         },
         track: { # ▬▬▬▬▬═════
           complete: "▬",
           incomplete: "═",
-          unknown: "▬"
+          unknown: "═▬═"
         },
         triangle: { # ▶▶▶▶▶▷▷▷▷▷
           complete: "▶",
@@ -102,7 +102,7 @@ module TTY
         wave: { # ~~~~~_____
           complete: "~",
           incomplete: "_",
-          unknown: "~"
+          unknown: "<~>"
         }
       }.freeze
     end # Formats
