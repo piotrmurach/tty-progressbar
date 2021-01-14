@@ -32,10 +32,6 @@ module TTY
 
     attr_reader :current
 
-    attr_reader :start_at
-
-    attr_reader :elapsed_time
-
     attr_reader :row
 
     def_delegators :@configuration, :total, :width, :complete, :incomplete,
@@ -43,6 +39,8 @@ module TTY
                    :frequency, :interval, :inset, :width=, :unknown, :bar_format
 
     def_delegators :@meter, :rate, :mean_rate
+
+    def_delegators :@timer, :elapsed_time, :start_time
 
     # Determine terminal width
     #
@@ -108,6 +106,7 @@ module TTY
 
       @formatters = TTY::ProgressBar::Formatters.new
       @meter = TTY::ProgressBar::Meter.new(interval)
+      @timer = TTY::ProgressBar::Timer.new
       @callbacks = Hash.new { |h, k| h[k] = [] }
 
       @formatters.load(self)
@@ -131,13 +130,10 @@ module TTY
       @done              = false
       @stopped           = false
       @paused            = false
-      @start_at          = Time.now
-      @elapsed_time      = 0
-      @time_offset       = 0
-      @started           = false
       @tokens            = {}
 
       @meter.clear
+      @timer.reset
     end
 
     # Access instance configuration
@@ -185,19 +181,11 @@ module TTY
     # @api public
     def start
       synchronize do
-        start_timer
+        @timer.start
         @meter.start
       end
 
       advance(0)
-    end
-
-    # Start or resume measuring elapsed time
-    #
-    # @api private
-    def start_timer
-      @started = true
-      @start_at = Time.now
     end
 
     # Advance the progress bar
@@ -213,8 +201,7 @@ module TTY
         if progress.respond_to?(:to_hash)
           tokens, progress = progress, 1
         end
-        start_timer if !@started
-        @elapsed_time = Time.now - @start_at + @time_offset
+        @timer.start
         @current += progress
         # When progress is unknown increase by 2% up to max 200%, after
         # that reset back to 0%
@@ -429,7 +416,7 @@ module TTY
     ensure
       @meter.clear
       @done = true
-      @time_offset += Time.now - @start_at
+      @timer.stop
 
       # reenable cursor if it is turned off
       if hide_cursor && @last_render_width != 0
@@ -444,7 +431,6 @@ module TTY
     # @api public
     def resume
       synchronize do
-        @started = false
         @done = false
         @stopped = false
         @paused = false
@@ -466,7 +452,7 @@ module TTY
     ensure
       @meter.clear
       @stopped = true
-      @time_offset += Time.now - @start_at
+      @timer.stop
       emit(:stopped)
     end
 
@@ -475,7 +461,7 @@ module TTY
     # @api public
     def pause
       @paused = true
-      @time_offset += Time.now - @start_at
+      @timer.stop
       emit(:paused)
     end
 

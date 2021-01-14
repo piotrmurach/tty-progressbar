@@ -655,13 +655,13 @@ class TimeFormatter
 
   def call(value)  # specify how display string is formatted
     # access current progress bar instance to read start time
-    transformed = (Time.now - progress.start_at).to_s
-    value.gsub(matcher, transformed)   # replace :time token with a value
+    elapsed = (Time.now - progress.start_time).to_s
+    value.gsub(matcher, elapsed)   # replace :time token with a value
   end
 end
 ```
 
-Notice that you have access to all the configuration options inside the formatter by simply invoking them on the `@progress` instance.
+Notice that you have access to all the configuration options inside the formatter by simply invoking them on the `progress` instance.
 
 Create **TTY::ProgressBar** instance using the new token:
 
