@@ -14,6 +14,7 @@
 * Add #pause to prevent bar from continuing progression and suspend time measurements
 * Add Multi#pause to allow suspending progression of all registered bars at once
 * Add Multi#resume to start again all registered bars that are stopped or paused
+* Add Timer class to handle the total elapsed time measurements
 
 ### Changed
 * Change Multi#stopped? to check that all bars are stopped

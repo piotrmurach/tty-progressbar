@@ -8,6 +8,7 @@ require "tty-screen"
 require "strings-ansi"
 require "unicode/display_width"
 
+require_relative "progressbar/timer"
 require_relative "progressbar/configuration"
 require_relative "progressbar/formatters"
 require_relative "progressbar/meter"
