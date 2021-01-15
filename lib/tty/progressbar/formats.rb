@@ -64,6 +64,11 @@ module TTY
           incomplete: " ",
           unknown: "<=>"
         },
+        crate: { # ▣▣▣▣▣⬚⬚⬚⬚⬚
+          complete: "▣",
+          incomplete: "⬚",
+          unknown: "⬚▣⬚"
+        },
         diamond: { # ♦♦♦♦♦♢♢♢♢♢
           complete: "♦",
           incomplete: "♢",
@@ -83,6 +88,11 @@ module TTY
           complete: "▮",
           incomplete: "▯",
           unknown: "▯▮▯"
+        },
+        square: { # ▪▪▪▪▪▫▫▫▫▫
+          complete: "▪",
+          incomplete: "▫",
+          unknown: "▫▪▫"
         },
         star: { # ★★★★★☆☆☆☆☆
           complete: "★",

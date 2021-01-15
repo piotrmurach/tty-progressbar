@@ -68,8 +68,8 @@ RSpec.describe TTY::ProgressBar, ".new" do
       ArgumentError,
       "unsupported bar format: :unknown. Available formats are: " \
       ":arrow, :asterisk, :blade, :block, :box, :bracket, :bracket_bold, " \
-      ":burger, :button, :chevron, :circle, :classic, :diamond, :dot, " \
-      ":heart, :rectangle, :star, :track, :triangle, :wave"
+      ":burger, :button, :chevron, :circle, :classic, :crate, :diamond, :dot, " \
+      ":heart, :rectangle, :square, :star, :track, :triangle, :wave"
     )
   end
 
