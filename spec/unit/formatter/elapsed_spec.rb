@@ -5,6 +5,8 @@ RSpec.describe TTY::ProgressBar, ":elapsed token" do
 
   before { Timecop.safe_mode = false }
 
+  after { Timecop.return }
+
   it "displays elapsed time" do
     time_now = Time.local(2014, 10, 5, 12, 0, 0)
     Timecop.freeze(time_now)
@@ -24,7 +26,6 @@ RSpec.describe TTY::ProgressBar, ":elapsed token" do
       "\e[1G 3s",
       "\e[1G 4s"
     ].join)
-    Timecop.return
   end
 
   it "resets elapsed time" do
@@ -101,8 +102,7 @@ RSpec.describe TTY::ProgressBar, ":elapsed token" do
       "\e[1G 6s",
       "\e[1G 6s\n", # finished
       "\e[1G 6s",
-      "\e[1G 7s\n",
+      "\e[1G 7s\n"
     ].join)
-    Timecop.return
   end
 end

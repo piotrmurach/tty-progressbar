@@ -100,6 +100,7 @@ RSpec.describe TTY::ProgressBar, "#resume" do
       "\e[1G[========= ] 12/13 92% 12B/13B 1B/s 1B/s  1.00/s  1.00/s  3s  0s",
       "\e[1G[==========] 13/13 100% 13B/13B 1B/s 1B/s  1.00/s  1.00/s  4s  0s\n"
     ].join)
+    Timecop.return
   end
 
   it "resumes paused progression with all the metrics" do
@@ -137,5 +138,6 @@ RSpec.describe TTY::ProgressBar, "#resume" do
       "\e[1G[=====     ] 5/10 50% 5B/10B 1B/s 1B/s  1.00/s  1.00/s  3s  3s",
       "\e[1G[======    ] 6/10 60% 6B/10B 1B/s 1B/s  1.00/s  1.00/s  4s  2s"
     ].join)
+    Timecop.return
   end
 end

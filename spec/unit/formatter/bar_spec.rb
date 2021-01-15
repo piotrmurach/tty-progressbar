@@ -194,7 +194,7 @@ RSpec.describe TTY::ProgressBar, ":bar token" do
         "\e[1G[本本> 〜]",
         "\e[1G[本本> 〜]",
         "\e[1G[本本本> ]",
-        "\e[1G[本本本> ]\n",
+        "\e[1G[本本本> ]\n"
       ].join)
     end
   end

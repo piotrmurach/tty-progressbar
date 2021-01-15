@@ -5,6 +5,8 @@ RSpec.describe TTY::ProgressBar, ":mean_byte token" do
 
   before { Timecop.safe_mode = false }
 
+  after { Timecop.return }
+
   it "shows mean rate in bytes per sec" do
     time_now = Time.local(2014, 10, 5, 12, 0, 0)
     Timecop.freeze(time_now)
@@ -29,7 +31,6 @@ RSpec.describe TTY::ProgressBar, ":mean_byte token" do
       "\e[1G1000B",
       "\e[1G1.22KB\n"
     ].join)
-    Timecop.return
   end
 
   it "displays mean rate in bytes per sec when no total" do
@@ -49,6 +50,5 @@ RSpec.describe TTY::ProgressBar, ":mean_byte token" do
       "\e[1G1000B",
       "\e[1G1.22KB"
     ].join)
-    Timecop.return
   end
 end

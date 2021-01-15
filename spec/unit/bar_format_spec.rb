@@ -33,8 +33,8 @@ RSpec.describe TTY::ProgressBar, ":bar_format" do
 
       output.rewind
       expect(output.read).to eq([
-        "\e[1G[#{unknown}#{" " * left_chars}]",
-        "\e[1G[#{unknown}#{" " * left_chars}]",
+        "\e[1G[#{unknown}#{' ' * left_chars}]",
+        "\e[1G[#{unknown}#{' ' * left_chars}]"
       ].join)
     end
   end

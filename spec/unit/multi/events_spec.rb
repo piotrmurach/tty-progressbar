@@ -157,7 +157,7 @@ RSpec.describe TTY::ProgressBar::Multi, "events" do
     bars = TTY::ProgressBar::Multi.new("[:bar]")
 
     expect {
-      bars.on(:unknown) { }
+      bars.on(:unknown) {}
     }.to raise_error(
       ArgumentError,
       "The event unknown does not exist. Use :progress, :stopped, :paused or " \

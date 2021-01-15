@@ -5,6 +5,8 @@ RSpec.describe TTY::ProgressBar, ":mean_rate token" do
 
   before { Timecop.safe_mode = false }
 
+  after { Timecop.return }
+
   it "shows current rate per sec" do
     time_now = Time.local(2014, 10, 5, 12, 0, 0)
     Timecop.freeze(time_now)
@@ -28,7 +30,6 @@ RSpec.describe TTY::ProgressBar, ":mean_rate token" do
       "\e[1G10.00",
       "\e[1G12.50\n"
     ].join)
-    Timecop.return
   end
 
   it "displays mean rate per sec when no total" do
@@ -48,6 +49,5 @@ RSpec.describe TTY::ProgressBar, ":mean_rate token" do
       "\e[1G10.00",
       "\e[1G12.50"
     ].join)
-    Timecop.return
   end
 end

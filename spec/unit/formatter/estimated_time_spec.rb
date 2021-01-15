@@ -3,6 +3,10 @@
 RSpec.describe TTY::ProgressBar, ":eta_time token" do
   let(:output) { StringIO.new }
 
+  before { Timecop.safe_mode = false }
+
+  after { Timecop.return }
+
   it "displays estimated completion time of day" do
     time_now = Time.local(2020, 1, 5, 12, 0, 0)
     Timecop.freeze(time_now)
@@ -22,7 +26,6 @@ RSpec.describe TTY::ProgressBar, ":eta_time token" do
       "\e[1G 12:00:03",
       "\e[1G 12:00:04\n"
     ].join)
-    Timecop.return
   end
 
   it "displays estimated completion time of day with date after 24 hours" do
@@ -39,9 +42,8 @@ RSpec.describe TTY::ProgressBar, ":eta_time token" do
     output.rewind
     expect(output.read).to eq([
       "\e[1G 12:00:00",
-      "\e[1G 2020-01-09 00:00:00",
+      "\e[1G 2020-01-09 00:00:00"
     ].join)
-    Timecop.return
   end
 
   it "displays unknown estimated completion time of day as --:--:--" do
@@ -66,6 +68,5 @@ RSpec.describe TTY::ProgressBar, ":eta_time token" do
       "\e[1G 12:00:00",
       "\e[1G 12:00:01\n"
     ].join)
-    Timecop.return
   end
 end
