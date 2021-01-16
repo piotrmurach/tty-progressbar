@@ -323,7 +323,8 @@ module TTY
     def render
       return if done?
 
-      if hide_cursor && @last_render_width == 0 && !(@current >= total)
+      if hide_cursor && @last_render_width == 0 &&
+         (indeterminate? || @current < total)
         write(TTY::Cursor.hide)
       end
 

@@ -17,6 +17,23 @@ RSpec.describe TTY::ProgressBar, "#hide_cursor" do
     ].join)
   end
 
+  it "hides cursor when indeterminate" do
+    progress = TTY::ProgressBar.new("[:bar]", output: output, width: 5,
+                                              hide_cursor: true)
+    5.times { progress.advance }
+    progress.stop
+
+    output.rewind
+    expect(output.read).to eq([
+      "\e[?25l\e[1G[<=>  ]",
+      "\e[1G[<=>  ]",
+      "\e[1G[<=>  ]",
+      "\e[1G[<=>  ]",
+      "\e[1G[<=>  ]",
+      "\e[1G[<=>  ]\n\e[?25h"
+    ].join)
+  end
+
   it "reenables cursor on finish" do
     progress = TTY::ProgressBar.new("[:bar]", output: output, total: 5,
                                               hide_cursor: true)
