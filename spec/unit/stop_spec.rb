@@ -47,7 +47,7 @@ RSpec.describe TTY::ProgressBar, "#stop" do
       "\e[?25l",
       "\e[1G[=         ]",
       "\e[1G[==        ]",
-      "\e[?25h\e[1G[==        ]\n"
+      "\e[1G[==        ]\n\e[?25h"
     ].join)
   end
 end

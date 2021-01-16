@@ -440,10 +440,6 @@ module TTY
     #
     # @api public
     def stop
-      # reenable cursor if it is turned off
-      if hide_cursor && @last_render_width != 0
-        write(TTY::Cursor.show, false)
-      end
       return if done?
 
       render
@@ -452,6 +448,12 @@ module TTY
       @meter.clear
       @stopped = true
       @timer.stop
+
+      # reenable cursor if it is turned off
+      if hide_cursor && @last_render_width != 0
+        write(TTY::Cursor.show, false)
+      end
+
       emit(:stopped)
     end
 

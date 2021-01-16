@@ -25,6 +25,7 @@
 * Change to ensure complete, incomplete and unknown option cannot be an empty string
 * Change to allow setting total to nil via accessor
 * Change gemspec to allow version 2.0 of unicode-display_width dependency
+* Change #stop to show hidden cursor after render similar to #finish
 
 ### Fixed
 * Fix MultiBar top bar to allow resuming progress when stopped/done (@d4be4st)
