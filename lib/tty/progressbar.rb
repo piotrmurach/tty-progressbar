@@ -214,8 +214,7 @@ module TTY
           finish && return
         end
 
-        now = Time.now
-        return if (now - @last_render_time) < @render_period
+        return if (Time.now - @last_render_time) < @render_period
 
         render
       end
