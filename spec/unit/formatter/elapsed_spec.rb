@@ -8,13 +8,11 @@ RSpec.describe TTY::ProgressBar, ":elapsed token" do
   after { Timecop.return }
 
   it "displays elapsed time" do
-    time_now = Time.local(2014, 10, 5, 12, 0, 0)
-    Timecop.freeze(time_now)
+    Timecop.freeze(Time.local(2014, 10, 5, 12, 0, 0))
     progress = TTY::ProgressBar.new(":elapsed", output: output, total: 10)
 
     5.times do |sec|
-      time_now = Time.local(2014, 10, 5, 12, 0, sec)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2014, 10, 5, 12, 0, sec))
       progress.advance
     end
 
@@ -29,20 +27,17 @@ RSpec.describe TTY::ProgressBar, ":elapsed token" do
   end
 
   it "resets elapsed time" do
-    time_now = Time.local(2014, 10, 5, 12, 0, 0)
-    Timecop.freeze(time_now)
+    Timecop.freeze(Time.local(2014, 10, 5, 12, 0, 0))
     progress = TTY::ProgressBar.new(":elapsed", output: output, total: 5)
 
     5.times do |sec|
-      time_now = Time.local(2014, 10, 5, 12, 0, sec)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2014, 10, 5, 12, 0, sec))
       progress.advance
     end
     expect(progress.complete?).to be(true)
     progress.reset
     2.times do |sec|
-      time_now = Time.local(2014, 10, 5, 13, 0, sec)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2014, 10, 5, 13, 0, sec))
       progress.advance
     end
 
@@ -56,17 +51,14 @@ RSpec.describe TTY::ProgressBar, ":elapsed token" do
       "\e[1G 0s",
       "\e[1G 1s"
     ].join)
-    Timecop.return
   end
 
   it "resumes elapsed time measurement when stopped or finished" do
-    time_now = Time.local(2021, 1, 10, 12, 0, 0)
-    Timecop.freeze(time_now)
+    Timecop.freeze(Time.local(2021, 1, 10, 12, 0, 0))
     progress = TTY::ProgressBar.new(":elapsed", output: output, total: 10)
 
     5.times do |sec|
-      time_now = Time.local(2021, 1, 10, 12, 0, 1 + sec)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2021, 1, 10, 12, 0, 1 + sec))
       progress.advance
     end
 
@@ -74,8 +66,7 @@ RSpec.describe TTY::ProgressBar, ":elapsed token" do
     progress.resume
 
     3.times do |sec| # resume progression after 5 seconds
-      time_now = Time.local(2021, 1, 10, 12, 0, 10 + sec)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2021, 1, 10, 12, 0, 10 + sec))
       progress.advance
     end
 
@@ -84,8 +75,7 @@ RSpec.describe TTY::ProgressBar, ":elapsed token" do
     progress.resume
 
     2.times do |sec| # resume progression after 2 seconds
-      time_now = Time.local(2021, 1, 10, 12, 0, 15 + sec)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2021, 1, 10, 12, 0, 15 + sec))
       progress.advance
     end
 

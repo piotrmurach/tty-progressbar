@@ -8,13 +8,11 @@ RSpec.describe TTY::ProgressBar, ":eta_time token" do
   after { Timecop.return }
 
   it "displays estimated completion time of day" do
-    time_now = Time.local(2020, 1, 5, 12, 0, 0)
-    Timecop.freeze(time_now)
+    Timecop.freeze(Time.local(2020, 1, 5, 12, 0, 0))
     bar = described_class.new(" :eta_time", output: output, total: 5)
 
     5.times do |sec|
-      time_now = Time.local(2020, 1, 5, 12, 0, sec)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2020, 1, 5, 12, 0, sec))
       bar.advance
     end
 
@@ -29,8 +27,7 @@ RSpec.describe TTY::ProgressBar, ":eta_time token" do
   end
 
   it "displays estimated completion time of day with date after 24 hours" do
-    time_now = Time.local(2020, 1, 5, 12, 0, 0)
-    Timecop.freeze(time_now)
+    Timecop.freeze(Time.local(2020, 1, 5, 12, 0, 0))
     bar = described_class.new(" :eta_time", output: output, total: 5)
 
     2.times do |day|
@@ -47,16 +44,14 @@ RSpec.describe TTY::ProgressBar, ":eta_time token" do
   end
 
   it "displays unknown estimated completion time of day as --:--:--" do
-    time_now = Time.local(2020, 1, 5, 12, 0, 0)
-    Timecop.freeze(time_now)
+    Timecop.freeze(Time.local(2020, 1, 5, 12, 0, 0))
     bar = described_class.new(" :eta_time", output: output, total: nil)
 
     3.times { bar.advance }
     bar.update(total: 5)
 
     2.times do |sec|
-      time_now = Time.local(2020, 1, 5, 12, 0, sec)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2020, 1, 5, 12, 0, sec))
       bar.advance
     end
 

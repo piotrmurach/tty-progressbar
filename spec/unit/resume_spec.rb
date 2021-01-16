@@ -27,8 +27,7 @@ RSpec.describe TTY::ProgressBar, "#resume" do
   end
 
   it "resumes stopped progression with all the metrics" do
-    time_now = Time.local(2021, 1, 9, 12, 0, 0)
-    Timecop.freeze(time_now)
+    Timecop.freeze(Time.local(2021, 1, 9, 12, 0, 0))
     format = "[:bar] :current/:total :percent " \
              ":current_byte/:total_byte :byte_rate/s :mean_byte/s " \
              ":rate/s :mean_rate/s :elapsed :eta"
@@ -36,8 +35,7 @@ RSpec.describe TTY::ProgressBar, "#resume" do
     progress = described_class.new(format, output: output, total: 10)
 
     3.times do |i|
-      time_now = Time.local(2021, 1, 9, 12, 0, 1 + i)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2021, 1, 9, 12, 0, 1 + i))
       progress.advance
     end
     progress.stop
@@ -46,8 +44,7 @@ RSpec.describe TTY::ProgressBar, "#resume" do
     progress.resume
     expect(progress.stopped?).to eq(false)
     3.times do |i|
-      time_now = Time.local(2021, 1, 9, 12, 0, 4 + i)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2021, 1, 9, 12, 0, 4 + i))
       progress.advance
     end
 
@@ -73,8 +70,7 @@ RSpec.describe TTY::ProgressBar, "#resume" do
     progress = described_class.new(format, output: output, total: 10)
 
     3.times do |i|
-      time_now = Time.local(2021, 1, 10, 12, 0, 1 + i)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2021, 1, 10, 12, 0, 1 + i))
       progress.advance
     end
     progress.finish
@@ -85,8 +81,7 @@ RSpec.describe TTY::ProgressBar, "#resume" do
     expect(progress.complete?).to eq(false)
 
     3.times do |i|
-      time_now = Time.local(2021, 1, 10, 12, 0, 4 + i)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2021, 1, 10, 12, 0, 4 + i))
       progress.advance
     end
 
@@ -104,8 +99,7 @@ RSpec.describe TTY::ProgressBar, "#resume" do
   end
 
   it "resumes paused progression with all the metrics" do
-    time_now = Time.local(2021, 1, 11, 12, 0, 0)
-    Timecop.freeze(time_now)
+    Timecop.freeze(Time.local(2021, 1, 11, 12, 0, 0))
     format = "[:bar] :current/:total :percent " \
              ":current_byte/:total_byte :byte_rate/s :mean_byte/s " \
              ":rate/s :mean_rate/s :elapsed :eta"
@@ -113,8 +107,7 @@ RSpec.describe TTY::ProgressBar, "#resume" do
     progress = described_class.new(format, output: output, total: 10)
 
     3.times do |i|
-      time_now = Time.local(2021, 1, 11, 12, 0, 1 + i)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2021, 1, 11, 12, 0, 1 + i))
       progress.advance
     end
     progress.pause
@@ -124,8 +117,7 @@ RSpec.describe TTY::ProgressBar, "#resume" do
     expect(progress.paused?).to eq(false)
 
     3.times do |i|
-      time_now = Time.local(2021, 1, 11, 12, 0, 4 + i)
-      Timecop.freeze(time_now)
+      Timecop.freeze(Time.local(2021, 1, 11, 12, 0, 4 + i))
       progress.advance
     end
 
