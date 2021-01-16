@@ -143,7 +143,7 @@ module TTY
       yield @configuration
     end
 
-    # Check if progress can be determinted or not
+    # Check if progress can be determined or not
     #
     # @return [Boolean]
     #
@@ -232,7 +232,7 @@ module TTY
     #   be convenient in "unsure number of iterations" situations
     #   (like downloading in chunks, when server may eventually send
     #   more chunks than predicted), but be careful to not pass infinite
-    #   enumerators without previosly doing `.take(some_finite_number)`
+    #   enumerators without previously doing `.take(some_finite_number)`
     #   on them.
     #
     # @example
@@ -471,7 +471,7 @@ module TTY
       output.print("#{ECMA_CSI}0m#{TTY::Cursor.clear_line}")
     end
 
-    # Check if progress is finised
+    # Check if progress is finished
     #
     # @return [Boolean]
     #   true when progress finished, false otherwise

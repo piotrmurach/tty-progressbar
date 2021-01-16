@@ -27,6 +27,6 @@ module TTY
         estimated = (estimated.infinite? || estimated < 0) ? 0.0 : estimated
         value.gsub(matcher, Converter.to_time(estimated))
       end
-    end # ElapsedFormatter
+    end # EstimatedFormatter
   end # ProgressBar
 end # TTY

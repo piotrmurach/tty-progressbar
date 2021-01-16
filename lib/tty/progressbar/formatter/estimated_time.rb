@@ -2,7 +2,7 @@
 
 module TTY
   class ProgressBar
-    # Used by {Pipeline} to foramt :eta_time token
+    # Used by {Pipeline} to format :eta_time token
     #
     # @api private
     class EstimatedTimeFormatter

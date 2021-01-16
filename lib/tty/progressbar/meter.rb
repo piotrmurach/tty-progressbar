@@ -5,7 +5,7 @@ module TTY
     # Used by {ProgressBar} to measure progress rate per interval
     # by default 1s
     #
-    # @api privatek
+    # @api private
     class Meter
       # Create Meter
       #
