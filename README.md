@@ -493,7 +493,7 @@ There are number of preconfigured bar formats you can choose from.
 | `:arrow`   | `▸▸▸▸▸▹▹▹▹▹` | `◂▸`          |
 | `:asterisk`| `✱✱✱✱✱✳✳✳✳✳` | `✳✱✳`         |
 | `:blade`   | `▰▰▰▰▰▱▱▱▱▱` | `▱▰▱`         |
-| `:block`   | `██████████` | `◀▶`          |
+| `:block`   | `█████░░░░░` | `█`           |
 | `:box`     | `■■■■■□□□□□` | `□■□`         |
 | `:bracket` | `❭❭❭❭❭❭❭❭❭❭` | `❬=❭`         |
 | `:bracket_bold` | `❱❱❱❱❱❱❱❱❱❱` | `❰=❱`    |

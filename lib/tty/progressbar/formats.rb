@@ -19,9 +19,9 @@ module TTY
           incomplete: "▱",
           unknown: "▱▰▱"
         },
-        block: { # ██████████
+        block: { # █████░░░░░
           complete: "█",
-          incomplete: " ",
+          incomplete: "░",
           unknown: "█"
         },
         box: { # ■■■■■□□□□□
