@@ -34,11 +34,6 @@ module TTY
          incomplete: " ",
          unknown: "❬=❭"
         },
-        bracket_bold: { # ❱❱❱❱❱❱❱❱❱❱
-          complete: "❱",
-          incomplete: " ",
-          unknown: "❰=❱"
-        },
         burger: { # ≡≡≡≡≡≡≡≡≡≡
           complete: "≡",
           incomplete: " ",
@@ -103,6 +98,11 @@ module TTY
           complete: "▬",
           incomplete: "═",
           unknown: "═▬═"
+        },
+        tread: { # ❱❱❱❱❱❱❱❱❱❱
+          complete: "❱",
+          incomplete: " ",
+          unknown: "❰=❱"
         },
         triangle: { # ▶▶▶▶▶▷▷▷▷▷
           complete: "▶",

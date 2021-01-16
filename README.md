@@ -496,7 +496,6 @@ There are number of preconfigured bar formats you can choose from.
 | `:block`   | `█████░░░░░` | `█`           |
 | `:box`     | `■■■■■□□□□□` | `□■□`         |
 | `:bracket` | `❭❭❭❭❭❭❭❭❭❭` | `❬=❭`         |
-| `:bracket_bold` | `❱❱❱❱❱❱❱❱❱❱` | `❰=❱`    |
 | `:burger`  | `≡≡≡≡≡≡≡≡≡≡` | `<≡>`         |
 | `:button`  | `⦿⦿⦿⦿⦿⦾⦾⦾⦾⦾` | `⦾⦿⦾`         |
 | `:chevron` | `››››››››››` | `‹=›`         |
@@ -510,6 +509,7 @@ There are number of preconfigured bar formats you can choose from.
 | `:square`  | `▪▪▪▪▪▫▫▫▫▫` | `▫▪▫`         |
 | `:star`    | `★★★★★☆☆☆☆☆` | `☆★☆`         |
 | `:track`   | `▬▬▬▬▬═════` | `═▬═`         |
+| `:tread`   | `❱❱❱❱❱❱❱❱❱❱` | `❰=❱`         |
 | `:triangle`| `▶▶▶▶▶▷▷▷▷▷` | `◀▶`          |
 | `:wave`    | `~~~~~_____` | `<~>`         |
 
