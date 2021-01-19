@@ -76,11 +76,14 @@ Or install it yourself as:
   * [3.3 :complete](#33-complete)
   * [3.4 :incomplete](#34-incomplete)
   * [3.5 :head](#35-head)
-  * [3.6 :bar_format](#36-bar_format)
-  * [3.7 :output](#37-output)
-  * [3.8 :frequency](#38-frequency)
-  * [3.9 :interval](#39-interval)
-  * [3.10 :hide_cursor](#310-hide_cursor)
+  * [3.6 :unknown](#36-unknown)
+  * [3.7 :bar_format](#37-bar_format)
+  * [3.8 :output](#38-output)
+  * [3.9 :frequency](#39-frequency)
+  * [3.10 :interval](#310-interval)
+  * [3.11 :hide_cursor](#311-hide_cursor)
+  * [3.12 :clear](#312-clear)
+  * [3.13 :clear_head](#313-clear_head)
 * [4. Formatting](#4-formatting)
   * [4.1 Tokens](#41-tokens)
   * [4.2 Custom Formatters](#42-custom-formatters)
@@ -272,7 +275,7 @@ bar.start  # => sets timer and draws initial progress bar
 
 ### 2.7 update
 
-Once the progress bar has been started you can change its configuration option(s) by calling `update`:
+Once a progress bar has been started, you can change its configuration option(s) by calling `update`:
 
 ```ruby
 bar.update(complete: "+", frequency: 10)
@@ -280,7 +283,7 @@ bar.update(complete: "+", frequency: 10)
 
 ### 2.8 finish
 
-In order to immediately stop and finish the progress call `finish`. This will finish drawing the progress by advancing it to 100% and returning to new line.
+In order to immediately stop and finish progress of a bar call `finish`. This will finish drawing the progress by advancing it to 100% and returning to a new line.
 
 ```ruby
 bar.finish
@@ -288,7 +291,7 @@ bar.finish
 
 ### 2.9 stop
 
-In order to immediately stop the bar in the current position and thus prevent any further progress use `stop`:
+In order to immediately stop a bar in the current position and thus prevent any further progress use `stop`:
 
 ```ruby
 bar.stop
@@ -312,7 +315,7 @@ In order to reset currently running or finished progress bar to its original con
 bar.reset
 ```
 
-After resetting the bar if you wish to draw and start the bar and its timers use `start` call.
+After resetting a progress bar, if you wish to draw and start a bar and its timers use `start` call.
 
 ### 2.12 resume
 
@@ -326,7 +329,7 @@ A resumed progression will continue accumulating the total elapsed time without 
 
 ### 2.13 complete?
 
-During progression you can check if a bar is finished or not by calling `complete?`. The bar will only return `true` if the progression finished successfully, otherwise `false` will be returned.
+During progression you can check whether a bar is finished or not by calling `complete?`. The bar will only return `true` if the progression finished successfully, otherwise `false` will be returned.
 
 ```ruby
 bar.complete? # => false
@@ -357,7 +360,7 @@ trap(:WINCH) { bar.resize }
 
 ### 2.16 on
 
-The progress bar fires events when it is progressing, stopped or finished. You can register to listen for events using the `on` message.
+A progress bar fires events when it is progressing, paused, stopped or finished. You can register to listen for these events using the `on` message.
 
 Every time an `advance` is called the `:progress` event gets fired which you can listen for inside a block which includes the actual amount of progress as a first yielded argument:
 
@@ -365,13 +368,13 @@ Every time an `advance` is called the `:progress` event gets fired which you can
 bar.on(:progress) { |amount| ... }
 ```
 
-When the progress bar finishes and completes then the `:done` event is fired. You can listen for this event:
+When a progress bar finishes and completes then the `:done` event is fired. You can listen for this event:
 
 ```ruby
 bar.on(:done) { ... }
 ```
 
-Alternatively, when the progress bar gets stopped the `:stopped` event is fired. You can listen for this event:
+Alternatively, when a progress bar gets stopped the `:stopped` event is fired. You can listen for this event:
 
 ```ruby
 bar.on(:stopped) { ... }
@@ -392,13 +395,14 @@ There are number of configuration options that can be provided:
 * [:complete](#33-complete) completion character by default `=`
 * [:incomplete](#34-incomplete) incomplete character by default single space
 * [:head](#35-head) the head character by default `=`
-* [:bar_format](#36-bar_format) the predefined bar format by default `:classic`
-* [:output](#37-output) the output stream defaulting to `stderr`
-* [:frequency](#38-frequency) used to throttle the output, by default `0`
-* [:interval](#39-interval) used to measure the speed, by default `1 sec`
-* [:hide_cursor](#310-hide_cursor) to hide display cursor defaulting to `false`
-* `:clear` to clear the finished bar defaulting to `false`
-* `:clear_head` to clear the head character when the progress is done, defaults to `false`
+* [:unknown](#36-unknown) the character(s) used to show indeterminate progress, defaults to `<=>`
+* [:bar_format](#37-bar_format) the predefined bar format by default `:classic`
+* [:output](#38-output) the output stream defaulting to `stderr`
+* [:frequency](#39-frequency) used to throttle the output, by default `0`
+* [:interval](#310-interval) used to measure the speed, by default `1 sec`
+* [:hide_cursor](#311-hide_cursor) to hide display cursor defaulting to `false`
+* [:clear](#312-clear) to clear the finished bar defaulting to `false`
+* [:clear_head](#313-clear_head) to clear the head character when the progress is done, defaults to `false`
 
 All the above options can be passed in as hash options or block parameters:
 
@@ -484,7 +488,27 @@ This will result in output like this:
 # [=======>      ]
 ```
 
-### 3.6 :bar_format
+### 3.6 :unknown
+
+By default, a progress bar shows indeterminate progress using `<=>` characters:
+
+```ruby
+# [     <=>      ]
+```
+
+You can change this with the `:unknown` option:
+
+```ruby
+TTY::ProgressBar.new("[:bar]", unknown: "<?>")
+```
+
+This may result in the following output:
+
+```ruby
+# [     <?>      ]
+````
+
+### 3.7 :bar_format
 
 There are number of preconfigured bar formats you can choose from.
 
@@ -545,9 +569,9 @@ And for the unknown progress the `?` character will move from left to right:
 
 For the full list of available bar formats check the [lib/tty/progressbar/formats.rb](https://github.com/piotrmurach/tty-progressbar/blob/master/lib/tty/progressbar/formats.rb).
 
-### 3.7 :output
+### 3.8 :output
 
-The progress bar only outputs to a console and when output is redirected to a file or a pipe it does nothing. This is so, for example, your error logs do not overflow with progress bars output.
+A progress bar only outputs to a console and when output is redirected to a file or a pipe it does nothing. This is so, for example, your error logs do not overflow with progress bars output.
 
 You can change where console output is streamed with `:output` option:
 
@@ -557,7 +581,7 @@ bar = TTY::ProgressBar.new(output: $stdout)
 
 The output stream defaults to `stderr`.
 
-### 3.8 :frequency
+### 3.9 :frequency
 
 Each time the `advance` is called it causes the progress bar to repaint. In cases when there is a huge number of updates per second, you may need to limit the rendering process by using the `frequency` option.
 
@@ -567,7 +591,7 @@ The `frequency` option accepts `integer` representing number of `Hz` units, for 
 TTY::ProgressBar.new("[:bar]", total: 30, frequency: 10) # 10 Hz
 ```
 
-### 3.9 :interval
+### 3.10 :interval
 
 For every call of `advance` method the **ProgressBar** takes a sample for speed measurement. By default the samples are grouped per second but you can change that by passing the `interval` option.
 
@@ -579,7 +603,7 @@ TTY::ProgressBar.new(":rate/minute", total: 100, interval: 60) # 1 minute
 TTY::ProgressBar.new(":rate/hour", total: 100, interval: 3600) # 1 hour
 ```
 
-### 3.10 :hide_cursor
+### 3.11 :hide_cursor
 
 By default the cursor is visible during progress bar rendering. If you wish to hide it, you can do so with the `:hide_cursor` option.
 
@@ -596,6 +620,36 @@ ensure
   progress.stop # or progress.finish
   # both methods will ensure that cursor is made visible again
 end
+```
+
+### 3.12 :clear
+
+By default, when a progress bar finishes it returns to a new line leaving the last progress output behind.
+
+If you prefer to erase a progress bar when it is finished use `:clear` option:
+
+```ruby
+TTY::ProgressBar.new("[:bar]", clear: true)
+```
+
+### 3.13 :clear_head
+
+When a progress bar finishes and its animation includes [:head](#35-head) character, the character will remain in the output:
+
+```ruby
+# [=============>]
+```
+
+To replace a head character when a progress bar is finished use `:clear_head` option:
+
+```ruby
+TTY::ProgressBar.new("[:bar]", clear_head: true)
+```
+
+This will result in the following output:
+
+```ruby
+# [==============]
 ```
 
 ## 4. Formatting
@@ -702,7 +756,7 @@ which outputs:
 
 ### 4.4 Unicode
 
-The format string as well as `:complete`, `:head` and `:incomplete` configuration options can contain Unicode characters that aren't monospaced.
+The format string as well as [:complete](#33-complete), [:head](#35-head), [:incomplete](#34-incomplete) and [:unknown](#36-unknown) configuration options can contain Unicode characters that aren't monospaced.
 
 For example, you can specify complete bar progression character to be Unicode non-monospaced:
 
