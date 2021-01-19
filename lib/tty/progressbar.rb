@@ -462,9 +462,11 @@ module TTY
     #
     # @api public
     def pause
-      @paused = true
-      @timer.stop
-      emit(:paused)
+      synchronize do
+        @paused = true
+        @timer.stop
+        emit(:paused)
+      end
     end
 
     # Clear current line
