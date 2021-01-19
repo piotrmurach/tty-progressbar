@@ -19,9 +19,9 @@
 [coverage]: https://coveralls.io/github/piotrmurach/tty-progressbar
 [inchpages]: http://inch-ci.org/github/piotrmurach/tty-progressbar
 
-> A flexible progress bars drawing in terminal emulators.
+> A flexible and extensible progress bar for terminal applications.
 
-**TTY::ProgressBar** provides independent progress bars component for [TTY](https://github.com/piotrmurach/tty) toolkit.
+**TTY::ProgressBar** provides independent progress bar component for [TTY](https://github.com/piotrmurach/tty) toolkit.
 
 ## Features
 
