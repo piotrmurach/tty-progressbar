@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.version       = TTY::ProgressBar::VERSION
   spec.authors       = ["Piotr Murach"]
   spec.email         = ["piotr@piotrmurach.com"]
-  spec.summary       = %q{Display a single or multiple progress bars in the terminal.}
+  spec.summary       = %q{A flexible and extensible progress bar for terminal applications.}
   spec.description   = %q{Display a single or multiple progress bars in the terminal. A progress bar can show determinate or indeterminate progress that can be paused and resumed at any time. A bar format supports many tokens for common information display like elapsed time, estimated time to completion, mean rate and more.}
   spec.homepage      = "https://ttytoolkit.org"
   spec.license       = "MIT"
