@@ -739,7 +739,7 @@ bar.advance
 
 ### 4.3 Custom Tokens
 
-You can define custom tokens by passing pairs `name: value` to `advance` method in order to dynamically update formatted bar. This option is useful for lightweight content replacement such as titles that doesn't depend on the internal data of progressbar. For example:
+You can define custom tokens by passing pairs `name: value` to `advance` method in order to dynamically update formatted bar. This option is useful for lightweight content replacement such as titles that doesn't depend on the internal data of a progress bar. For example:
 
 ```ruby
 bar = TTY::ProgressBar.new("(:current) :title", total: 4)
@@ -747,7 +747,7 @@ bar.advance(title: "Hello Piotr!")
 bar.advance(3, title: "Bye Piotr!")
 ```
 
-which outputs:
+This will output:
 
 ```ruby
 # (1) Hello Piotr!
