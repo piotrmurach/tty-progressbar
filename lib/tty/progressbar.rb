@@ -78,20 +78,29 @@ module TTY
     # @option options [Numeric] :total
     #   the total number of steps to completion
     # @option options [Numeric] :width
-    #   the maximum width for the bars display including
-    #   all formatting options
-    # @option options [Boolean] :indeterminate
-    #   true when progression is unknown defaulting to false
-    # @option options [Boolean] :clear
-    #   whether or not to clear the progress line
-    # @option options [Boolean] :hide_cursor
-    #   display or hide cursor
+    #   the maximum width for the progress bar except all formatting tokens
+    # @option option [String] :complete
+    #   the complete character in progress animation
+    # @option options [String] :incomplete
+    #   the incomplete character in progress animation
+    # @option options [String] :head
+    #   the head character, defaults to complete
+    # @option options [String] :unknown
+    #   the unknown character for indeterminate progress animation
+    # @option options [Boolean] :bar_format
+    #   the preconfigured bar format name, defaults to :classic
     # @option options [Object] :output
-    #   the object that responds to print call defaulting to stderr
+    #   the object that responds to print call, defaults to stderr
     # @option options [Number] :frequency
-    #   the frequency with which to display bars
+    #   the frequency with which to display a progress bar per second
     # @option options [Number] :interval
-    #   the period for sampling of speed measurement
+    #   the time interval for sampling of speed measurement, defaults to 1 second
+    # @option options [Boolean] :hide_cursor
+    #   whether or not to hide the cursor, defaults to false
+    # @option options [Boolean] :clear
+    #   whether or not to clear the progress line, defaults to false
+    # @option options [Boolean] :clear_head
+    #   whether or not to replace head character with complete, defaults to false
     #
     # @api public
     def initialize(format, options = {})
