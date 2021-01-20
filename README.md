@@ -44,11 +44,15 @@ gem "tty-progressbar"
 
 And then execute:
 
-    $ bundle
+```
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install tty-progressbar
+```
+$ gem install tty-progressbar
+```
 
 ## Contents
 
@@ -67,9 +71,11 @@ Or install it yourself as:
   * [2.11 reset](#211-reset)
   * [2.12 resume](#212-resume)
   * [2.13 complete?](#213-complete)
-  * [2.14 indeterminate?](#214-indeterminate)
-  * [2.15 resize](#215-resize)
-  * [2.16 on](#216-on)
+  * [2.14 paused?](#214-paused)
+  * [2.15 stopped?](#215-stopped)
+  * [2.16 indeterminate?](#216-indeterminate)
+  * [2.17 resize](#217-resize)
+  * [2.18 on](#218-on)
 * [3. Configuration](#3-configuration)
   * [3.1 :total](#31-total)
   * [3.1 :width](#32-width)
@@ -100,21 +106,23 @@ Or install it yourself as:
   * [6.7 pause](#67-pause)
   * [6.8 resume](#68-resume)
   * [6.9 complete?](#69-complete)
-  * [6.10 on](#610-on)
-  * [6.11 :style](#611-style)
+  * [6.10 paused?](#610-paused)
+  * [6.11 stopped?](#611-stopped)
+  * [6.12 on](#612-on)
+  * [6.13 :style](#613-style)
 * [7. Examples](#7-examples)
   * [7.1 Color](#71-color)
   * [7.2 Speed](#72-speed)
 
 ## 1. Usage
 
-**TTY::ProgressBar** requires only format string with `:bar` [token](#41-tokens) and total number of steps to completion:
+**TTY::ProgressBar** requires only a format string with `:bar` [token](#41-tokens) and total number of steps to completion:
 
 ```ruby
 bar = TTY::ProgressBar.new("downloading [:bar]", total: 30)
 ```
 
-Once initialized, use `advance` method to indicated the progress like so:
+Once initialized, use [advance](#21-advance) method to indicated progress:
 
 ```ruby
 30.times do
@@ -123,11 +131,13 @@ Once initialized, use `advance` method to indicated the progress like so:
 end
 ```
 
-This would produce animation in your terminal:
+This would produce the following animation in your terminal:
 
 ```ruby
 # downloading [=======================       ]
 ```
+
+You can further change a progress bar behaviour and display by changing [configuration](#3-configuration) options and using many predefined [tokens](#41-tokens) and [bar formats](#37-bar_format).
 
 When you don't know the total yet, you can set it to `nil` to switch to [indeterminate](#31-total) progress:
 
@@ -135,15 +145,21 @@ When you don't know the total yet, you can set it to `nil` to switch to [indeter
 # downloading [       <=>                    ]
 ```
 
-Use [TTY::ProgressBar::Multi](#6-ttyprogressbarmulti-api) to display multiple parallel progress bars:
+Use [TTY::ProgressBar::Multi](#6-ttyprogressbarmulti-api) to display multiple parallel progress bars.
+
+Declare a top level bar and then register child bars:
 
 ```ruby
 bars = TTY::ProgressBar::Multi.new("main [:bar] :percent")
 
 bar1 = bars.register("one [:bar] :percent", total: 15)
 bar2 = bars.register("two [:bar] :percent", total: 15)
+```
 
-bars.start
+Then progress the child bars in parallel:
+
+```ruby
+bars.start  # starts all registered bars timers
 
 th1 = Thread.new { 15.times { sleep(0.1); bar1.advance } }
 th2 = Thread.new { 15.times { sleep(0.1); bar2.advance } }
@@ -151,7 +167,7 @@ th2 = Thread.new { 15.times { sleep(0.1); bar2.advance } }
 [th1, th2].each { |t| t.join }
 ```
 
-which will produce:
+A possible terminal output may look like this:
 
 ```ruby
 # ┌ main [===============               ] 50%
@@ -163,10 +179,10 @@ which will produce:
 
 ### 2.1 advance
 
-Once you have **TTY::ProgressBar** instance, you can progress the display by calling `advance` method. By default it will increase by `1` but you can pass any number of steps, for instance, when used to advance number of bytes of downloaded file.
+Once you have **TTY::ProgressBar** instance, you can progress the display by calling `advance` method. By default, it will increase by `1` but you can pass any number of steps, for instance, a number of bytes for a downloaded file:
 
 ```ruby
-bar.advance(1000)
+bar.advance(1024)
 ```
 
 You can also pass negative steps if you wish to backtrack the progress:
@@ -175,13 +191,13 @@ You can also pass negative steps if you wish to backtrack the progress:
 bar.advance(-1)
 ```
 
-Note: If a progress bar has already finished then negative steps will not set it back to desired value.
+*Note:* If a progress bar has already finished then any negative steps will not set it back to desired value.
 
 ### 2.2 iterate
 
 To simplify progressing over an enumerable you can use `iterate` which as a first argument accepts an `Enumerable` and as a second the amount to progress the bar with.
 
-First, create a progress bar without a total which will be dynamically handled for you:
+First, create a progress bar without a total which will be automatically updated for you once iteration starts:
 
 ```ruby
 bar = TTY::ProgressBar.new("[:bar]")
@@ -193,7 +209,7 @@ Then, either directly iterate over a collection by yielding values to a block:
 bar.iterate(30.times) { |v| ... }
 ```
 
-or return an `Enumerator`:
+Or return an `Enumerator`:
 
 ```ruby
 progress = bar.iterate(30.times)
@@ -221,7 +237,7 @@ downloader = Enumerator.new do |y|
 end
 ```
 
-would be used with progress bar with the total size matching the content size like so:
+Would be used with progress bar with the total size matching the content size like so:
 
 ```ruby
 bar = TTY::ProgressBar.new("[:bar]", total: content_size)
@@ -235,17 +251,17 @@ Please run [slow_process example](examples/slow_process.rb) to see this in actio
 
 ### 2.3 current=
 
-**TTY::ProgressBar** allows you to set progress to a given value by calling `current=` method.
+A progress doesn't have to start from zero. You can set it to a given value using `current=` method:
 
 ```ruby
 bar.current = 50
 ```
 
-Note: If a progress bar has already finished then negative steps will not set it back to desired value.
+*Note:* If a progress bar has already finished then setting current value will not have any effect.
 
 ### 2.4 ratio=
 
-In order to update overall completion of a progress bar as an exact percentage use the `ratio=` method. The method accepts values between `0` and `1` inclusive. For example, a ratio of 0.5 will attempt to set the progress bar halfway:
+In order to update overall completion of a progress bar as an exact percentage use the `ratio=` method. The method accepts values between `0` and `1` inclusive. For example, a ratio of `0.5` will attempt to set the progress bar halfway:
 
 ```ruby
 bar.ratio = 0.5
@@ -253,13 +269,15 @@ bar.ratio = 0.5
 
 ### 2.5 width=
 
-You can set how many terminal columns will the `:bar` actually span excluding any other tokens and/or text. For example if you need the bar to be always 20 columns wide do:
+You can set how many terminal columns will the `:bar` actually span excluding any other tokens and/or text.
+
+For example, if you need the bar to be always 20 columns wide do:
 
 ```ruby
 bar.width = 20
 ```
 
-or with configuration options:
+Or with configuration options:
 
 ```ruby
 bar = TTY::ProgressBar.new("[:bar]", width: 20)
@@ -335,21 +353,37 @@ During progression you can check whether a bar is finished or not by calling `co
 bar.complete? # => false
 ```
 
-### 2.14 indeterminate?
+### 2.14 paused?
 
-You can make a progress bar indeterminate by setting `:total` to nil. In this state, an animation is displayed to show unbounded task. You can check if the progress bar is indeterminate with the `indeterminate?` method:
+To check whether a progress bar is paused or not use `paused?`:
+
+```ruby
+bar.paused? # => true
+```
+
+### 2.15 stopped?
+
+To check whether a progress bar is stopped or not use `stopped?`:
+
+```ruby
+bar.stopped? # => true
+```
+
+### 2.16 indeterminate?
+
+You can make a progress bar indeterminate by setting `:total` to `nil`. In this state, a progress bar animation is displayed to show unbounded task. You can check whether the progress bar is indeterminate with the `indeterminate?` method:
 
 ```ruby
 bar.indeterminate? # => false
 ```
 
-### 2.15 resize
+### 2.17 resize
 
-If you wish for a progress bar to change it's current width, you can use `resize` by passing in a new desired length. However, if you don't provide any width the `resize` will use terminal current width as its base for scaling.
+If you want to change a progress bar's current width, use `resize` and pass in a new desired length. However, if you don't provide any width the `resize` will use terminal current width as its base for scaling.
 
 ```ruby
-bar.resize      # => determine terminal width and scale accordingly
-bar.resize(50)  # => will resize bar proportionately from this point onwards
+bar.resize      # determine terminal width and scale accordingly
+bar.resize(50)  # will resize bar proportionately from this point onwards
 ```
 
 To handle automatic resizing you can trap `:WINCH` signal:
@@ -358,11 +392,11 @@ To handle automatic resizing you can trap `:WINCH` signal:
 trap(:WINCH) { bar.resize }
 ```
 
-### 2.16 on
+### 2.18 on
 
 A progress bar fires events when it is progressing, paused, stopped or finished. You can register to listen for these events using the `on` message.
 
-Every time an `advance` is called the `:progress` event gets fired which you can listen for inside a block which includes the actual amount of progress as a first yielded argument:
+Every time an `advance` is called the `:progress` event gets fired which you can listen for inside a block. A first yielded argument is the actual amount of progress:
 
 ```ruby
 bar.on(:progress) { |amount| ... }
@@ -390,19 +424,19 @@ bar.on(:paused) { ... }
 
 There are number of configuration options that can be provided:
 
-* [:total](#31-total) total number of steps to completion
-* [:width](#32-width) of the bars display in terminal columns excluding formatting options. Defaults to total steps
-* [:complete](#33-complete) completion character by default `=`
-* [:incomplete](#34-incomplete) incomplete character by default single space
-* [:head](#35-head) the head character by default `=`
-* [:unknown](#36-unknown) the character(s) used to show indeterminate progress, defaults to `<=>`
-* [:bar_format](#37-bar_format) the predefined bar format by default `:classic`
-* [:output](#38-output) the output stream defaulting to `stderr`
-* [:frequency](#39-frequency) used to throttle the output, by default `0`
-* [:interval](#310-interval) used to measure the speed, by default `1 sec`
-* [:hide_cursor](#311-hide_cursor) to hide display cursor defaulting to `false`
-* [:clear](#312-clear) to clear the finished bar defaulting to `false`
-* [:clear_head](#313-clear_head) to clear the head character when the progress is done, defaults to `false`
+* [:total](#31-total) - the total number of steps to completion.
+* [:width](#32-width) - the number of terminal columns for displaying a bar excluding other tokens. Defaults to total steps.
+* [:complete](#33-complete) - the completion character, by default `=`.
+* [:incomplete](#34-incomplete) - the incomplete character, by default single space.
+* [:head](#35-head) - the head character, by default `=`.
+* [:unknown](#36-unknown) - the character(s) used to show indeterminate progress, defaults to `<=>`.
+* [:bar_format](#37-bar_format) - the predefined bar format, by default `:classic`.
+* [:output](#38-output) - the output stream defaulting to `stderr`.
+* [:frequency](#39-frequency) - used to throttle the output, by default `0`.
+* [:interval](#310-interval) - the time interval used to measure rate, by default `1 sec`.
+* [:hide_cursor](#311-hide_cursor) - whether to hide the console cursor or not, defaults to `false`.
+* [:clear](#312-clear) - whether to clear the finished bar or not, defaults to `false`.
+* [:clear_head](#313-clear_head) - whether to clear the head character when the progress is done or not, defaults to `false`.
 
 All the above options can be passed in as hash options or block parameters:
 
@@ -419,7 +453,14 @@ The progress bar's configuration can also be changed at runtime with `configure`
 ```ruby
 bar.configure do |config|
   config.total = 100   # takes precedence over the original value
+  config.frequencye = 20
 end
+```
+
+Or with the [update](#27-update) method:
+
+```ruby
+bar.update(total: 100, frequency: 20)
 ```
 
 ### 3.1 :total
@@ -430,17 +471,19 @@ The `:total` option determines the final value at which the progress bar fills u
 TTY::ProgressBar.new("[:bar]", total: 30)
 ```
 
-Setting `:total` to nil or leaving it out will cause the progress bar to switch to indeterminate state. Instead of showing completeness for a task, it will render animation like `<=>` that moves left and right to show time-consuming and unbounded task:
+Setting `:total` to `nil` or leaving it out will cause the progress bar to switch to indeterminate mode. Instead of showing completeness for a task, it will render animation like `<=>` that moves left and right:
 
 ```ruby
 # [                    <=>                 ]
 ```
 
+The indeterminate mode is useful to show time-consuming and unbounded task.
+
 Run [examples/indeterminate](https://github.com/piotrmurach/tty-progressbar/blob/master/examples/indeterminate.rb) to see indeterminate progress animation in action.
 
 ### 3.2 :width
 
-The progress bar width defaults to the total value and is capped at the maximum terminal width minus all the labels. If you want to enforce the bar to be the same length use the `:width` option:
+The progress bar width defaults to the total value and is capped at the maximum terminal width minus all the labels. If you want to enforce the bar to have a specific length use the `:width` option:
 
 ```ruby
 TTY::ProgressBar.new("[:bar]", width: 30)
@@ -454,7 +497,7 @@ By default, the `=` character is used to mark progression but this can be change
 TTY::ProgressBar.new("[:bar]", complete: "x")
 ```
 
-Then the output will look like this:
+Then the output could look like this:
 
 ```ruby
 # [xxxxxxxx      ]
@@ -462,7 +505,7 @@ Then the output will look like this:
 
 ### 3.4 :incomplete
 
-By default no characters are shown to mark the remaining progress. You can change this with `:incomplete` option:
+By default no characters are shown to mark the remaining progress in the `:classic` bar format. Other [bar styles](#37-bar_format) often have incomplete character. You can change this with `:incomplete` option:
 
 ```ruby
 TTY::ProgressBar.new("[:bar]", incomplete: "_")
@@ -482,7 +525,7 @@ If you prefer for the animated bar to display a specific character for a head of
 TTY::ProgressBar.new("[:bar]", head: ">")
 ```
 
-This will result in output like this:
+This could result in output like this:
 
 ```ruby
 # [=======>      ]
@@ -495,6 +538,8 @@ By default, a progress bar shows indeterminate progress using `<=>` characters:
 ```ruby
 # [     <=>      ]
 ```
+
+Other [bar formats](#37-bar_format) use different characters.
 
 You can change this with the `:unknown` option:
 
@@ -567,11 +612,9 @@ And for the unknown progress the `?` character will move from left to right:
 # [   ?           ]
 ```
 
-For the full list of available bar formats check the [lib/tty/progressbar/formats.rb](https://github.com/piotrmurach/tty-progressbar/blob/master/lib/tty/progressbar/formats.rb).
-
 ### 3.8 :output
 
-A progress bar only outputs to a console and when output is redirected to a file or a pipe it does nothing. This is so, for example, your error logs do not overflow with progress bars output.
+A progress bar only outputs to a console. When the output is, for example, redirected to a file or a pipe, the progress bar doesn't get printed. This is so, for example, your error logs do not overflow with progress bar output.
 
 You can change where console output is streamed with `:output` option:
 
@@ -593,7 +636,7 @@ TTY::ProgressBar.new("[:bar]", total: 30, frequency: 10) # 10 Hz
 
 ### 3.10 :interval
 
-For every call of `advance` method the **ProgressBar** takes a sample for speed measurement. By default the samples are grouped per second but you can change that by passing the `interval` option.
+Every time `advance` method is called, a time sample is taken for speed measurement. By default, all the samples are grouped in second intervals to provide a rate of speed. You can change this by passing the `interval` option.
 
 The `interval` option is an `integer` that represents the number of seconds, for example, interval of `60` would mean that speed is measured per 1 minute.
 
@@ -678,7 +721,7 @@ These are the tokens that are currently supported:
 * `:mean_rate` the averaged rate of progression per second
 * `:mean_byte` the averaged rate of progression in bytes per second
 
-In the indeterminate state, the progress bar displays `-` for tokens that cannot be calculated like `:total`, `:total_byte`, `:percent` and `:eta`. The following format:
+In the indeterminate mode, the progress bar displays `-` for tokens that cannot be calculated like `:total`, `:total_byte`, `:percent` and `:eta`. The following format:
 
 ```ruby
 "[:bar] :current/:total :total_byte :percent ET::elapsed ETA::eta :rate/s"
@@ -762,16 +805,24 @@ For example, you can specify complete bar progression character to be Unicode no
 
 ```ruby
 bar = TTY::ProgressBar.new("Unicode [:bar]", total: 30, complete: "あ")
-#
-# => Unicode [あああああああああああああああ]
+```
+
+Advancing above progress bar to completion will fit `あ` characters in 30 terminal columns:
+
+```ruby
+# Unicode [あああああああああああああああ]
 ```
 
 Similarly, the formatted string can include Unicode characters:
 
 ```ruby
 bar = TTY::ProgressBar.new("あめかんむり[:bar]", total: 20)
-#
-# => あめかんむり[==    ]
+```
+
+A finished progress bar will also fit within allowed width:
+
+```ruby
+# あめかんむり[==    ]
 ```
 
 ## 5. Logging
@@ -783,7 +834,7 @@ bar.log("Piotrrrrr")
 bar.advance
 ```
 
-will result in:
+This could result in the following output:
 
 ```ruby
 # Piotrrrrr
@@ -794,14 +845,13 @@ will result in:
 
 ### 6.1 new
 
-The multi progress bar can be created in two ways. If you simply want to group multiple progress bars you can create multi bar like so:
+The multi progress bar can be created in two ways. If you simply want to group multiple progress bars together, you can create multi bar without a format string like so:
 
 ```ruby
 TTY::ProgressBar::Multi.new
 ```
 
-
-However, if you want a top level multibar that tracks all the registered progress bars then provide a formatted string:
+However, if you want a top level multibar that tracks progress of all the registered progress bars then you need to provide a formatted string:
 
 ```ruby
 TTY::ProgressBar::Multi.new("main [:bar] :percent")
@@ -816,15 +866,15 @@ multibar = TTY::ProgressBar::Multi.new
 bar = multibar.register("[:bar]", total: 30)
 ```
 
-The `register` call returns the newly created progress bar which answers all the progress bar api messages.
+The `register` call returns the newly created progress bar that can be changed using all the available [progress bar API](#2-ttyprogressbar-api) methods.
 
-Please remember to specify total value for each registered progress bar, either when sending `register` message or when using `update` to dynamically assign the total value.
+*Note:* Remember to specify total value for each registered progress bar, either when sending `register` message or when using `update` to dynamically assign the total value.
 
 ### 6.3 advance
 
 Once multi progress bar has been created you can advance each registered progress bar individually, either by executing them one after the other synchronously or by placing them in separate threads thus progressing each bar asynchronously. The multi bar handles synchronization and display of all bars as they continue their respective rendering.
 
-For example, to display two bars async, first register them with the multi bar:
+For example, to display two bars asynchronously, first register them with the multi bar:
 
 ```ruby
 bar1 = multibar.register("one [:bar]", total: 20)
@@ -846,7 +896,7 @@ Finally, wait for the threads to finish:
 
 ### 6.4 start
 
-By default the top level multi bar will be rendered as the first bar and have its timer started when on of the registered bars advances. However, if you wish to start timers and draw the top level multi bar do:
+By default the top level multi bar will be rendered as the first bar and have its timer started when one of the registered bars advances. However, if you wish to start timers and draw the top level multi bar do:
 
 ```ruby
 multibar.start  # => sets timer and draws top level multi progress bar
@@ -854,7 +904,7 @@ multibar.start  # => sets timer and draws top level multi progress bar
 
 ### 6.5 finish
 
-In order to finish all progress bars call `finish`. This will finish the top level progress bar, if it exists, all any registered progress bars still in progress.
+In order to finish all progress bars call `finish`. This will finish the top level progress bar, if it exists, and any registered progress bar still in progress.
 
 ```ruby
 multibar.finish
@@ -892,7 +942,23 @@ To check if all registered progress bars have been successfully finished use `co
 multibar.complete? # => true
 ```
 
-### 6.10 on
+### 6.10 paused?
+
+To check whether all progress bars are paused or not use `paused?`:
+
+```ruby
+multibar.paused? # => true
+```
+
+### 6.11 stopped?
+
+To check whether all progress bars are stopped or not use `stopped?`:
+
+```ruby
+multibar.stopped? # => true
+```
+
+### 6.12 on
 
 Similar to `TTY::ProgressBar` the multi bar fires events when it is progressing, stopped or finished. You can register to listen for events using the `on` message.
 
@@ -920,7 +986,7 @@ Anytime a registered progress bar pauses, a `:paused` event will be fired. To li
 multibar.on(:paused) { ... }
 ```
 
-### 6.11 :style
+### 6.13 :style
 
 In addition to all [configuration options](#3-configuration) you can style multi progress bar:
 
