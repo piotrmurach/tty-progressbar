@@ -18,6 +18,11 @@ begin
     RSpec::Core::RakeTask.new(:integration) do |task|
       task.pattern = "spec/integration{,/*/**}/*_spec.rb"
     end
+
+    desc "Run performance specs"
+    RSpec::Core::RakeTask.new(:perf) do |task|
+      task.pattern = "spec/perf{,/*/**}/*_spec.rb"
+    end
   end
 
 rescue LoadError
