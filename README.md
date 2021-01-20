@@ -25,14 +25,14 @@
 
 ## Features
 
-* Fully [configurable](#3-configuration)
-* Extremely flexible progress display [formatting](#4-formatting)
-* Includes many predefined tokens to calculate ETA, Bytes ... [tokens](#41-tokens)
-* Allows for definition of [custom tokens](#42-custom-formatters)
-* Implements [indeterminate](#31-total) progress to show an unbounded operation
-* Supports parallel multi progress bars [multi](#6-ttyprogressbarmulti-api)
-* Handles Unicode characters in progress bar [unicode](#44-unicode)
-* Works on all ECMA-48 compatible terminals
+* **Customisable.** Choose from many [configuration](#3-configuration) options to get the behaviour you want.
+* **Flexible.** Describe bar [format](#4-formatting) and pick from many predefined [tokens](#41-tokens) and [bar styles](#37-bar_format).
+* **Extensible.** Define [custom tokens](#42-custom-formatters) to fit your needs.
+* **Powerful.** Display [multi](#6-ttyprogressbarmulti-api) progress bars in parallel.
+* Show an unbounded operation with [indeterminate](#31-total) progress.
+* [Pause](#210-pause) and [resume](#212-resume) progress at any time.
+* Include [Unicode](#44-unicode) characters in progress bar.
+* Works on all ECMA-48 compatible terminals.
 
 ## Installation
 
