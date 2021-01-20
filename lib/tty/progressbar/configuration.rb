@@ -7,33 +7,61 @@ module TTY
     class Configuration
       include TTY::ProgressBar::Formats
 
+      # The total number of steps to completion
+      # @api public
       attr_reader :total
 
+      # The maximum width for the progress bar except all formatting tokens
+      # @api public
       attr_accessor :width
 
-      attr_reader :incomplete
-
+      # The complete character in progress animation
+      # @api public
       attr_reader :complete
 
-      attr_reader :unknown
+      # The incomplete character in progress animation
+      # @api public
+      attr_reader :incomplete
 
+      # The head character, defaults to complete
+      # @api public
       attr_accessor :head
 
-      attr_accessor :clear_head
+      # The unknown character for indeterminate progress animation
+      # @api public
+      attr_reader :unknown
 
-      attr_accessor :hide_cursor
-
-      attr_accessor :clear
-
-      attr_accessor :output
-
-      attr_accessor :frequency
-
-      attr_accessor :interval
-
+      # The amount of indentation before a progress animation
+      # @api private
       attr_accessor :inset
 
+      # The preconfigured bar format name, defaults to :classic
+      # @api public
       attr_accessor :bar_format
+
+      # The object that responds to print call, defaults to stderr
+      # @api public
+      attr_accessor :output
+
+      # The frequency with which to display a progress bar per second
+      # @api public
+      attr_accessor :frequency
+
+      # The time interval for sampling of speed measurement, defaults to 1 second
+      # @api public
+      attr_accessor :interval
+
+      # Whether or not to hide the cursor, defaults to false
+      # @api public
+      attr_accessor :hide_cursor
+
+      # Whether or not to clear the progress line, defaults to false
+      # @api public
+      attr_accessor :clear
+
+      # Whether or not to replace head character with complete, defaults to false
+      # @api public
+      attr_accessor :clear_head
 
       def initialize(options)
         self.total   = options[:total] if options[:total]
