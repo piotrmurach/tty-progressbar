@@ -1,6 +1,6 @@
 # Change log
 
-## [v0.18.0] - 2021-01-19
+## [v0.18.0] - 2021-01-20
 
 ### Added
 * Add #resume to allow stopped or paused bar to continue progressing
