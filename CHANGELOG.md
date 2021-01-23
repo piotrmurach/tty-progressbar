@@ -1,5 +1,10 @@
 # Change log
 
+## [v0.18.1] - unreleased
+
+### Fixed
+* Fix :eta and :eta_time format tokens display when progress isn't started
+
 ## [v0.18.0] - 2021-01-20
 
 ### Added
@@ -232,6 +237,7 @@
 
 * Initial implementation and release
 
+[v0.18.1]: https://github.com/piotrmurach/tty-progressbar/compare/v0.18.0...v0.18.1
 [v0.18.0]: https://github.com/piotrmurach/tty-progressbar/compare/v0.17.0...v0.18.0
 [v0.17.0]: https://github.com/piotrmurach/tty-progressbar/compare/v0.16.0...v0.17.0
 [v0.16.0]: https://github.com/piotrmurach/tty-progressbar/compare/v0.15.1...v0.16.0

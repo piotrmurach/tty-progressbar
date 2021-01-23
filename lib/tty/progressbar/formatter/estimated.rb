@@ -18,13 +18,15 @@ module TTY
       #
       # @api public
       def call(value)
-        if @progress.indeterminate?
+        if @progress.indeterminate? ||
+           (@progress.elapsed_time.zero? && @progress.ratio.zero?)
           return value.gsub(matcher, "--s")
         end
 
         elapsed = @progress.elapsed_time
-        estimated = (elapsed / @progress.ratio).to_f - elapsed
-        estimated = (estimated.infinite? || estimated < 0) ? 0.0 : estimated
+        estimated = @progress.ratio.zero? ? 0.0 : (elapsed / @progress.ratio).to_f
+        estimated -= elapsed
+        estimated = 0.0 if estimated < 0
         value.gsub(matcher, Converter.to_time(estimated))
       end
     end # EstimatedFormatter
