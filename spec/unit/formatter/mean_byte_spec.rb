@@ -10,7 +10,8 @@ RSpec.describe TTY::ProgressBar, ":mean_byte token" do
   it "shows mean rate in bytes per sec" do
     time_now = Time.local(2014, 10, 5, 12, 0, 0)
     Timecop.freeze(time_now)
-    progress = TTY::ProgressBar.new(":mean_byte", output: output, total: 10_000, interval: 1)
+    progress = TTY::ProgressBar.new(":mean_byte", output: output, total: 10_000,
+                                                  interval: 1)
     # Generate a serie of advances at 2s intervals
     #   t+0     advance=0         total=0
     #   t+2     advance=1000      total=1000
@@ -36,7 +37,8 @@ RSpec.describe TTY::ProgressBar, ":mean_byte token" do
   it "displays mean rate in bytes per sec when no total" do
     time_now = Time.local(2014, 10, 5, 12, 0, 0)
     Timecop.freeze(time_now)
-    progress = TTY::ProgressBar.new(":mean_byte", output: output, total: nil, interval: 1)
+    progress = TTY::ProgressBar.new(":mean_byte", output: output, total: nil,
+                                                  interval: 1)
     5.times do |i|
       time_now = Time.local(2014, 10, 5, 12, 0, i * 2)
       Timecop.freeze(time_now)

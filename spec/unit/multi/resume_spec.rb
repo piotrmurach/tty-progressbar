@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe TTY::ProgressBar::Multi.new, "#resume" do
+RSpec.describe TTY::ProgressBar::Multi, "#resume" do
   let(:output) { StringIO.new }
   let(:save)    { TTY::Cursor.save }
   let(:restore) { TTY::Cursor.restore }
@@ -9,7 +9,7 @@ RSpec.describe TTY::ProgressBar::Multi.new, "#resume" do
   let(:bottom) { TTY::ProgressBar::Multi::DEFAULT_INSET[:bottom] }
 
   it "resumes top bar when new bar registered and advanced" do
-    top_bar = TTY::ProgressBar::Multi.new("[:bar] top (:current/:total)", output: output)
+    top_bar = described_class.new("[:bar] top (:current/:total)", output: output)
 
     bar1 = top_bar.register("[:bar] one", total: 5)
     bar1.advance(5)
@@ -44,7 +44,7 @@ RSpec.describe TTY::ProgressBar::Multi.new, "#resume" do
   end
 
   it "resumes all paused bars" do
-    bars = TTY::ProgressBar::Multi.new("[:bar] top (:current/:total)", output: output)
+    bars = described_class.new("[:bar] top (:current/:total)", output: output)
 
     bar1 = bars.register("[:bar] one", total: 5)
     bar2 = bars.register("[:bar] two", total: 5)

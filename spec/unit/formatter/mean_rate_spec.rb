@@ -10,7 +10,8 @@ RSpec.describe TTY::ProgressBar, ":mean_rate token" do
   it "shows current rate per sec" do
     time_now = Time.local(2014, 10, 5, 12, 0, 0)
     Timecop.freeze(time_now)
-    progress = TTY::ProgressBar.new(":mean_rate", output: output, total: 100, interval: 1)
+    progress = TTY::ProgressBar.new(":mean_rate", output: output, total: 100,
+                                                  interval: 1)
     # Generate a serie of advances at 2s intervals
     #   t+0     advance=0       total=0
     #   t+2     advance=10      total=10

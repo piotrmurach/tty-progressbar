@@ -9,7 +9,7 @@ RSpec.describe TTY::ProgressBar::Multi, "advance" do
   let(:bottom) { TTY::ProgressBar::Multi::DEFAULT_INSET[:bottom] }
 
   it "advances progress bars correctly under multibar" do
-    bars = TTY::ProgressBar::Multi.new(output: output)
+    bars = described_class.new(output: output)
 
     bar1 = bars.register("[:bar] one", total: 5)
     bar2 = bars.register("[:bar] two", total: 5)
@@ -53,7 +53,7 @@ RSpec.describe TTY::ProgressBar::Multi, "advance" do
   end
 
   it "advances progress bars correctly under top level multibar" do
-    bars = TTY::ProgressBar::Multi.new("[:bar] main", output: output)
+    bars = described_class.new("[:bar] main", output: output)
 
     bar1 = bars.register("[:bar] one", total: 5)
     bar2 = bars.register("[:bar] two", total: 5)

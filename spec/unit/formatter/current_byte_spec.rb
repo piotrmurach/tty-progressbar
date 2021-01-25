@@ -4,7 +4,8 @@ RSpec.describe TTY::ProgressBar, ":current_byte token" do
   let(:output) { StringIO.new }
 
   it "displays bytes processed" do
-    progress = described_class.new(":current_byte", output: output, total: 102_400)
+    progress = described_class.new(":current_byte", output: output,
+                                                    total: 102_400)
     5.times { progress.advance(20_480) }
     output.rewind
     expect(output.read).to eq([

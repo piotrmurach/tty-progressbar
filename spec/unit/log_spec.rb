@@ -51,7 +51,7 @@ RSpec.describe TTY::ProgressBar, "#log" do
       "\e[1G[==        ]  1s  4s 12:00:06  1.00/s",
       "\e[1Gfoo bar                              \n",
       "\e[1G[==        ]  2s  8s 12:00:11  1.00/s", # render without advancing
-      "\e[1G[===       ]  2s  4s 12:00:07  1.00/s",
+      "\e[1G[===       ]  2s  4s 12:00:07  1.00/s"
     ].join)
     Timecop.return
   end
@@ -83,7 +83,7 @@ RSpec.describe TTY::ProgressBar, "#log" do
       "\e[1G[==        ]  2s  8s 12:00:11  1.00/s",
       "\e[1Gfoo bar                              \n",
       "\e[1G[==        ]  3s 12s 12:00:16  1.00/s", # render without advancing
-      "\e[1G[===       ]  3s  7s 12:00:11  1.00/s",
+      "\e[1G[===       ]  3s  7s 12:00:11  1.00/s"
     ].join)
     Timecop.return
   end

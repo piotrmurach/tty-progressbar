@@ -26,7 +26,7 @@ class StringIO
   end
 end
 
-Dir[::File.join(__dir__, "support/**/*.rb")].each(&method(:require))
+Dir[::File.join(__dir__, "support/**/*.rb")].sort.each(&method(:require))
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -46,9 +46,7 @@ RSpec.configure do |config|
   # be too noisy due to issues in dependencies.
   config.warnings = true
 
-  if config.files_to_run.one?
-    config.default_formatter = "doc"
-  end
+  config.default_formatter = "doc" if config.files_to_run.one?
 
   config.profile_examples = 2
 

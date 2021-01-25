@@ -4,7 +4,7 @@ RSpec.describe TTY::ProgressBar::Multi, "#stop" do
   let(:output) { StringIO.new }
 
   it "stops all bars when top level stops" do
-    bars = TTY::ProgressBar::Multi.new("main [:bar]", output: output)
+    bars = described_class.new("main [:bar]", output: output)
 
     bar1 = bars.register("[:bar]", total: 5)
     bar2 = bars.register("[:bar]", total: 10)
@@ -17,7 +17,7 @@ RSpec.describe TTY::ProgressBar::Multi, "#stop" do
   end
 
   it "doesn't stop top bar when child stops" do
-    bars = TTY::ProgressBar::Multi.new("main [:bar]", output: output)
+    bars = described_class.new("main [:bar]", output: output)
 
     bar1 = bars.register("[:bar]", total: 5)
     bar2 = bars.register("[:bar]", total: 10)

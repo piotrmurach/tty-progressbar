@@ -4,7 +4,7 @@ RSpec.describe TTY::ProgressBar::Multi, "#finish" do
   let(:output) { StringIO.new }
 
   it "finishes all bars with top level" do
-    bars = TTY::ProgressBar::Multi.new("main [:bar]", output: output)
+    bars = described_class.new("main [:bar]", output: output)
 
     bar1 = bars.register("[:bar]", total: 5)
     bar2 = bars.register("[:bar]", total: 10)
@@ -18,7 +18,7 @@ RSpec.describe TTY::ProgressBar::Multi, "#finish" do
   end
 
   it "finishes all bars without top level" do
-    bars = TTY::ProgressBar::Multi.new(output: output)
+    bars = described_class.new(output: output)
 
     bar1 = bars.register("[:bar]", total: 5)
     bar2 = bars.register("[:bar]", total: 10)
@@ -30,7 +30,7 @@ RSpec.describe TTY::ProgressBar::Multi, "#finish" do
   end
 
   it "finishes top level" do
-    bars = TTY::ProgressBar::Multi.new(output: output)
+    bars = described_class.new(output: output)
 
     bar1 = bars.register("[:bar]", total: 5)
     bar2 = bars.register("[:bar]", total: 10)
