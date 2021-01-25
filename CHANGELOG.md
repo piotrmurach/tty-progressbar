@@ -1,6 +1,6 @@
 # Change log
 
-## [v0.18.1] - unreleased
+## [v0.18.1] - 2021-01-25
 
 ### Fixed
 * Fix :eta and :eta_time format tokens display when progress isn't started
