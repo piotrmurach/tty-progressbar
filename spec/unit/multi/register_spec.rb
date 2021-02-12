@@ -35,4 +35,22 @@ RSpec.describe TTY::ProgressBar::Multi, "#register" do
     expect(bars.total).to eq(15)
     expect(bars.current).to eq(0)
   end
+
+  it "updates total based on children totals" do
+    bars = TTY::ProgressBar::Multi.new("main [:bar]", output: output)
+
+    bars.register("[:bar]", total: 1)
+    expect(bars.total).to eq(1)
+
+    bars.register("[:bar]", total: 1)
+    expect(bars.total).to eq(2)
+  end
+
+  it "can register indeterminate children" do
+    bars = TTY::ProgressBar::Multi.new("main [:bar]", output: output)
+    bars.register("[:bar]")
+    bars.register("[:bar]")
+
+    expect(bars.total).to eq(nil)
+  end
 end

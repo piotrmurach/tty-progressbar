@@ -142,7 +142,7 @@ module TTY
       # @api public
       def total
         synchronize do
-          (@bars - [@top_bar]).map(&:total).reduce(&:+)
+          (@bars - [@top_bar]).map(&:total).compact.reduce(&:+)
         end
       end
 

@@ -1,5 +1,10 @@
 # Change log
 
+## Unreleased
+
+### Fixed
+* Fix NoMethodError when MultiBar registers indeterminate children (issue #49)
+
 ## [v0.18.1] - 2021-01-25
 
 ### Fixed
