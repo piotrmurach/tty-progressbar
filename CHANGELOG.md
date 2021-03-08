@@ -1,9 +1,9 @@
 # Change log
 
-## Unreleased
+## [v0.18.2] - 2021-03-08
 
 ### Fixed
-* Fix NoMethodError when MultiBar registers indeterminate children (issue #49)
+* Fix calculating total in MultiBar with indeterminate children by Tim Tilberg(@ttilberg)
 
 ## [v0.18.1] - 2021-01-25
 
@@ -242,6 +242,7 @@
 
 * Initial implementation and release
 
+[v0.18.2]: https://github.com/piotrmurach/tty-progressbar/compare/v0.18.1...v0.18.2
 [v0.18.1]: https://github.com/piotrmurach/tty-progressbar/compare/v0.18.0...v0.18.1
 [v0.18.0]: https://github.com/piotrmurach/tty-progressbar/compare/v0.17.0...v0.18.0
 [v0.17.0]: https://github.com/piotrmurach/tty-progressbar/compare/v0.16.0...v0.17.0
