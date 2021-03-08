@@ -124,50 +124,51 @@ RSpec.describe TTY::ProgressBar::Multi, "advance" do
   end
 
   it "advances progress bars correctly with indeterminate children" do
-    bars = described_class.new("total: :current", output: output)
+    bars = described_class.new("total: [:bar] :current", width: 10,
+                                                         output: output)
 
-    bar1 = bars.register("one: :current")
-    bar2 = bars.register("two: :current")
+    bar1 = bars.register("one: [:bar] :current", width: 10)
+    bar2 = bars.register("two: [:bar] :current", width: 10)
 
     bar1.advance
 
     output.rewind
     expect(output.read).to eq([
-      "\e[1G#{top}total: 1\n",
-      "\e[1G#{bottom}one: 1\n"
+      "\e[1G#{top}total: [<=>       ] 1\n",
+      "\e[1G#{bottom}one: [<=>       ] 1\n"
     ].join)
 
     bar2.advance
 
     output.rewind
     expect(output.read).to eq([
-      "\e[1G#{top}total: 1\n",
-      "\e[1G#{bottom}one: 1\n",
+      "\e[1G#{top}total: [<=>       ] 1\n",
+      "\e[1G#{bottom}one: [<=>       ] 1\n",
       save,
       "\e[2A", # up 2 lines
-      "\e[1G#{top}total: 2",
+      "\e[1G#{top}total: [<=>       ] 2",
       restore,
-      "\e[1G#{bottom}two: 1\n"
+      "\e[1G#{bottom}two: [<=>       ] 1\n"
     ].join)
 
     bar1.advance
 
     output.rewind
     expect(output.read).to eq([
-      "\e[1G#{top}total: 1\n",
-      "\e[1G#{bottom}one: 1\n",
+      "\e[1G#{top}total: [<=>       ] 1\n",
+      "\e[1G#{bottom}one: [<=>       ] 1\n",
       save,
       "\e[2A", # up 2 lines
-      "\e[1G#{top}total: 2",
+      "\e[1G#{top}total: [<=>       ] 2",
       restore,
-      "\e[1G#{bottom}two: 1\n",
+      "\e[1G#{bottom}two: [<=>       ] 1\n",
       save,
       "\e[3A", # up 3 lines
-      "\e[1G#{top}total: 3",
+      "\e[1G#{top}total: [<=>       ] 3",
       restore,
       save,
       "\e[2A", # up 2 lines
-      "\e[1G#{middle}one: 2",
+      "\e[1G#{middle}one: [<=>       ] 2",
       restore
     ].join)
   end
