@@ -453,7 +453,7 @@ The progress bar's configuration can also be changed at runtime with `configure`
 ```ruby
 bar.configure do |config|
   config.total = 100   # takes precedence over the original value
-  config.frequencye = 20
+  config.frequency = 20
 end
 ```
 
