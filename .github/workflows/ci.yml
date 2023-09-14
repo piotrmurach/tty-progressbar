@@ -16,14 +16,13 @@ on:
 jobs:
   tests:
     name: Ruby ${{ matrix.ruby }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os || 'ubuntu-latest' }}
     strategy:
       fail-fast: false
       matrix:
         ruby:
           - "2.0"
           - "2.1"
-          - "2.2"
           - "2.3"
           - "2.4"
           - "2.5"
@@ -38,6 +37,8 @@ jobs:
           - jruby-head
           - truffleruby-head
         include:
+          - ruby: "2.2"
+            os: ubuntu-20.04
           - ruby: "2.7"
             coverage: true
     env:
