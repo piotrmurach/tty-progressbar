@@ -1,5 +1,10 @@
 # Change log
 
+## Unreleased
+
+### Fixed
+* Fix ProgressBar#current= for indeterminate progress bar by Alex Watt (@alexcwatt)
+
 ## [v0.18.2] - 2021-03-08
 
 ### Fixed
