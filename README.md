@@ -111,7 +111,7 @@ $ gem install tty-progressbar
   * [6.12 on](#612-on)
   * [6.13 :style](#613-style)
 * [7. Examples](#7-examples)
-  * [7.1 Color](#71-color)
+  * [7.1 Colors](#71-colors)
   * [7.2 Speed](#72-speed)
 
 ## 1. Usage
