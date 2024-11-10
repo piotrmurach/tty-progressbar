@@ -9,14 +9,12 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/w3jafjeatt1ulufa?svg=true)][appveyor]
 [![Maintainability](https://api.codeclimate.com/v1/badges/e85416137d2057169575/maintainability)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/github/piotrmurach/tty-progressbar/badge.svg)][coverage]
-[![Inline docs](http://inch-ci.org/github/piotrmurach/tty-progressbar.svg?branch=master)][inchpages]
 
 [gem]: http://badge.fury.io/rb/tty-progressbar
 [gh_actions_ci]: https://github.com/piotrmurach/tty-progressbar/actions?query=workflow%3ACI
 [appveyor]: https://ci.appveyor.com/project/piotrmurach/tty-progressbar
 [codeclimate]: https://codeclimate.com/github/piotrmurach/tty-progressbar/maintainability
 [coverage]: https://coveralls.io/github/piotrmurach/tty-progressbar
-[inchpages]: http://inch-ci.org/github/piotrmurach/tty-progressbar
 
 > A flexible and extensible progress bar for terminal applications.
 
