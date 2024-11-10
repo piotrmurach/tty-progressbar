@@ -10,7 +10,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/e85416137d2057169575/maintainability)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/github/piotrmurach/tty-progressbar/badge.svg)][coverage]
 
-[gem]: http://badge.fury.io/rb/tty-progressbar
+[gem]: https://badge.fury.io/rb/tty-progressbar
 [gh_actions_ci]: https://github.com/piotrmurach/tty-progressbar/actions/workflows/ci.yml
 [appveyor]: https://ci.appveyor.com/project/piotrmurach/tty-progressbar
 [codeclimate]: https://codeclimate.com/github/piotrmurach/tty-progressbar/maintainability
@@ -219,7 +219,7 @@ By default, progress bar is advanced by `1` but you can change it by passing sec
 bar.iterate(30.times, 5)
 ```
 
-One particularly useful application of `iterate` are Ruby infamous [lazy enumerators](http://ruby-doc.org/core-2.5.0/Enumerator/Lazy.html), or slowly advancing enumerations, representing complex processes.
+One particularly useful application of `iterate` are Ruby infamous [lazy enumerators](https://ruby-doc.org/core-2.5.0/Enumerator/Lazy.html), or slowly advancing enumerations, representing complex processes.
 
 For example, an `Enumerator` that downloads content from a remote server chunk at a time:
 
@@ -1055,7 +1055,7 @@ This will result in output similar to:
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
-This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](https://contributor-covenant.org) code of conduct.
 
 ## Code of Conduct
 
