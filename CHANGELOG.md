@@ -1,5 +1,11 @@
 # Change log
 
+## Unreleased
+
+### Fixed
+* Fix setting the current progress for an indeterminate bar by Alex Watt
+  (@alexcwatt)
+
 ## [v0.18.2] - 2021-03-08
 
 ### Fixed

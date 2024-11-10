@@ -290,7 +290,12 @@ module TTY
     #
     # @api public
     def current=(value)
-      value = [0, [value, total].min].max
+      unless value.is_a?(Numeric)
+        raise ArgumentError, "Expected a numeric value, " \
+                             "got #{value.inspect} instead."
+      end
+
+      value = [0, [value, total].compact.min].max
       advance(value - @current)
     end
 
