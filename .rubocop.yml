@@ -1,5 +1,6 @@
 AllCops:
   NewCops: enable
+  TargetRubyVersion: 2.0
 
 Layout/FirstArrayElementIndentation:
   Enabled: false
