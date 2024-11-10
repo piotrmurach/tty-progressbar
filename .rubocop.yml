@@ -10,6 +10,8 @@ Layout/FirstArrayElementIndentation:
 
 Layout/LineLength:
   Max: 82
+  Exclude:
+    - "**/*.gemspec"
 
 Lint/AssignmentInCondition:
   Enabled: false
