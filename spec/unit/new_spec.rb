@@ -3,12 +3,12 @@
 RSpec.describe TTY::ProgressBar, ".new" do
   let(:output) { StringIO.new }
 
-  it "fails to initialize without formatting string" do
+  it "fails to initialize without a bar formatting string" do
     expect {
-      TTY::ProgressBar.new(output: output)
+      TTY::ProgressBar.new(total: 10)
     }.to raise_error(
       ArgumentError,
-      /Expected bar formatting string, got `{:output=>#{output}}` instead\./
+      /Expected bar formatting string, got `{:?total(=>|: )10}` instead\./
     )
   end
 
