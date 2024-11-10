@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## [v0.18.3] - 2024-11-10
 
 ### Fixed
 * Fix setting the current progress for an indeterminate bar by Alex Watt
@@ -248,6 +248,7 @@
 
 * Initial implementation and release
 
+[v0.18.3]: https://github.com/piotrmurach/tty-progressbar/compare/v0.18.2...v0.18.3
 [v0.18.2]: https://github.com/piotrmurach/tty-progressbar/compare/v0.18.1...v0.18.2
 [v0.18.1]: https://github.com/piotrmurach/tty-progressbar/compare/v0.18.0...v0.18.1
 [v0.18.0]: https://github.com/piotrmurach/tty-progressbar/compare/v0.17.0...v0.18.0
