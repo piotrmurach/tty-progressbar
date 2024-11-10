@@ -2,7 +2,7 @@
   <a href="https://ttytoolkit.org"><img width="130" src="https://github.com/piotrmurach/tty/raw/master/images/tty.png" alt="TTY Toolkit logo"/></a>
 </div>
 
-# TTY::ProgressBar [![Gitter](https://badges.gitter.im/Join%20Chat.svg)][gitter]
+# TTY::ProgressBar
 
 [![Gem Version](https://badge.fury.io/rb/tty-progressbar.svg)][gem]
 [![Actions CI](https://github.com/piotrmurach/tty-progressbar/workflows/CI/badge.svg?branch=master)][gh_actions_ci]
@@ -11,7 +11,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/piotrmurach/tty-progressbar/badge.svg)][coverage]
 [![Inline docs](http://inch-ci.org/github/piotrmurach/tty-progressbar.svg?branch=master)][inchpages]
 
-[gitter]: https://gitter.im/piotrmurach/tty
 [gem]: http://badge.fury.io/rb/tty-progressbar
 [gh_actions_ci]: https://github.com/piotrmurach/tty-progressbar/actions?query=workflow%3ACI
 [appveyor]: https://ci.appveyor.com/project/piotrmurach/tty-progressbar
