@@ -3,7 +3,7 @@
 ## unreleased
 
 ### Changes
-* Relaxed versions constraints for unicode-display_width dependency
+* Relaxed version constraints for unicode-display_width dependency
 
 ## [v0.18.3] - 2024-11-10
 
