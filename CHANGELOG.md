@@ -3,7 +3,8 @@
 ## unreleased
 
 ### Changed
-* Relaxed version constraints for unicode-display_width dependency
+* Change the gemspec to allow version 3 of unicode-display_width dependency
+  by Kieran Pilkington (@KieranP) 
 
 ## [v0.18.3] - 2024-11-10
 
